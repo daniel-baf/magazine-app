@@ -44,12 +44,18 @@ CREATE TABLE `Tag` (
   `name` VARCHAR(50) NOT NULL,
   PRIMARY KEY (`name`));
   
+DROP TABLE IF EXISTS `Company_Fee`;
+CREATE TABLE `Company_Fee` (
+	`percentaje` DECIMAL NOT NULL,
+    PRIMARY KEY(`percentaje`)
+);
+  
 -- MAGAZINE
 DROP TABLE IF EXISTS `Magazine`;
 CREATE TABLE `Magazine` (
   `name` VARCHAR(30) NOT NULL,
   `subscription_fee` DECIMAL(6,2) NOT NULL,
-  `company_fee` DECIMAL(6,2) NOT NULL,
+  `company_fee` DECIMAL NOT NULL,
   `cost_per_day` DECIMAL(6,2)  NOT NULL,
   `creation_date` DATE NOT NULL,
   `description` LONGTEXT NOT NULL,
@@ -67,7 +73,13 @@ CREATE TABLE `Magazine` (
     FOREIGN KEY (`category`)
     REFERENCES `Magazine_Web`.`Category` (`name`)
     ON DELETE RESTRICT
-    ON UPDATE CASCADE);
+    ON UPDATE CASCADE,
+   CONSTRAINT `fk_company_fee_magazine`
+    FOREIGN KEY (`Company_Fee`)
+    REFERENCES `Magazine_Web`.`Company_Fee` (`percentaje`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE
+    );
 
 DROP TABLE IF EXISTS `Comment`;
 CREATE TABLE `Comment` (
@@ -105,23 +117,6 @@ CREATE TABLE `Like` (
     REFERENCES `Magazine_Web`.`Magazine` (`name`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
-
-DROP TABLE IF EXISTS `Magazine_Category`;
-CREATE TABLE `Magazine_Category` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `magazine` VARCHAR(45) NOT NULL,
-  `category` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_magazine_mag_cat`
-    FOREIGN KEY (`magazine`)
-    REFERENCES `Magazine_Web`.`Magazine` (`name`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE,
-  CONSTRAINT `fk_category_mag_category`
-    FOREIGN KEY (`category`)
-    REFERENCES `Magazine_Web`.`Category` (`name`)
-    ON DELETE RESTRICT
-    ON UPDATE CASCADE);
 
 DROP TABLE IF EXISTS `Magazine_Tag`;
 CREATE TABLE `Magazine_Tag` (
@@ -244,7 +239,7 @@ CREATE TABLE `Add` (
   `advertiser` VARCHAR(50) NOT NULL,
   `shown_url` VARCHAR(800) NULL,
   `video_url` VARCHAR(800) NULL DEFAULT 'not video',
-  `img` LONGBLOB NULL,
+  `img_local_path` VARCHAR(600) NULL,
   `text` MEDIUMTEXT NULL,
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_advertiser_add`
@@ -266,6 +261,19 @@ CREATE TABLE `Add_Tag` (
   CONSTRAINT `fk_add_add_tag`
     FOREIGN KEY (`add`)
     REFERENCES `Magazine_Web`.`Add` (`id`)
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE);
+    
+-- payment
+DROP TABLE IF EXISTS `Payment`;
+CREATE TABLE `Payment` (
+  `subscription` INT,
+  `editor_fee` DECIMAL,
+  `company_fee` DECIMAL,
+  PRIMARY KEY (`subscription`),
+  CONSTRAINT `fk_subscription_payment`
+	FOREIGN KEY(`subscription`)
+    REFERENCES `Magazine_Web`.`Subscription` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
