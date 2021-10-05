@@ -3,11 +3,17 @@ import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/logPage/login/login.component';
 import { SignupComponent } from './components/logPage/signup/signup.component';
+import { AdminViewComponent } from './components/pages/admin-view/admin-view.component';
+import { EditorViewComponent } from './components/pages/editor-view/editor-view.component';
+import { ReaderViewComponent } from './components/pages/reader-view/reader-view.component';
 
 const routes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'pages/admin-view', component: AdminViewComponent },
+  { path: 'pages/reader-view', component: ReaderViewComponent },
+  { path: 'pages/editor-view', component: EditorViewComponent },
   { path: '**', component: ErrorComponent },
 ];
 

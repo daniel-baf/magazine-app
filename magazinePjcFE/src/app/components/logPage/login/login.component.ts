@@ -13,7 +13,10 @@ export class LoginComponent implements OnInit {
   _loginForm: FormGroup;
   _showError: boolean = false;
 
-  constructor(private _redirecter: RedirectService) {
+  constructor(
+    private _redirecter: RedirectService,
+    private loginService: LoginService
+  ) {
     this._loginForm = this.createFormGroup();
   }
 
@@ -27,7 +30,10 @@ export class LoginComponent implements OnInit {
   login() {
     if (this._loginForm.valid) {
       this._showError = false;
-      alert('redirect');
+      this.loginService.validateUser(
+        this._loginForm.get('_email')?.value,
+        this._loginForm.get('_password')?.value
+      );
     } else {
       this._showError = true;
     }
