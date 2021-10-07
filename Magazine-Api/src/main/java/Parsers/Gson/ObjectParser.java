@@ -1,7 +1,7 @@
 package Parsers.Gson;
 
-import DB.Domain.Users.User;
 import com.google.gson.Gson;
+import java.lang.reflect.Type;
 
 /**
  * THis class transform an object to JSON
@@ -16,7 +16,9 @@ public class ObjectParser {
         this.gson = new Gson();
     }
 
-    public String getJsonFromUser(User user) {
-        return this.gson.toJson(user);
+    // recibir un Objeto, el tipo del objeto
+    public String getJsonFromObject(Object src, Type typeOfSrc) {
+        return this.gson.toJson(src, typeOfSrc);
     }
+
 }

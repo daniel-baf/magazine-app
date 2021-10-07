@@ -2,15 +2,17 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/logPage/login/login.component';
+import { SelectCategoriesComponent } from './components/logPage/signup/select-categories/select-categories.component';
 import { SignupComponent } from './components/logPage/signup/signup.component';
 import { AdminViewComponent } from './components/pages/admin-view/admin-view.component';
 import { EditorViewComponent } from './components/pages/editor-view/editor-view.component';
 import { ReaderViewComponent } from './components/pages/reader-view/reader-view.component';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent },
-  { path: 'signup', component: SignupComponent },
+  // { path: '', component: LoginComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'signup', component: SignupComponent },
+  { path: 'signup/select-categories/', component: SelectCategoriesComponent },
   { path: 'pages/admin-view', component: AdminViewComponent },
   { path: 'pages/reader-view', component: ReaderViewComponent },
   { path: 'pages/editor-view', component: EditorViewComponent },

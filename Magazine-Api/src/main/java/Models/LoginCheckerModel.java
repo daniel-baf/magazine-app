@@ -1,7 +1,9 @@
 package Models;
 
-import DB.DAOs.Users.Admin.AdminSelectDAO;
+import APIErrors.SignupMessage;
+import DB.DAOs.Users.UserCommonDAO;
 import DB.Domain.Users.User;
+import ENUMS.DAOResults;
 import Parsers.Gson.JsonParser;
 import Parsers.ReaderBR;
 import java.io.BufferedReader;
@@ -23,15 +25,18 @@ public class LoginCheckerModel {
      * @param br the FRONTEND connection to get JSON
      * @return User as JSON
      */
-    public User verifyUser(BufferedReader br) {
+    public SignupMessage verifyUser(BufferedReader br) {
         // check for admins
         ReaderBR rbr = new ReaderBR();
         // variables
-        User user = new JsonParser().getAdminFromJson(rbr.getBody(br));
+        SignupMessage message = new SignupMessage();
+        User user = (User) new JsonParser().getUserFromObject(rbr.getBody(br), User.class);
         User userDB = searchUser(user.getEmail());
         // set types
-        user.setType(userDB.getType());
-        return user;
+        String status = userDB != null && match(user, userDB) ? DAOResults.NO_ERROR.getMessage() : DAOResults.UNAUTHORIZED.getMessage();
+        message.setMessage(status);
+        message.setUser(userDB);
+        return message;
     }
 
     /**
@@ -54,13 +59,6 @@ public class LoginCheckerModel {
      * @return
      */
     private User searchUser(String email) {
-        User user = new AdminSelectDAO().select(email); // SEARCH admin
-        if (user != null) {
-            user.setType("ADMIN");
-            return user;
-        }
-        // search reader
-
-        return null;
+        return new UserCommonDAO().emailRegisted(email);
     }
 }

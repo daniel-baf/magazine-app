@@ -12,6 +12,9 @@
       </div>
 
       <div class="col-sm-4">
+        <div  *ngIf="_isBackendError" class="alert alert-dark" role="alert">
+          <strong> Ha ocurrido un error {{ _error }}</strong>
+        </div>
         <div class="alert alert-danger" role="alert" [hidden]="!_showError">
           <strong>Usuario y/o contraseña invalidos</strong>
         </div>
@@ -42,7 +45,6 @@
               formControlName="_password"
             />
           </div>
-          <!-- TODO add the event to verify user -->
           <button type="submit" class="btn btn-primary">Entrar</button>
           <div class="form-group">
             <!-- TODO add the lost password method -->

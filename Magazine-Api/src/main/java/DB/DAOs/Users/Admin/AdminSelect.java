@@ -10,11 +10,11 @@ import java.sql.SQLException;
  *
  * @author jefemayoneso
  */
-public class AdminSelectDAO {
+public class AdminSelect {
 
     private final String SQL_SELECT_ADMIN = "SELECT * FROM Magazine_Web.Admin WHERE email = ?";
 
-    public AdminSelectDAO() {
+    public AdminSelect() {
     }
 
     /**

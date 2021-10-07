@@ -1,6 +1,6 @@
-package Contollers.Login;
+package Contollers.Logs;
 
-import DB.Domain.Users.User;
+import APIErrors.SignupMessage;
 import Models.LoginCheckerModel;
 import Parsers.Gson.ObjectParser;
 import java.io.IOException;
@@ -25,7 +25,11 @@ public class UserChecker extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        User user = new LoginCheckerModel().verifyUser(request.getReader());
-        response.getWriter().append(new ObjectParser().getJsonFromUser(user));
+        try {
+            SignupMessage message = new LoginCheckerModel().verifyUser(request.getReader());
+            response.getWriter().append(new ObjectParser().getJsonFromObject(message, message.getClass()));
+        } catch (IOException e) {
+            throw new Error("Cannot find user", e);
+        }
     }
 }

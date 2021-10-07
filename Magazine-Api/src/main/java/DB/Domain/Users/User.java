@@ -7,80 +7,91 @@ package DB.Domain.Users;
  */
 public class User {
 
-    private String _email;
-    private String _password;
-    private String _name;
-    private String _type;
+    private String email;
+    private String password;
+    private String name;
+    private String type; // NOT ON DB, used to share data from frontend easier
 
     public User() {
     }
 
-    public User(String _email, String _password) {
-        this._email = _email;
-        this._password = _password;
+    public User(String email, String password) {
+        this.email = email;
+        this.password = password;
     }
 
-    public User(String _email, String _password, String _name) {
-        this._email = _email;
-        this._password = _password;
-        this._name = _name;
+    public User(String email, String password, String name) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+    }
+
+    public User(String email, String password, String name, String type) {
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.type = type;
     }
 
     // GETTERS AND SETTERS
     /**
-     * @return the _email
+     * @return the email
      */
     public String getEmail() {
-        return _email;
+        return email;
     }
 
     /**
-     * @param _email the _email to set
+     * @param email the email to set
      */
-    public void setEmail(String _email) {
-        this._email = _email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     /**
-     * @return the _password
+     * @return the password
      */
     public String getPassword() {
-        return _password;
+        return password;
     }
 
     /**
-     * @param _password the _password to set
+     * @param password the password to set
      */
-    public void setPassword(String _password) {
-        this._password = _password;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
-     * @return the _name
+     * @return the name
      */
     public String getName() {
-        return _name;
+        return name;
     }
 
     /**
-     * @param _name the _name to set
+     * @param name the name to set
      */
-    public void setName(String _name) {
-        this._name = _name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
-     * @return the _type
+     * @return the type
      */
     public String getType() {
-        return _type;
+        return type;
     }
 
     /**
-     * @param _type the _type to set
+     * @param type the type to set
      */
-    public void setType(String _type) {
-        this._type = _type;
+    public void setType(String type) {
+        this.type = type;
     }
 
+    @Override
+    public String toString() {
+        return "[name]=" + this.name + " [password]=" + this.password + " [email]=" + this.email + " [type]=" + this.type;
+    }
 }

@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { EditorViewComponent } from './components/pages/editor-view/editor-view.component';
 import { AdminViewComponent } from './components/pages/admin-view/admin-view.component';
 import { ReaderViewComponent } from './components/pages/reader-view/reader-view.component';
+import { SelectCategoriesComponent } from './components/logPage/signup/select-categories/select-categories.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { ReaderViewComponent } from './components/pages/reader-view/reader-view.
     EditorViewComponent,
     AdminViewComponent,
     ReaderViewComponent,
+    SelectCategoriesComponent
   ],
   imports: [
     BrowserModule,

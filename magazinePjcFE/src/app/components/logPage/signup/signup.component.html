@@ -8,7 +8,30 @@
       style="height: 95vh"
     >
       <div class="col-sm-4">
-        <form class="form">
+        <div
+          class="alert alert-danger"
+          role="alert"
+          [hidden]="!showMessageError"
+        >
+          <strong>Alguno/s de los datos son incorrectos</strong>
+        </div>
+        <div
+          class="alert alert-info"
+          role="alert"
+          [hidden]="!_noDescriptionGiven"
+        >
+          <strong
+            >Es obligatorio que los editores tengan una descripción</strong
+          >
+        </div>
+        <div *ngIf="_showBackendMessage" class="alert alert-danger" role="alert">
+          <strong>{{ _backendMessage }} </strong>
+        </div>
+        <form
+          class="form"
+          [formGroup]="_signUpForm"
+          (ngSubmit)="procedSignUp()"
+        >
           <div class="form-group">
             <label for="fullname">Nombre</label>
             <input
@@ -18,6 +41,7 @@
               id="fullname"
               aria-describedby="helpIdFullname"
               placeholder="Ingrese su nombre completo"
+              formControlName="_name"
             />
             <small id="helpIdFullname" class="form-text text-muted"
               >Su nombre personal</small
@@ -32,6 +56,7 @@
               id="email"
               aria-describedby="emailHelpId"
               placeholder="Ingresa un correo"
+              formControlName="_email"
             />
             <small id="emailHelpId" class="form-text text-muted"
               >El correo debe contener un @</small
@@ -45,6 +70,7 @@
               name="password"
               id="password"
               placeholder="Ingrese una contraseña"
+              formControlName="_password"
             />
           </div>
           <div class="form-check">
@@ -55,6 +81,7 @@
                 name="is-editor"
                 id="is-editor"
                 value="Quiero publicar revistas"
+                formControlName="_isEditor"
               />
               Quiero ser editor
             </label>
@@ -68,6 +95,7 @@
               rows="4"
               maxlength="300"
               placeholder="Danos una descripciòn sobre ti :)"
+              formControlName="_description"
             ></textarea>
           </div>
           <button type="submit" class="btn btn-block btn-dark">

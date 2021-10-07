@@ -12,11 +12,13 @@ export class LogNavComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  /* redirect to login page */
   redirectLogin(e: Event) {
     e.preventDefault();
     this._redirect.redirect(Routes.LOGIN);
   }
 
+  // redirect to signup page
   redirectSignUp(e: Event) {
     e.preventDefault();
     this._redirect.redirect(Routes.SIGNUP);

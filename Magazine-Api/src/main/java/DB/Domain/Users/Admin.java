@@ -11,12 +11,12 @@ public class Admin extends User {
     public Admin() {
         super();
     }
-    
-    public Admin(String _email, String _password) {
-        super(_email, _password);
+
+    public Admin(String email, String password) {
+        super(email, password);
     }
-    
-    public Admin(String _email, String _password, String _name) {
-        super(_email, _password, _name);
+
+    public Admin(String email, String password, String name) {
+        super(email, password, name);
     }
 }
