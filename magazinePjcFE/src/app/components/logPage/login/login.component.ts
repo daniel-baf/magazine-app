@@ -42,47 +42,46 @@ export class LoginComponent implements OnInit {
       this._showError = false;
       this._isBackendError = false;
       // call service
-      this._loginService
-        .validateUser(
-          this._loginForm.get('_email')?.value,
-          this._loginForm.get('_password')?.value
-        )
-        .subscribe(
-          // success -> redirect
-          (_success: SignUpMessage) => {
-            if (_success.message === 'NO_ERROR') {
-              this._localStorageService.setItem(_success.user, 'user');
-              switch (_success.user.type) {
-                case USERS_VARS.ADMIN:
-                  this._redirecter.redirect(Routes.ADMIN_PAGE);
-                  break;
-                case USERS_VARS.EDITOR:
-                  this._redirecter.redirect(Routes.EDITOR_PAGE);
-                  break;
-                case USERS_VARS.READER:
-                  this._redirecter.redirect(Routes.READER_PAGE);
-                  break;
-                default:
-                  this._showError = true;
-              }
-            } else {
-              this._showError = true;
-            }
-          },
-          (_error: Error) => {
-            // error -> show message
-            this._isBackendError = true;
-            this._error = _error.message;
-            this._localStorageService.clear();
-          }
-        );
+      this.continueLOgin(
+        this._loginForm.get('_email')?.value,
+        this._loginForm.get('_password')?.value
+      );
     } else {
       this._showError = true;
     }
   }
 
-  externalCall() {
-    alert('hola');
+  public continueLOgin(_email: string, _password: string) {
+    // call service
+    this._loginService.validateUser(_email, _password).subscribe(
+      // success -> redirect
+      (_success: SignUpMessage) => {
+        if (_success.message === 'NO_ERROR') {
+          this._localStorageService.setItem(_success.user, 'user');
+          switch (_success.user.type) {
+            case USERS_VARS.ADMIN:
+              this._redirecter.redirect(Routes.ADMIN_PAGE);
+              break;
+            case USERS_VARS.EDITOR:
+              this._redirecter.redirect(Routes.EDITOR_PAGE);
+              break;
+            case USERS_VARS.READER:
+              this._redirecter.redirect(Routes.READER_PAGE);
+              break;
+            default:
+              this._showError = true;
+          }
+        } else {
+          this._showError = true;
+        }
+      },
+      (_error: Error) => {
+        // error -> show message
+        this._isBackendError = true;
+        this._error = _error.message;
+        this._localStorageService.clear();
+      }
+    );
   }
 
   // create a formgroup to reactive form

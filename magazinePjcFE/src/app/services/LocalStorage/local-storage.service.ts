@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { User } from 'src/app/modules/Users/user.module';
 import { LocalStorageRef } from './local-storage-ref.service';
 
 @Injectable({ providedIn: 'root' })

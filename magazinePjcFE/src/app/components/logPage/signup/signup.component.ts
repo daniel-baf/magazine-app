@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { SignUpMessage } from 'src/app/modules/Users/SignUpMessge.module';
 import { User } from 'src/app/modules/Users/user.module';
+import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { LoginService } from 'src/app/services/Login/login.service';
 import { RedirectService } from 'src/app/services/redirect.service';
 import { SignupService } from 'src/app/services/Signup/signup.service';
@@ -16,16 +17,18 @@ import { LoginComponent } from '../login/login.component';
 })
 export class SignupComponent implements OnInit {
   showMessageError = false;
-  _signUpForm: FormGroup;
   _noDescriptionGiven = false;
+  _showBackendMessage = false;
+  _signUpForm: FormGroup;
+  _user: User;
   _backendMessage: string =
     'Ha ocurrido un error, verifica que tus datos sean correctos';
-  _showBackendMessage = false;
 
   constructor(
-    private _router: RedirectService,
     private _signupService: SignupService,
-    private _loginService: LoginService
+    private _router: RedirectService,
+    private _loginService: LoginService,
+    private _localStorageService: LocalStorageService
   ) {
     this._signUpForm = this.createFormGroup();
   }
@@ -43,18 +46,15 @@ export class SignupComponent implements OnInit {
       // if choose editor, description is requiered
       if (this._signUpForm.get('_isEditor')?.value && this.noDescription()) {
         this._noDescriptionGiven = true;
+        this.showMessageError = false;
         this._showBackendMessage = false;
       } else {
         // ALL DATA OK
-        if (this.createUser()) {
-          // Redirect to choose categories
-        }
+        this.createUser();
       }
     } else {
-      // TODO show message error
       this.showMessageError = true;
     }
-    // AJAX to call the intrests
   }
 
   private noDescription(): boolean {
@@ -84,7 +84,10 @@ export class SignupComponent implements OnInit {
       )
       .subscribe(
         // return a message and User object
+
         (success: SignUpMessage) => {
+          console.log(success);
+
           if (success.message === 'ERROR_INSERT') {
             this._showBackendMessage = true;
             this._backendMessage =
@@ -95,6 +98,8 @@ export class SignupComponent implements OnInit {
           } else if (success.message === 'NO_ERROR') {
             // execute login
             _success = true;
+            this._user = success.user;
+            this.autologin();
           }
         },
         (_error: Error) => {
@@ -106,11 +111,21 @@ export class SignupComponent implements OnInit {
     return _success;
   }
 
+  autologin() {
+    alert('done! now redirect');
+    // Redirect to choose categories
+    new LoginComponent(
+      this._router,
+      this._loginService,
+      this._localStorageService
+    ).continueLOgin(this._user.email, this._user.password);
+  }
+
   // CREATE A FORM
   createFormGroup(): FormGroup {
     return new FormGroup({
       _name: new FormControl('', [Validators.required]),
-      _email: new FormControl('', [Validators.required]),
+      _email: new FormControl('', [Validators.required, Validators.email]),
       _password: new FormControl('', [Validators.required]),
       _isEditor: new FormControl(false),
       _description: new FormControl(''),
