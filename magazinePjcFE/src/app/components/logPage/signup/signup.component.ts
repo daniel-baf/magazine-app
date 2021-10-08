@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignUpMessage } from 'src/app/modules/Users/SignUpMessge.module';
 import { User } from 'src/app/modules/Users/user.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
-import { LoginService } from 'src/app/services/Login/login.service';
+import { LoginService } from 'src/app/services/Logs/login.service';
 import { RedirectService } from 'src/app/services/redirect.service';
-import { SignupService } from 'src/app/services/Signup/signup.service';
-import { Routes } from 'src/app/vars/enums/ROUTES';
+import { SignupService } from 'src/app/services/Logs/signup.service';
 import { USERS_VARS } from 'src/app/vars/enums/USER_VARS';
 import { LoginComponent } from '../login/login.component';
+import { SignUpMessage } from 'src/app/modules/Messages/SignUpMessge.module';
 
 @Component({
   selector: 'app-signup',

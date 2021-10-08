@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SignUpMessage } from 'src/app/modules/Users/SignUpMessge.module';
+import { SignUpMessage } from 'src/app/modules/Messages/SignUpMessge.module';
 import { User } from 'src/app/modules/Users/user.module';
 import { APIs } from 'src/app/vars/enums/API';
 import { USERS_VARS } from 'src/app/vars/enums/USER_VARS';

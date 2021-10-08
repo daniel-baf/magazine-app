@@ -1,6 +1,7 @@
 package Contollers.Logs;
 
 import APIErrors.SignupMessage;
+import DB.Domain.Users.User;
 import Models.LoginCheckerModel;
 import Parsers.Gson.ObjectParser;
 import java.io.IOException;
@@ -28,8 +29,34 @@ public class UserChecker extends HttpServlet {
         try {
             SignupMessage message = new LoginCheckerModel().verifyUser(request.getReader());
             response.getWriter().append(new ObjectParser().getJsonFromObject(message, message.getClass()));
-        } catch (IOException e) {
-            throw new Error("Cannot find user", e);
+        } catch (Exception e) {
+            System.out.println("Error at [Contoller.Logs].[UserChecker] " + e.getMessage());
+        }
+    }
+
+    /**
+     * This method return User info as get method
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        try {
+            // switch
+            switch (request.getParameter("action")) {
+                case "BASIC_INFO":
+                    User user = (User) new LoginCheckerModel().searchUser(request.getParameter("email"));
+                    response.getWriter().append(new ObjectParser().getJsonFromObject(user, user.getClass()));
+                    break;
+                default:
+                    response.getWriter().append(null);
+            }
+
+        } catch (Exception e) {
+            System.out.println("Error at [Contoller.Logs].[UserChecker] " + e.getMessage());
         }
     }
 }

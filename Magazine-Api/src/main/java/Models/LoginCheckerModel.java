@@ -30,12 +30,13 @@ public class LoginCheckerModel {
         ReaderBR rbr = new ReaderBR();
         // variables
         SignupMessage message = new SignupMessage();
-        User user = (User) new JsonParser().getUserFromObject(rbr.getBody(br), User.class);
+        User user = (User) new JsonParser().getObjectFromJson(rbr.getBody(br), User.class);
         User userDB = searchUser(user.getEmail());
         // set types
         String status = userDB != null && match(user, userDB) ? DAOResults.NO_ERROR.getMessage() : DAOResults.UNAUTHORIZED.getMessage();
+        user.setType(userDB.getType());
         message.setMessage(status);
-        message.setUser(userDB);
+        message.setUser(user);
         return message;
     }
 
@@ -58,7 +59,7 @@ public class LoginCheckerModel {
      * @param email
      * @return
      */
-    private User searchUser(String email) {
+    public User searchUser(String email) {
         return new UserCommonDAO().emailRegisted(email);
     }
 }

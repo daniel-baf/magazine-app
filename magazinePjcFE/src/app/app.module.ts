@@ -12,6 +12,9 @@ import { EditorViewComponent } from './components/pages/editor-view/editor-view.
 import { AdminViewComponent } from './components/pages/admin-view/admin-view.component';
 import { ReaderViewComponent } from './components/pages/reader-view/reader-view.component';
 import { SelectCategoriesComponent } from './components/logPage/signup/select-categories/select-categories.component';
+import { EditProfileComponent } from './components/pages/edit-profile/edit-profile.component';
+import { NavViewPageComponent } from './components/pages/nav-view-page/nav-view-page.component';
+import { FooterComponent } from './components/pages/footer/footer.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +25,10 @@ import { SelectCategoriesComponent } from './components/logPage/signup/select-ca
     EditorViewComponent,
     AdminViewComponent,
     ReaderViewComponent,
-    SelectCategoriesComponent
+    SelectCategoriesComponent,
+    EditProfileComponent,
+    NavViewPageComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,

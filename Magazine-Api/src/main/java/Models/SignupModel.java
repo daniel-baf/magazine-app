@@ -32,7 +32,7 @@ public class SignupModel {
         String body = readerBR.getBody(buffReader);
         // variables
         int operationResult = 0; // 0 = NO inserted
-        User user = (User) jsonParser.getUserFromObject(body, User.class);
+        User user = (User) jsonParser.getObjectFromJson(body, User.class);
         message.setMessage("NO_ERROR");
         // insert
         switch (user.getType()) {
@@ -81,7 +81,7 @@ public class SignupModel {
      * @return
      */
     private int insertEditor(JsonParser jsonParser, String body, User user) {
-        Editor editor = (Editor) jsonParser.getUserFromObject(body, Editor.class); // create editor
+        Editor editor = (Editor) jsonParser.getObjectFromJson(body, Editor.class); // create editor
         int result = new EditorInsert().insert(editor);
         if (result > 0) {
             user = configureUser(editor.getEmail(), editor.getPassword(), editor.getName(), "EDITOR");
@@ -98,7 +98,7 @@ public class SignupModel {
      * @return
      */
     private int insertReader(JsonParser jsonParser, String body, User user) {
-        Reader reader = (Reader) jsonParser.getUserFromObject(body, Reader.class);
+        Reader reader = (Reader) jsonParser.getObjectFromJson(body, Reader.class);
         int result = new ReaderInsert().insert(reader);
         if (result > 0) {
             user = configureUser(reader.getEmail(), reader.getPassword(), reader.getName(), "READER");
