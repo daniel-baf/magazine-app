@@ -1,18 +1,16 @@
-<div class="vh-100">
-  <div style="height: 10vh">
+<div>
+  <div class="headerKgb">
     <app-log-nav></app-log-nav>
   </div>
   <div>
-    <div
-      class="d-flex justify-content-center align-items-center"
-      style="height: 90vh"
-    >
-      <div class="col-md-4 img-login">
+    <div class="d-flex justify-content-center align-items-center bodyKgb">
+      <div class="col-md-4">
         <p></p>
+        <!-- TODO add the img source -->
       </div>
 
       <div class="col-sm-4">
-        <div  *ngIf="_isBackendError" class="alert alert-dark" role="alert">
+        <div *ngIf="_isBackendError" class="alert alert-dark" role="alert">
           <strong> Ha ocurrido un error {{ _error }}</strong>
         </div>
         <div class="alert alert-danger" role="alert" [hidden]="!_showError">

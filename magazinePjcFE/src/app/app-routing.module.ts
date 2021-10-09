@@ -12,7 +12,7 @@ import { ReaderViewComponent } from './components/pages/reader-view/reader-view.
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
-  { path: 'signup/select-categories/', component: SelectCategoriesComponent },
+  { path: 'signup/select-categories', component: SelectCategoriesComponent },
   { path: 'pages/admin-view', component: AdminViewComponent },
   { path: 'pages/reader-view', component: ReaderViewComponent },
   { path: 'pages/editor-view', component: EditorViewComponent },

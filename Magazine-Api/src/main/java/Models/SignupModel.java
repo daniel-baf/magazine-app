@@ -7,8 +7,7 @@ import DB.Domain.Users.Editor;
 import DB.Domain.Users.Reader;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;
-import Parsers.Gson.JsonParser;
-import Parsers.ReaderBR;
+import Parsers.Parser;
 import java.io.BufferedReader;
 
 /**
@@ -27,21 +26,20 @@ public class SignupModel {
     public SignupMessage signUp(BufferedReader buffReader) {
         // Utilities
         SignupMessage message = new SignupMessage();
-        ReaderBR readerBR = new ReaderBR();
-        JsonParser jsonParser = new JsonParser();
-        String body = readerBR.getBody(buffReader);
+        Parser parser = new Parser();
+        String body = parser.getBody(buffReader);
         // variables
         int operationResult = 0; // 0 = NO inserted
-        User user = (User) jsonParser.getObjectFromJson(body, User.class);
+        User user = (User) parser.getObjectFromJson(body, User.class);
         message.setMessage("NO_ERROR");
         // insert
         switch (user.getType()) {
             case "READER":
                 // TODO validate and continue method
-                operationResult = insertReader(jsonParser, body, user);
+                operationResult = insertReader(parser, body, user);
                 break;
             case "EDITOR":
-                operationResult = insertEditor(jsonParser, body, user);
+                operationResult = insertEditor(parser, body, user);
                 break;
             case "ADMIN":
                 break;
@@ -80,7 +78,7 @@ public class SignupModel {
      * @param user
      * @return
      */
-    private int insertEditor(JsonParser jsonParser, String body, User user) {
+    private int insertEditor(Parser jsonParser, String body, User user) {
         Editor editor = (Editor) jsonParser.getObjectFromJson(body, Editor.class); // create editor
         int result = new EditorInsert().insert(editor);
         if (result > 0) {
@@ -97,7 +95,7 @@ public class SignupModel {
      * @param user
      * @return
      */
-    private int insertReader(JsonParser jsonParser, String body, User user) {
+    private int insertReader(Parser jsonParser, String body, User user) {
         Reader reader = (Reader) jsonParser.getObjectFromJson(body, Reader.class);
         int result = new ReaderInsert().insert(reader);
         if (result > 0) {

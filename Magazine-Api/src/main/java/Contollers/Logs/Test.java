@@ -5,9 +5,6 @@
  */
 package Contollers.Logs;
 
-import APIErrors.SignupMessage;
-import Models.SignupModel;
-import Parsers.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +16,22 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jefemayoneso
  */
-@WebServlet(name = "SignUpController", urlPatterns = {"/SignUpController"})
-public class SignUpController extends HttpServlet {
+@WebServlet(name = "Test", urlPatterns = {"/Test"})
+public class Test extends HttpServlet {
+
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    }
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -33,14 +44,17 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Parser parser = new Parser();
-        try {
-            SignupMessage supm = new SignupModel().signUp(request.getReader());
-            response.getWriter().append(parser.getJsonFromObject(supm, supm.getClass()));
-        } catch (IOException e) {
-            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intentar Iniciar sesion en [UserActionsAbout] " + e.getMessage(), null), SignupMessage.class));
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        }
+        System.out.println("HOLAA");
     }
+
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
+    @Override
+    public String getServletInfo() {
+        return "Short description";
+    }// </editor-fold>
 
 }

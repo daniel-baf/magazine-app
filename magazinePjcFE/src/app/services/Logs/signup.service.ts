@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { SignUpMessage } from 'src/app/modules/Messages/SignUpMessge.module';
 import { User } from 'src/app/modules/Users/user.module';
 import { APIs } from 'src/app/vars/enums/API';
-import { USERS_VARS } from 'src/app/vars/enums/USER_VARS';
 
 @Injectable({
   providedIn: 'root',
@@ -13,9 +12,17 @@ export class SignupService {
   constructor(private _http: HttpClient) {}
 
   signUpStep1(_user: User): Observable<SignUpMessage> {
-    return this._http.post<SignUpMessage>(
-      `${APIs.BACKEND}/SignUpController`,
-      _user
-    );
+    return this._http.post<SignUpMessage>(`${APIs.SIGNUP}`, _user);
   }
+
+  test() {
+    alert('test');
+    this._http.post<SignUpMessage>(`${APIs.BACKEND}Test`,null);
+  }
+  // updateUser(_user: User): Observable<SignUpMessage> {
+  //   return this._http.post<SignUpMessage>(
+  //     `${APIs.UPDATE_USER}`,
+  //     new SignUpMessage('UPDATE_USER', _user)
+  //   );
+  // }
 }

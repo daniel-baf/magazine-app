@@ -4,8 +4,7 @@ import APIErrors.SignupMessage;
 import DB.DAOs.Users.UserCommonDAO;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;
-import Parsers.Gson.JsonParser;
-import Parsers.ReaderBR;
+import Parsers.Parser;
 import java.io.BufferedReader;
 
 /**
@@ -27,10 +26,10 @@ public class LoginCheckerModel {
      */
     public SignupMessage verifyUser(BufferedReader br) {
         // check for admins
-        ReaderBR rbr = new ReaderBR();
+        Parser parser = new Parser();
         // variables
         SignupMessage message = new SignupMessage();
-        User user = (User) new JsonParser().getObjectFromJson(rbr.getBody(br), User.class);
+        User user = (User) new Parser().getObjectFromJson(parser.getBody(br), User.class);
         User userDB = searchUser(user.getEmail());
         // set types
         String status = userDB != null && match(user, userDB) ? DAOResults.NO_ERROR.getMessage() : DAOResults.UNAUTHORIZED.getMessage();

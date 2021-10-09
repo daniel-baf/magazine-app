@@ -28,7 +28,7 @@ import { FooterComponent } from './components/pages/footer/footer.component';
     SelectCategoriesComponent,
     EditProfileComponent,
     NavViewPageComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [
     BrowserModule,

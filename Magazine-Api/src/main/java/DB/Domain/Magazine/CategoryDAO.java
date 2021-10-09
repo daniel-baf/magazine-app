@@ -28,15 +28,19 @@ public class CategoryDAO {
         String SQL_TMP = byUser ? SQL_SELECT_USER_CATEGORIES : SQL_SELECT_CATEGORIES;
         // connect DB
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_TMP)) {
-            ResultSet rs = ps.executeQuery();
             if (byUser) {
                 ps.setString(1, user);
             }
+            ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                categories.add(rs.getString("name"));
+                if (byUser) {
+                    categories.add(rs.getString("category"));
+                } else {
+                    categories.add(rs.getString("name"));
+                }
             }
         } catch (SQLException e) {
-            System.out.println("Error trying to get tags at [DB.Global].[TagsDAO] " + e.getMessage());
+            System.out.println("Error trying to get tags at [DB.DAOs.Magazines..[TagsDAO] " + e.getMessage());
         }
         return categories;
     }

@@ -3,7 +3,7 @@ package Contollers.Logs;
 import APIErrors.SignupMessage;
 import DB.Domain.Users.User;
 import Models.LoginCheckerModel;
-import Parsers.Gson.ObjectParser;
+import Parsers.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +28,7 @@ public class UserChecker extends HttpServlet {
             throws ServletException, IOException {
         try {
             SignupMessage message = new LoginCheckerModel().verifyUser(request.getReader());
-            response.getWriter().append(new ObjectParser().getJsonFromObject(message, message.getClass()));
+            response.getWriter().append(new Parser().getJsonFromObject(message, message.getClass()));
         } catch (Exception e) {
             System.out.println("Error at [Contoller.Logs].[UserChecker] " + e.getMessage());
         }
@@ -44,19 +44,21 @@ public class UserChecker extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Parser parser = new Parser();
         try {
             // switch
             switch (request.getParameter("action")) {
                 case "BASIC_INFO":
                     User user = (User) new LoginCheckerModel().searchUser(request.getParameter("email"));
-                    response.getWriter().append(new ObjectParser().getJsonFromObject(user, user.getClass()));
+                    response.getWriter().append(parser.getJsonFromObject(user, user.getClass()));
                     break;
                 default:
                     response.getWriter().append(null);
             }
 
         } catch (Exception e) {
-            System.out.println("Error at [Contoller.Logs].[UserChecker] " + e.getMessage());
+            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error buscando usuario en [UserChecker] " + e.getMessage(), null), SignupMessage.class));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 }
