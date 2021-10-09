@@ -71,8 +71,6 @@ export class SelectCategoriesComponent implements OnInit {
       this._categoriesService
         .saveUserCategories(this._categoriesUser, this._user.email)
         .subscribe((_success: StringArrayMessage) => {
-          console.log(_success);
-          
           if (_success.message === 'SUCCESS') {
             this._successMessage = 'Se han aplicado los cambios';
             this._showSuccessMessage = true;

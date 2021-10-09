@@ -1,7 +1,11 @@
 package Models;
 
 import APIErrors.SignupMessage;
+import DB.DAOs.Users.Admin.AdminUpdate;
+import DB.DAOs.Users.Editor.EditorUpdate;
 import DB.DAOs.Users.Reader.ReaderUpdate;
+import DB.Domain.Users.Admin;
+import DB.Domain.Users.Editor;
 import DB.Domain.Users.Reader;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;
@@ -27,8 +31,12 @@ public class UserModel {
                 result = new ReaderUpdate().update(reader);
                 break;
             case "EDITOR":
+                Editor editor = (Editor) parser.getObjectFromJson(body, Editor.class);
+                result = new EditorUpdate().update(editor);
                 break;
             case "ADMIN":
+                Admin admin = (Admin) parser.getObjectFromJson(body, Admin.class);
+                result = new AdminUpdate().update(admin);
                 break;
             default:
         }

@@ -15,14 +15,7 @@ export class SignupService {
     return this._http.post<SignUpMessage>(`${APIs.SIGNUP}`, _user);
   }
 
-  test() {
-    alert('test');
-    this._http.post<SignUpMessage>(`${APIs.BACKEND}Test`,null);
+  updateUser(_user: User): Observable<SignUpMessage> {
+    return this._http.post<SignUpMessage>(APIs.UPDATE_USER,_user);
   }
-  // updateUser(_user: User): Observable<SignUpMessage> {
-  //   return this._http.post<SignUpMessage>(
-  //     `${APIs.UPDATE_USER}`,
-  //     new SignUpMessage('UPDATE_USER', _user)
-  //   );
-  // }
 }

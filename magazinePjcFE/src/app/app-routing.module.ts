@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ErrorComponent } from './components/error/error.component';
 import { LoginComponent } from './components/logPage/login/login.component';
+import { MainComponent } from './components/logPage/main/main.component';
 import { SelectCategoriesComponent } from './components/logPage/signup/select-categories/select-categories.component';
 import { SignupComponent } from './components/logPage/signup/signup.component';
 import { AdminViewComponent } from './components/pages/admin-view/admin-view.component';
@@ -10,6 +11,7 @@ import { EditorViewComponent } from './components/pages/editor-view/editor-view.
 import { ReaderViewComponent } from './components/pages/reader-view/reader-view.component';
 
 const routes: Routes = [
+  { path: '', component: MainComponent },
   { path: 'login', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'signup/select-categories', component: SelectCategoriesComponent },

@@ -20,11 +20,13 @@ export class EditProfileComponent implements OnInit {
   _user: User;
   _errorMessage: string;
   _alertMessage: string;
+  _successMessage: string;
   _categories: string[];
   _messageBackendObject: StringArrayMessage;
   _showMessageAlert: boolean = false;
   _showMessageNoCateg: boolean = false;
   _showErrorMessage: boolean = false;
+  _showMessageSuccess: boolean = false;
 
   constructor(
     private _loginService: LoginService,
@@ -34,36 +36,40 @@ export class EditProfileComponent implements OnInit {
     private _routerService: RedirectService
   ) {
     this._user = JSON.parse(`${this._localStorageService.getData('user')}`);
+    this.getCategories();
     this._infoForm = this.createForm();
   }
 
-  ngOnInit(): void {
-    // get basic info
+  ngOnInit(): void {}
 
-    this._loginService.getInfoUser(this._user.email).subscribe(
-      (_success: User) => {
-        this._user = _success;
-        this._infoForm.controls['_name'].setValue(this._user.name);
-      },
-      (_error: Error) => {
-        this._showErrorMessage = true;
-        this._errorMessage = _error.message;
-      }
-    );
-    // get categories
-    this._categoryService.getCategories(this._user.email, true).subscribe(
-      (_success: StringArrayMessage) => {
-        this._categories = _success.array;
-        if (this._categories.length === 0 && this._user.type === 'reader') {
-          this._showMessageNoCateg = true;
-        }
-      },
-      (_error: Error) => {
-        console.log(`Error: ${_error.message}`);
-      }
-    );
+  // FORM AC TIONS
+
+  editCategories() {
+    this._routerService.redirect(Routes.SIGNUP_SELECT_CAT);
   }
 
+  saveProfileChanges() {
+    this._showErrorMessage = false;
+    this.updateUserWithFormData();
+    if (this._infoForm.valid) {
+      this.signupService.updateUser(this._user).subscribe(
+        (_success: SignUpMessage) => {
+          if (_success.message === 'NO_ERROR') {
+            this.showMessage('Se han aplicado los cambios');
+          } else {
+            this.showALert('No se pudo procesar la peticion');
+          }
+        },
+        (_error: Error) => {
+          this.showError(_error.message);
+        }
+      );
+    } else {
+      this.showALert('Uno/s de los atributos es invalido');
+    }
+  }
+
+  // TS methods
   createForm(): FormGroup {
     return new FormGroup({
       _email: new FormControl(this._user.email, [
@@ -77,31 +83,52 @@ export class EditProfileComponent implements OnInit {
     });
   }
 
-  editCategories() {
-    this._routerService.redirect(Routes.SIGNUP_SELECT_CAT);
+  updateUserWithFormData() {
+    this._user.name = this._infoForm.controls['_name'].value;
+    this._user.password = this._infoForm.controls['_password'].value;
+    this._user.description = this._infoForm.controls['_description'].value;
   }
 
-  saveProfileChanges() {
-    this._showErrorMessage = false;
-    this.signupService.test();
-    // if (this._infoForm.valid) {
-    //   // call service
-    //   this.signupService.updateUser(this._user).subscribe(
-    //     (_success: SignUpMessage) => {
-    //       console.log(_success);
-    //     },
-    //     (_error: Error) => {
-    //       this._errorMessage = _error.message;
-    //       this._showErrorMessage = true;
-    //     }
-    //   );
-    // } else {
-    //   this.showALert('Uno/s de los atributos es invalido');
-    // }
+  // CATEGORIES
+  getCategories() {
+    this._loginService.getInfoUser(this._user.email).subscribe(
+      (_success: User) => {
+        this._user = _success;
+        this._infoForm.controls['_name'].setValue(this._user.name);
+      },
+      (_error: Error) => {
+        this.showError(_error.message);
+      }
+    );
+    // get categories
+    if (this._user.type === 'READER') {
+      this._categoryService.getCategories(this._user.email, true).subscribe(
+        (_success: StringArrayMessage) => {
+          this._categories = _success.array;
+          if (this._categories.length === 0) {
+            this._showMessageNoCateg = true;
+          }
+        },
+        (_error: Error) => {
+          this.showError(_error.message);
+        }
+      );
+    }
   }
 
+  // MERSSAGES
   showALert(_message: string) {
     this._showMessageAlert = true;
     this._alertMessage = _message;
+  }
+
+  showError(_message: string) {
+    this._showErrorMessage = true;
+    this._errorMessage = _message;
+  }
+
+  showMessage(_message: string) {
+    this._showMessageSuccess = true;
+    this._successMessage = _message;
   }
 }

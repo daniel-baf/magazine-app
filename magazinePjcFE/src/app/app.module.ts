@@ -15,6 +15,7 @@ import { SelectCategoriesComponent } from './components/logPage/signup/select-ca
 import { EditProfileComponent } from './components/pages/edit-profile/edit-profile.component';
 import { NavViewPageComponent } from './components/pages/nav-view-page/nav-view-page.component';
 import { FooterComponent } from './components/pages/footer/footer.component';
+import { MainComponent } from './components/logPage/main/main.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { FooterComponent } from './components/pages/footer/footer.component';
     EditProfileComponent,
     NavViewPageComponent,
     FooterComponent,
+    MainComponent,
   ],
   imports: [
     BrowserModule,

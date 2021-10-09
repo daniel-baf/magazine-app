@@ -6,7 +6,8 @@
   <div class="bodyKgb">
     <!-- Title -->
     <h3>Informacion del usuario {{ _user.name }}</h3>
-    <div [hidden]="!_showErrorMessage" class="alert alert-danger" role="alert">
+    <!-- ERRORS -->
+    <div *ngIf="_showErrorMessage" class="alert alert-danger" role="alert">
       Ha ocurrido un
       <strong> error </strong>
       {{ _errorMessage }}
@@ -16,6 +17,9 @@
     </div>
     <div *ngIf="_showMessageAlert" class="alert alert-warning" role="alert">
       <strong>ALERTA!</strong> {{ _alertMessage }}
+    </div>
+    <div *ngIf="_showMessageSuccess" class="alert alert-success" role="alert">
+      <strong>LISTO! </strong> {{ _successMessage }}
     </div>
     <hr />
     <!-- START FORM -->
@@ -82,7 +86,7 @@
               formControlName="_password"
             />
           </div>
-          <div class="form-group">
+          <div *ngIf="_user.type === 'EDITOR'" class="form-group">
             <label for="description">Descripcion</label>
             <input
               type="text"
@@ -96,14 +100,14 @@
             <small id="helpDescription" class="form-text text-muted"
               >Un maximo de 3000 caracteres
             </small>
-            <button
-              type="submit"
-              class="btn btn-primary btn-block mt-2"
-              (click)="saveProfileChanges()"
-            >
-              Aplicar cambios
-            </button>
           </div>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block mt-2"
+            (click)="saveProfileChanges()"
+          >
+            Aplicar cambios
+          </button>
         </form>
         <!-- END FORM -->
       </div>

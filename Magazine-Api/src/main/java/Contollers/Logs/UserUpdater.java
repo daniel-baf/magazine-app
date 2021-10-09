@@ -5,7 +5,12 @@
  */
 package Contollers.Logs;
 
+import APIErrors.SignupMessage;
+import DB.Domain.Users.User;
+import Models.UserModel;
+import Parsers.Parser;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -16,22 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jefemayoneso
  */
-@WebServlet(name = "Test", urlPatterns = {"/Test"})
-public class Test extends HttpServlet {
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-    }
+@WebServlet(name = "UserUpdater", urlPatterns = {"/UserUpdater"})
+public class UserUpdater extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -44,17 +35,15 @@ public class Test extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        System.out.println("HOLAA");
+//        processRequest(request, response);
+        Parser parser = new Parser();
+        try {
+            SignupMessage message = new UserModel().updateUser(request.getReader());
+            response.getWriter().append(parser.getJsonFromObject(message, SignupMessage.class));
+        } catch (Exception e) {
+            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intentar Iniciar sesion en [UserUpdater] " + e.getMessage(), null), SignupMessage.class));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
     }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
 
 }

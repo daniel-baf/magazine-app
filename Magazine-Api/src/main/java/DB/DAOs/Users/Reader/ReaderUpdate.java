@@ -13,6 +13,12 @@ public class ReaderUpdate {
 
     private final String SQL_UPDATE_READER = "UPDATE Reader SET name = ?, password = ? WHERE (email = ?)";
 
+    /**
+     * THis method update all the Reader info (except the email) of the user
+     *
+     * @param reader
+     * @return
+     */
     public int update(Reader reader) {
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_UPDATE_READER)) {
             configurePS(reader, ps);
@@ -21,7 +27,6 @@ public class ReaderUpdate {
             System.out.println("Error trying to insert READER at [DB.DAOs.Users.Reader].[ReaderInsert] " + e.getMessage());
             return 0;
         }
-
     }
 
     private void configurePS(Reader reader, PreparedStatement ps) throws SQLException {
