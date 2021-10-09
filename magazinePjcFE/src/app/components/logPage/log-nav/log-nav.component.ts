@@ -23,4 +23,9 @@ export class LogNavComponent implements OnInit {
     e.preventDefault();
     this._redirect.redirect(Routes.SIGNUP);
   }
+
+  redirectHome(e: Event) {
+    e.preventDefault();
+    this._redirect.redirect(Routes.HOME);
+  }
 }

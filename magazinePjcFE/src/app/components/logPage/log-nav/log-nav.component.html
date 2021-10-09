@@ -1,41 +1,50 @@
 <!-- Nav tabs -->
-<ul class="nav nav-tabs" id="navId">
-  <li class="nav-item dropdown">
-    <a
-      class="nav-link dropdown-toggle"
-      data-toggle="dropdown"
-      href="#"
-      role="button"
-      aria-haspopup="true"
-      aria-expanded="false"
-      >Unirse</a
-    >
-    <div class="dropdown-menu">
-      <a class="dropdown-item" href="#" (click)="redirectSignUp($event)"
-        >Crear cuenta</a
+<div>
+  <ul class="nav nav-tabs" id="navId">
+    <li class="nav-item dropdown">
+      <a
+        class="nav-link dropdown-toggle"
+        data-toggle="dropdown"
+        href="#"
+        role="button"
+        aria-haspopup="true"
+        aria-expanded="false"
+        >Unirse</a
       >
-      <div class="dropdown-divider"></div>
-    </div>
-  </li>
-  <li class="nav-item">
-    <a href="" class="nav-link" (click)="redirectLogin($event)"
-      >Iniciar sesion</a
-    >
-  </li>
-  <li class="nav-item">
-    <a href="#" class="nav-link disabled">App de revistas</a>
-  </li>
-</ul>
+      <div class="dropdown-menu">
+        <a class="dropdown-item" href="#" (click)="redirectSignUp($event)"
+          >Crear cuenta</a
+        >
+        <div class="dropdown-divider"></div>
+      </div>
+    </li>
+    <li class="nav-item">
+      <a href="" class="nav-link" (click)="redirectLogin($event)"
+        >Iniciar sesion</a
+      >
+    </li>
+    <li class="nav-item" (click)="redirectHome($event)">
+      <a href="#" class="nav-link btn ">App de revistas</a>
+    </li>
+    <li>
+      <div>
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="darkSwitch" />
+          <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+        </div>
+      </div>
+    </li>
+  </ul>
 
-<!-- Tab panes -->
-<div class="tab-content">
-  <div class="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
-  <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
-  <div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
-  <div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
-  <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div class="tab-pane fade show active" id="tab1Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab2Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab3Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab4Id" role="tabpanel"></div>
+    <div class="tab-pane fade" id="tab5Id" role="tabpanel"></div>
+  </div>
 </div>
-
 <script>
   $("#navId a").click((e) => {
     e.preventDefault();

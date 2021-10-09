@@ -1,4 +1,5 @@
 export enum Routes {
+  HOME = '',
   LOGIN = 'login',
   SIGNUP = 'signup',
   SIGNUP_SELECT_CAT = 'signup/select-categories/',
