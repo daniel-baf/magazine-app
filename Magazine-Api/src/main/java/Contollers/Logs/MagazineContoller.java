@@ -6,6 +6,7 @@
 package Contollers.Logs;
 
 import APIErrors.MagazineMessage;
+import APIErrors.SignupMessage;
 import Models.MagazineModel;
 import Parsers.Parser;
 import java.io.IOException;
@@ -38,6 +39,8 @@ public class MagazineContoller extends HttpServlet {
             MagazineMessage message = new MagazineModel().executeModel(request.getReader());
             response.getWriter().append(parser.getJsonFromObject(message, MagazineMessage.class));
         } catch (Exception e) {
+            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error trying to make a Magazine action at [MagazineController]" + e.getMessage(), null), SignupMessage.class));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 

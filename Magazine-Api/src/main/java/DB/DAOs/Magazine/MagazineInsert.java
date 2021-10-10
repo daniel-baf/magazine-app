@@ -1,6 +1,7 @@
 package DB.DAOs.Magazine;
 
 import DB.Domain.Magazine.Magazine;
+import ENUMS.DAOResults;
 import Parsers.Parser;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -18,8 +19,8 @@ public class MagazineInsert {
             configurePSMagInsert(magazine, ps);
             return ps.executeUpdate();
         } catch (Exception e) {
-            System.out.println("Error trying to insert Magazine at [MagazineInsert]");
-            return 0;
+            System.out.println("Error trying to insert Magazine at [MagazineInsert] " + e.getMessage());
+            return DAOResults.ERROR_ON_INSERT.getCode();
         }
     }
 

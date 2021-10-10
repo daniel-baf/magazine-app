@@ -9,21 +9,22 @@ import java.time.LocalDate;
 public class Magazine {
 
     private String name;
-    private Integer mensuality;
+    private String editor;
+    private String description;
+    private String category;
+    private String dateString;
+    private Double mensuality;
     private Double companyFee;
     private Double costPerDay;
     private LocalDate date;
-    private String description;
-    private String category;
     private boolean allowLikes;
     private boolean allowComment;
-    private String editor;
     private boolean approved;
 
     public Magazine() {
     }
 
-    public Magazine(String name, Integer mensuality, Double companyFee, Double costPerDay, LocalDate date, String description, boolean allowLikes, boolean allowComment, String editor, String catgory) {
+    public Magazine(String name, Double mensuality, Double companyFee, Double costPerDay, LocalDate date, String description, boolean allowLikes, boolean allowComment, String editor, String catgory) {
         this.name = name;
         this.mensuality = mensuality;
         this.companyFee = companyFee;
@@ -52,14 +53,14 @@ public class Magazine {
     /**
      * @return the mensuality
      */
-    public Integer getMensuality() {
+    public Double getMensuality() {
         return mensuality;
     }
 
     /**
      * @param mensuality the mensuality to set
      */
-    public void setMensuality(Integer mensuality) {
+    public void setMensuality(Double mensuality) {
         this.mensuality = mensuality;
     }
 
@@ -187,6 +188,20 @@ public class Magazine {
      */
     public void setApproved(boolean approved) {
         this.approved = approved;
+    }
+
+    /**
+     * @return the dateString
+     */
+    public String getDateString() {
+        return dateString;
+    }
+
+    /**
+     * @param dateString the dateString to set
+     */
+    public void setDateString(String dateString) {
+        this.dateString = dateString;
     }
 
 }

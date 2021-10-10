@@ -58,4 +58,8 @@ public class Parser {
             return null;
         }
     }
+
+    public LocalDate toLocalDate(String dateString) {
+        return LocalDate.parse(dateString);
+    }
 }

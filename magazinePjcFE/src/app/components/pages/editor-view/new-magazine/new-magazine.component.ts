@@ -5,6 +5,7 @@ import { MagazineMessage } from 'src/app/modules/Messages/MagazineMessage.module
 import { StringArrayMessage } from 'src/app/modules/Messages/StringArrayMessage.module';
 import { User } from 'src/app/modules/Users/user.module';
 import { CategoriesService } from 'src/app/services/CategoriesActions.service';
+import { CompanyFeeService } from 'src/app/services/Fees/CompanyFee.service';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { LoginService } from 'src/app/services/Logs/login.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
@@ -22,7 +23,10 @@ export class NewMagazineComponent implements OnInit {
   _statusMagazine: string;
   _resultMessage: string;
   _alertMessage: string;
+  _typingCategory: string;
   _categories: string[];
+  _tagsMagazine: string[];
+  _companyFee: number;
   _showErrorMessage: boolean = false;
   _showResultMessage: boolean = false;
   _showAlertMessage: boolean = false;
@@ -31,11 +35,14 @@ export class NewMagazineComponent implements OnInit {
     private _loginService: LoginService,
     private _storageService: LocalStorageService,
     private _magazineService: MagazineService,
-    private _categoriesService: CategoriesService
+    private _categoriesService: CategoriesService,
+    private _feesService: CompanyFeeService
   ) {
     this._user = JSON.parse(`${this._storageService.getData('user')}`);
     this.updateUser();
     this.getCategories();
+    this.getFees();
+    this._tagsMagazine = [];
     this._magazineForm = this.generateFormGroup();
   }
 
@@ -55,7 +62,7 @@ export class NewMagazineComponent implements OnInit {
   // METHOD
   public queueMagazine() {
     // create user
-    if (this._magazineForm.valid) {
+    if (this._magazineForm.valid && this._categories.length > 0) {
       // create magazine
       this.createMagazine();
       console.log('ENVIANDO');
@@ -65,9 +72,23 @@ export class NewMagazineComponent implements OnInit {
       this.createMagazine;
       this._magazineService
         .queueOrPublishMagazine(new MagazineMessage('QUEUE', this._magazine))
-        .subscribe((_success: MagazineMessage) => {
-          console.log(_success);
-        });
+        .subscribe(
+          (_success: MagazineMessage) => {
+            console.log(_success);
+            if (_success.message === 'NO_ERROR') {
+              this.showResultMessage(
+                'Se ha puesto en lista de espera tu revista'
+              );
+            } else {
+              this.showAlertMessage(
+                'No se ha podido publicar tu revista' + _success.message
+              );
+            }
+          },
+          (_error: Error) => {
+            this.showErrorMessage(_error.message);
+          }
+        );
     } else {
       this.showAlertMessage('Debes llenar todos los requisitos');
     }
@@ -78,11 +99,11 @@ export class NewMagazineComponent implements OnInit {
     return new FormGroup({
       _name: new FormControl('', [Validators.required]),
       _price: new FormControl('', [Validators.required, Validators.min(0)]),
-      _companyFee: new FormControl('', [
+      _companyFee: new FormControl(this._companyFee, [
         Validators.required,
         Validators.min(0),
       ]),
-      _costPerDay: new FormControl(''),
+      _costPerDay: new FormControl(0),
       _date: new FormControl('', [Validators.required]),
       _description: new FormControl('', [
         Validators.required,
@@ -107,8 +128,29 @@ export class NewMagazineComponent implements OnInit {
       this._magazineForm.controls['_allowLikes'].value,
       this._magazineForm.controls['_category'].value,
       this._magazineForm.controls['_editor'].value,
-      false
+      false,
+      this._tagsMagazine
     );
+  }
+
+  public addCategory() {
+    this._showAlertMessage = false;
+    if (this._typingCategory == undefined || this._typingCategory === null) {
+      this.showAlertMessage('NO puedes agregar vacio');
+    } else {
+      this._tagsMagazine.push(this._typingCategory);
+      this._typingCategory = '';
+    }
+  }
+
+  public removeCategory() {}
+
+  public getFees() {
+    this._feesService.getFees().subscribe((_success: number[]) => {
+      this._companyFee = _success[0];
+      console.log(this._companyFee);
+      this._magazineForm.controls['_companyFee'].setValue(this._companyFee);
+    });
   }
 
   // REQUESTS

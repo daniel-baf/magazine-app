@@ -36,7 +36,6 @@ public class CategoriesSelectContoller extends HttpServlet {
             StringArrayMessage stringArrMessage = new CategoriesModel().executeModel(request.getParameter("action"), request.getParameter("email"));
             response.getWriter().append(new Parser().getJsonFromObject(stringArrMessage, stringArrMessage.getClass()));
         } catch (Exception e) {
-            System.out.println(e.getMessage());
             response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intetnar buscar categorias " + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

@@ -6,164 +6,214 @@
   <div *ngIf="_showErrorMessage" class="alert alert-danger" role="alert">
     <strong>Error</strong> {{ _errorMessage }}
   </div>
-  <form
-    class="form mb-5"
-    [formGroup]="_magazineForm"
-    (ngSubmit)="queueMagazine()"
-  >
-    <div class="form-group">
-      <label for="name">Nombre revista</label>
-      <input
-        type="text"
-        class="form-control"
-        name="name"
-        id="name"
-        aria-describedby="nameHelp"
-        placeholder="El nombre de la revista"
-        formControlName="_name"
-      />
-      <small id="nameHelp" class="form-text text-muted"
-        >No pueden existir 2 revistas con el mismo nombre</small
+  <div *ngIf="_showAlertMessage" class="alert alert-warning" role="alert">
+    <strong>Alerta!</strong> {{ _alertMessage }}
+  </div>
+  <div class="d-flex">
+    <div>
+      <h4>Revista</h4>
+      <form
+        class="form mb-5"
+        [formGroup]="_magazineForm"
+        (ngSubmit)="queueMagazine()"
       >
-    </div>
-    <div class="form-group">
-      <label for="price">Precio mensual</label>
-      <input
-        type="number"
-        class="form-control"
-        name="price"
-        id="price"
-        aria-describedby="priceHelp"
-        placeholder="El costo de subscripción"
-        step="0.01"
-        min="0"
-        formControlName="_price"
-      />
-      <small id="priceHelp" class="form-text text-muted"
-        >El precio mínimmo es 0</small
-      >
-    </div>
-    <div class="form-group">
-      <label for="companyFee">Impuesto empresa</label>
-      <input
-        type="number"
-        class="form-control"
-        name="companyFee"
-        id="companyFee"
-        aria-describedby="companyFeeHep"
-        placeholder="Porcentaje de la empresa por subscipciòn"
-        formControlName="_companyFee"
-      />
-      <small id="companyFeeHep" class="form-text text-muted"
-        >La empresa se queda un porcentaje de cada subscripción obtenida</small
-      >
-    </div>
-    <div *ngIf="_user.type === 'ADMIN'" class="form-group">
-      <label for="costPerDay">Costo por dia</label>
-      <input
-        type="number"
-        class="form-control"
-        name="costPerDay"
-        id="costPerDay"
-        aria-describedby="costPerDayHelp"
-        placeholder="Costo de mantenimiento por dia"
-        formControlName="_costPerDay"
-      />
-      <small id="costPerDayHelp" class="form-text text-muted"
-        >El costo que lleva mantener la revista publicada</small
-      >
-    </div>
-    <div class="form-group">
-      <label for="creationDate">Fecha de creación</label>
-      <input
-        type="date"
-        class="form-control"
-        name="creationDate"
-        id="creationDate"
-        aria-describedby="creationDateHelpId"
-        placeholder="La fecha en que se creó la revista"
-        formControlName="_date"
-      />
-      <small id="creationDateHelpId" class="form-text text-muted"
-        >Para efectos de calificación se permite elegir la fecha</small
-      >
-    </div>
-    <div class="form-group">
-      <label for="description">Descripción</label>
-      <textarea
-        class="form-control"
-        name="description"
-        id="description"
-        rows="5"
-        maxlength="3000"
-        formControlName="_description"
-      ></textarea>
-    </div>
-    <div class="d-flex">
-      <div class="form-check form-check-inline">
-        <label class="form-check-label">
+        <div class="form-group">
+          <label for="name">Nombre revista</label>
           <input
-            class="form-check-input"
-            type="checkbox"
-            name="allowLikes"
-            id="allowLikes"
-            formControlName="_allowLikes"
+            type="text"
+            class="form-control"
+            name="name"
+            id="name"
+            aria-describedby="nameHelp"
+            placeholder="El nombre de la revista"
+            formControlName="_name"
           />
-          Quiero que mi revista reciba likes
-        </label>
-      </div>
-      <div class="form-check">
-        <label class="form-check-label">
+          <small id="nameHelp" class="form-text text-muted"
+            >No pueden existir 2 revistas con el mismo nombre</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="price">Precio mensual</label>
           <input
-            type="checkbox"
-            class="form-check-input"
-            name="allowComments"
-            id="allowComments"
-            formControlName="_allowComment"
+            type="number"
+            class="form-control"
+            name="price"
+            id="price"
+            aria-describedby="priceHelp"
+            placeholder="El costo de subscripción"
+            step="0.01"
+            min="0"
+            formControlName="_price"
           />
-          Quiero que mi revista reciba comentarios
-        </label>
+          <small id="priceHelp" class="form-text text-muted"
+            >El precio mínimmo es 0</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="companyFee">Porcentaje para la empresa</label>
+          <input
+            type="number"
+            class="form-control"
+            name="companyFee"
+            id="companyFee"
+            aria-describedby="companyFeeHep"
+            placeholder="Porcentaje de la empresa por subscipciòn"
+            formControlName="_companyFee"
+            readonly
+          />
+          <small id="companyFeeHep" class="form-text text-muted"
+            >La empresa se queda un porcentaje de cada subscripción
+            obtenida</small
+          >
+        </div>
+        <div *ngIf="_user.type === 'ADMIN'" class="form-group">
+          <label for="costPerDay">Costo por dia</label>
+          <input
+            type="number"
+            class="form-control"
+            name="costPerDay"
+            id="costPerDay"
+            aria-describedby="costPerDayHelp"
+            placeholder="Costo de mantenimiento por dia"
+            formControlName="_costPerDay"
+          />
+          <small id="costPerDayHelp" class="form-text text-muted"
+            >El costo que lleva mantener la revista publicada</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="creationDate">Fecha de creación</label>
+          <input
+            type="date"
+            class="form-control"
+            name="creationDate"
+            id="creationDate"
+            aria-describedby="creationDateHelpId"
+            placeholder="La fecha en que se creó la revista"
+            formControlName="_date"
+          />
+          <small id="creationDateHelpId" class="form-text text-muted"
+            >Para efectos de calificación se permite elegir la fecha</small
+          >
+        </div>
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <textarea
+            class="form-control"
+            name="description"
+            id="description"
+            rows="5"
+            maxlength="3000"
+            formControlName="_description"
+          ></textarea>
+        </div>
+        <div class="d-flex">
+          <div class="form-check form-check-inline">
+            <label class="form-check-label">
+              <input
+                class="form-check-input"
+                type="checkbox"
+                name="allowLikes"
+                id="allowLikes"
+                formControlName="_allowLikes"
+              />
+              Quiero que mi revista reciba likes
+            </label>
+          </div>
+          <div class="form-check">
+            <label class="form-check-label">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                name="allowComments"
+                id="allowComments"
+                formControlName="_allowComment"
+              />
+              Quiero que mi revista reciba comentarios
+            </label>
+          </div>
+        </div>
+        <div class="form-group mt-1">
+          <label for="category">Categoria</label>
+          <select
+            class="form-control"
+            name="category"
+            id="category"
+            formControlName="_category"
+          >
+            <option value="NO_VALID" disabled selected>SELECCIONAR</option>
+            <option *ngFor="let _cat of _categories">{{ _cat }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="editor">Editor</label>
+          <input
+            type="text"
+            class="form-control"
+            name="editor"
+            id="editor"
+            aria-describedby="editorHelp"
+            placeholder="El editor de la revista"
+            formControlName="_editor"
+            readonly
+          />
+          <small id="editorHelp" class="form-text text-muted"
+            >El nombre de quien publica la revista</small
+          >
+        </div>
+
+        <div *ngIf="_showResultMessage" class="alert alert-info" role="alert">
+          <strong>LISTO! </strong> {{ _resultMessage }}
+        </div>
+
+        <div *ngIf="_showAlertMessage" class="alert alert-warning" role="alert">
+          <strong>EY!</strong> {{ _alertMessage }}
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block">
+          Enviar solicitud
+        </button>
+      </form>
+    </div>
+    <div>
+      <h4>Etiquetas revista</h4>
+      <div class="form mb-3">
+        <div class="form-group">
+          <label for="tag">Nombre etiqueta</label>
+          <input
+            type="text"
+            class="form-control"
+            name="tag"
+            id="tag"
+            aria-describedby="tagHelpId"
+            placeholder="El nombre de una etiqueta"
+            [(ngModel)]="_typingCategory"
+          />
+          <small id="tagHelpId" class="form-text text-muted"
+            >Las etiquetas son acerca de lo que hablará tu revista</small
+          >
+        </div>
+        <button (click)="addCategory()" type="submit" class="btn btn-primary">
+          Agregar
+        </button>
       </div>
+      <ul class="list-group">
+        <li class="list-group-item active">Etiquetas agregadas</li>
+        <li *ngFor="let _tag of _tagsMagazine" class="list-group-item">
+          <div
+            class="d-flex justify-content-between"
+            style="align-items: center"
+          >
+            <div>
+              {{ _tag }}
+            </div>
+            <div>
+              <button type="button" class="btn btn-danger">Eliminar</button>
+            </div>
+          </div>
+        </li>
+        <li class="list-group-item disabled">Agrega cuantas quieras</li>
+      </ul>
     </div>
-    <div class="form-group mt-1">
-      <label for="category">Categoria</label>
-      <select
-        class="form-control"
-        name="category"
-        id="category"
-        formControlName="_category"
-      >
-        <option value="NO_VALID" disabled selected>SELECCIONAR</option>
-        <option *ngFor="let _cat of _categories">{{ _cat }}</option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label for="editor">Editor</label>
-      <input
-        type="text"
-        class="form-control"
-        name="editor"
-        id="editor"
-        aria-describedby="editorHelp"
-        placeholder="El editor de la revista"
-        formControlName="_editor"
-        readonly
-      />
-      <small id="editorHelp" class="form-text text-muted"
-        >El nombre de quien publica la revista</small
-      >
-    </div>
-
-    <div *ngIf="_showResultMessage" class="alert alert-info" role="alert">
-      <strong>LISTO! </strong> {{ _resultMessage }}
-    </div>
-
-    <div *ngIf="_showAlertMessage" class="alert alert-warning" role="alert">
-      <strong>EY!</strong> {{ _alertMessage }}
-    </div>
-
-    <button type="submit" class="btn btn-primary btn-block">
-      Enviar solicitud
-    </button>
-  </form>
+  </div>
 </div>
