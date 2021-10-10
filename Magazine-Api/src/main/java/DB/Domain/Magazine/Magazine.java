@@ -1,6 +1,7 @@
 package DB.Domain.Magazine;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
@@ -13,6 +14,7 @@ public class Magazine {
     private String description;
     private String category;
     private String dateString;
+    private ArrayList<String> tags;
     private Double mensuality;
     private Double companyFee;
     private Double costPerDay;
@@ -24,7 +26,9 @@ public class Magazine {
     public Magazine() {
     }
 
-    public Magazine(String name, Double mensuality, Double companyFee, Double costPerDay, LocalDate date, String description, boolean allowLikes, boolean allowComment, String editor, String catgory) {
+    public Magazine(String name, Double mensuality, Double companyFee, Double costPerDay,
+            LocalDate date, String description, boolean allowLikes, boolean allowComment, String editor,
+            String catgory, ArrayList<String> tags) {
         this.name = name;
         this.mensuality = mensuality;
         this.companyFee = companyFee;
@@ -34,6 +38,7 @@ public class Magazine {
         this.allowLikes = allowLikes;
         this.allowComment = allowComment;
         this.editor = editor;
+        this.tags = tags;
     }
 
     /**
@@ -202,6 +207,20 @@ public class Magazine {
      */
     public void setDateString(String dateString) {
         this.dateString = dateString;
+    }
+
+    /**
+     * @return the tags
+     */
+    public ArrayList<String> getTags() {
+        return tags;
+    }
+
+    /**
+     * @param tags the tags to set
+     */
+    public void setTags(ArrayList<String> tags) {
+        this.tags = tags;
     }
 
 }

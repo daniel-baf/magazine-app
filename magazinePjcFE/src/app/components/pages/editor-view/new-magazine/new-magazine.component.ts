@@ -62,6 +62,8 @@ export class NewMagazineComponent implements OnInit {
   // METHOD
   public queueMagazine() {
     // create user
+    console.log(this._tagsMagazine.length);
+
     if (this._magazineForm.valid && this._categories.length > 0) {
       // create magazine
       this.createMagazine();

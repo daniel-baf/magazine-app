@@ -17,11 +17,20 @@ public class MagazineInsert {
     public int insert(Magazine magazine) {
         try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_INSERT_MAG)) {
             configurePSMagInsert(magazine, ps);
-            return ps.executeUpdate();
+            if (ps.executeUpdate() != 0) {
+                // insert OK
+                try {
+                    new TagsInsert().insert(magazine.getTags());
+                    new MagazineTagInsert().insert(magazine.getName(), magazine.getTags());
+                    return 1;
+                } catch (Exception e) {
+                    System.out.println("Error trying to insert Magazine at [MagazineInsert] " + e.getMessage());
+                }
+            }
         } catch (Exception e) {
             System.out.println("Error trying to insert Magazine at [MagazineInsert] " + e.getMessage());
-            return DAOResults.ERROR_ON_INSERT.getCode();
         }
+        return DAOResults.ERROR_ON_INSERT.getCode();
     }
 
     private void configurePSMagInsert(Magazine magazine, PreparedStatement ps) throws SQLException {
