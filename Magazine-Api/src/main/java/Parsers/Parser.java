@@ -1,10 +1,11 @@
 package Parsers;
 
-import APIErrors.StringArrayMessage;
 import com.google.gson.Gson;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
+import java.sql.Date;
+import java.time.LocalDate;
 
 /**
  * This class convert a JSON to <object> who extends from User this <objects>
@@ -46,6 +47,14 @@ public class Parser {
             return body;
         } catch (IOException e) {
             System.out.println("Error parsing request string from buffered reader at [Parsers].[ReaderBR]\n" + e.getMessage());
+            return null;
+        }
+    }
+
+    public Date toDate(LocalDate date) {
+        try {
+            return Date.valueOf(date);
+        } catch (Exception e) {
             return null;
         }
     }

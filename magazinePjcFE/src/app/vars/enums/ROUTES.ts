@@ -2,9 +2,9 @@ export enum Routes {
   HOME = '',
   LOGIN = 'login',
   SIGNUP = 'signup',
-  SIGNUP_SELECT_CAT = 'signup/select-categories/',
-  READER_PAGE = 'pages/reader-view',
-  EDITOR_PAGE = 'pages/editor-view',
-  ADMIN_PAGE = 'pages/admin-view',
+  PAGES = 'pages/',
   EDIT_PROFILE = '/pages/edit-profile/',
+  SELECT_CAT = '/pages/editor-view/select-categories',
+  // MAGAZINE
+  NEW_MAGAZINE = '/pages/editor-view/new-mag',
 }

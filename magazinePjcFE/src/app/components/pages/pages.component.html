@@ -1,0 +1,11 @@
+<div [ngSwitch]="_user.type" class="bodyKgb">
+  <div *ngSwitchCase="_userTypes[0]">
+    <app-reader-view></app-reader-view>
+  </div>
+  <div *ngSwitchCase="_userTypes[1]">
+    <app-editor-view></app-editor-view>
+  </div>
+  <div *ngSwitchCase="_userTypes[2]">
+    <app-admin-view></app-admin-view>
+  </div>
+</div>

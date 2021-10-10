@@ -56,13 +56,14 @@ CREATE TABLE `Magazine` (
   `name` VARCHAR(30) NOT NULL,
   `subscription_fee` DECIMAL(6,2) NOT NULL,
   `company_fee` DECIMAL NOT NULL,
-  `cost_per_day` DECIMAL(6,2)  NOT NULL,
+  `cost_per_day` DECIMAL(6,2) NULL DEFAULT 0,
   `creation_date` DATE NOT NULL,
   `description` LONGTEXT NOT NULL,
   `allow_comment` SMALLINT(1) NULL DEFAULT 0,
   `allow_likes` SMALLINT(1) NULL DEFAULT 0,
   `category` VARCHAR(50) NOT NULL,
   `editor` VARCHAR(50) NOT NULL,
+  `approved` TINYINT(1) NULL DEFAULT 0,
   PRIMARY KEY (`name`),
   CONSTRAINT `fk_editor_magazine`
     FOREIGN KEY (`editor`)
@@ -282,4 +283,3 @@ DROP USER IF EXISTS 'ipc2'@'localhost';
 CREATE USER 'ipc2'@'localhost' IDENTIFIED BY 'ipc2+contraPjct0s';
 GRANT ALL PRIVILEGES ON `Magazine_Web`.* TO 'ipc2'@'localhost';
 FLUSH PRIVILEGES;
-

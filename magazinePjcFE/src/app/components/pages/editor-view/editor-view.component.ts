@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/modules/Users/user.module';
+import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { RedirectService } from 'src/app/services/redirect.service';
 import { Routes } from 'src/app/vars/enums/ROUTES';
 
@@ -9,12 +10,13 @@ import { Routes } from 'src/app/vars/enums/ROUTES';
   styleUrls: ['./editor-view.component.css'],
 })
 export class EditorViewComponent implements OnInit {
-  _editProfLink: string;
   _user: User;
-  _email: string;
 
-  constructor(private _router: RedirectService) {
-    this._editProfLink = Routes.EDIT_PROFILE;
+  constructor(
+    private _router: RedirectService,
+    private _storageService: LocalStorageService
+  ) {
+    this._user = JSON.parse(`${this._storageService.getData('user')}`);
   }
 
   ngOnInit(): void {}

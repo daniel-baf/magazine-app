@@ -59,19 +59,7 @@ export class LoginComponent implements OnInit {
       (_success: SignUpMessage) => {
         if (_success.message === 'NO_ERROR') {
           this._localStorageService.setItem(_success.user, 'user');
-          switch (_success.user.type) {
-            case USERS_VARS.ADMIN:
-              this._redirecter.redirect(Routes.ADMIN_PAGE);
-              break;
-            case USERS_VARS.EDITOR:
-              this._redirecter.redirect(Routes.EDITOR_PAGE);
-              break;
-            case USERS_VARS.READER:
-              this._redirecter.redirect(Routes.READER_PAGE);
-              break;
-            default:
-              this._showError = true;
-          }
+          this._redirecter.redirect(Routes.PAGES);
         } else {
           this._showError = true;
         }

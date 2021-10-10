@@ -3,7 +3,7 @@ package Contollers.Logs;
 import APIErrors.SignupMessage;
 import APIErrors.StringArrayMessage;
 import DB.DAOs.Users.Reader.ReaderInsert;
-import DB.Domain.Magazine.CategoryDAO;
+import Models.CategoriesModel;
 import Parsers.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -33,21 +33,7 @@ public class CategoriesSelectContoller extends HttpServlet {
             throws ServletException, IOException {
         Parser parser = new Parser();
         try {
-            StringArrayMessage stringArrMessage = new StringArrayMessage();
-
-            switch (request.getParameter("action")) {
-                case "BY_USER":
-                    stringArrMessage.setStrings(new CategoryDAO().select(true, request.getParameter("email")));
-                    stringArrMessage.setMessage("FOUND");
-                    break;
-                case "ALL":
-                    stringArrMessage.setStrings(new CategoryDAO().select(false, null));
-                    stringArrMessage.setMessage("FOUND");
-                    break;
-                default:
-                    stringArrMessage.setMessage("NO_ACTION");
-                    break;
-            }
+            StringArrayMessage stringArrMessage = new CategoriesModel().executeModel(request.getParameter("action"), request.getParameter("email"));
             response.getWriter().append(new Parser().getJsonFromObject(stringArrMessage, stringArrMessage.getClass()));
         } catch (Exception e) {
             System.out.println(e.getMessage());
@@ -72,11 +58,8 @@ public class CategoriesSelectContoller extends HttpServlet {
         try {
             StringArrayMessage emailArray = (StringArrayMessage) parser.getObjectFromJson(parser.getBody(request.getReader()), StringArrayMessage.class);
             int result = new ReaderInsert().insertCategories(emailArray.getMessage(), emailArray.getArray());
-            if (result == emailArray.getArray().size()) {
-                emailArray.setMessage("SUCCESS");
-            } else {
-                emailArray.setMessage("CANNNOT_APPL " + emailArray.getArray().size());
-            }
+            String message = result == emailArray.getArray().size() ? "SUCCESS" : "CANNOT_APPL";
+            emailArray.setMessage(message);
             response.getWriter().append(parser.getJsonFromObject(emailArray, StringArrayMessage.class));
         } catch (Exception e) {
             response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intetnar buscar categorias en [CategoriesSelectController] " + e.getMessage(), null), SignupMessage.class));

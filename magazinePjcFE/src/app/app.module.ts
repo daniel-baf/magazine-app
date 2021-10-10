@@ -16,6 +16,9 @@ import { EditProfileComponent } from './components/pages/edit-profile/edit-profi
 import { NavViewPageComponent } from './components/pages/nav-view-page/nav-view-page.component';
 import { FooterComponent } from './components/pages/footer/footer.component';
 import { MainComponent } from './components/logPage/main/main.component';
+import { PagesComponent } from './components/pages/pages.component';
+import { EditorAsideComponent } from './components/pages/editor-view/editor-aside/editor-aside.component';
+import { NewMagazineComponent } from './components/pages/editor-view/new-magazine/new-magazine.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,9 @@ import { MainComponent } from './components/logPage/main/main.component';
     NavViewPageComponent,
     FooterComponent,
     MainComponent,
+    PagesComponent,
+    EditorAsideComponent,
+    NewMagazineComponent,
   ],
   imports: [
     BrowserModule,

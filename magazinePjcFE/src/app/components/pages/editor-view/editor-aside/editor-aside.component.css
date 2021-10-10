@@ -1,14 +1,3 @@
-.wrapper {
-  display: flex;
-  width: 100%;
-  align-items: stretch;
-}
-
-.wrapper {
-  display: flex;
-  align-items: stretch;
-}
-
 #sidebar {
   min-width: 250px;
   max-width: 250px;
@@ -42,19 +31,6 @@ a[data-toggle="collapse"] {
 
 @import "https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700";
 
-body {
-  font-family: "Poppins", sans-serif;
-  background: #fafafa;
-}
-
-p {
-  font-family: "Poppins", sans-serif;
-  font-size: 1.1em;
-  font-weight: 300;
-  line-height: 1.7em;
-  color: #999;
-}
-
 a,
 a:hover,
 a:focus {
@@ -68,6 +44,7 @@ a:focus {
   background: #222121;
   color: #fff;
   transition: all 0.3s;
+  height: 100%;
 }
 
 #sidebar .sidebar-header {

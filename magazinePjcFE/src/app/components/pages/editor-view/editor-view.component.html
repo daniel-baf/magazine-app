@@ -1,6 +1,12 @@
-<div class="headerKgb">
-  <app-nav-view-page></app-nav-view-page>
-</div>
-<div class="bodyKgb">
-  <p>editor-view works!</p>
+<div class="wrapper">
+  <!-- Sidebar -->
+  <app-editor-aside></app-editor-aside>
+  <!-- Page Content -->
+  <div id="content" style="width: 100%">
+    <app-nav-view-page></app-nav-view-page>
+    <!-- We'll fill this with dummy content -->
+    <div class="container">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
 </div>

@@ -45,7 +45,7 @@ export class EditProfileComponent implements OnInit {
   // FORM AC TIONS
 
   editCategories() {
-    this._routerService.redirect(Routes.SIGNUP_SELECT_CAT);
+    this._routerService.redirect(Routes.SELECT_CAT);
   }
 
   saveProfileChanges() {
@@ -95,6 +95,9 @@ export class EditProfileComponent implements OnInit {
       (_success: User) => {
         this._user = _success;
         this._infoForm.controls['_name'].setValue(this._user.name);
+        this._infoForm.controls['_description'].setValue(
+          this._user.description
+        );
       },
       (_error: Error) => {
         this.showError(_error.message);

@@ -5,8 +5,8 @@
  */
 package Contollers.Logs;
 
-import APIErrors.SignupMessage;
-import Models.UserModel;
+import APIErrors.MagazineMessage;
+import Models.MagazineModel;
 import Parsers.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -19,8 +19,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jefemayoneso
  */
-@WebServlet(name = "UserUpdater", urlPatterns = {"/UserUpdater"})
-public class UserUpdater extends HttpServlet {
+@WebServlet(name = "MagazineContoller", urlPatterns = {"/MagazineContoller"})
+public class MagazineContoller extends HttpServlet {
 
     /**
      * Handles the HTTP <code>POST</code> method.
@@ -33,14 +33,11 @@ public class UserUpdater extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        processRequest(request, response);
         Parser parser = new Parser();
         try {
-            SignupMessage message = new UserModel().updateUser(request.getReader());
-            response.getWriter().append(parser.getJsonFromObject(message, SignupMessage.class));
+            MagazineMessage message = new MagazineModel().executeModel(request.getReader());
+            response.getWriter().append(parser.getJsonFromObject(message, MagazineMessage.class));
         } catch (Exception e) {
-            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intentar Iniciar sesion en [UserUpdater] " + e.getMessage(), null), SignupMessage.class));
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
