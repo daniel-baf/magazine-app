@@ -12,8 +12,15 @@ import java.sql.SQLException;
  */
 public class EditorUpdate {
 
+    // SQL queries
     private String SQL_UPDATE_EDITOR = "UPDATE Editor SET name=?, password=?, description=? WHERE (email = ?);";
 
+    /**
+     * Update a <Editor> information
+     *
+     * @param editor
+     * @return
+     */
     public int update(Editor editor) {
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_UPDATE_EDITOR)) {
             configurePSUpdate(editor, ps);
@@ -24,6 +31,13 @@ public class EditorUpdate {
         }
     }
 
+    /**
+     * Configure the <Editor> information for <PreparedStatement>
+     *
+     * @param editor
+     * @param ps
+     * @throws SQLException
+     */
     private void configurePSUpdate(Editor editor, PreparedStatement ps) throws SQLException {
         ps.setString(1, editor.getName());
         ps.setString(2, editor.getPassword());

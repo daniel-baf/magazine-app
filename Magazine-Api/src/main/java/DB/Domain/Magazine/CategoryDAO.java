@@ -13,11 +13,12 @@ import java.util.ArrayList;
  */
 public class CategoryDAO {
 
+    // SQL SENTENCES
     private String SQL_SELECT_CATEGORIES = "SELECT * FROM Category";
     private String SQL_SELECT_USER_CATEGORIES = "SELECT * FROM User_Intrest_Categories WHERE reader = ?";
 
     /**
-     * This method select all tags on DB
+     * select all <Categories> on DATABASE
      *
      * @param byUser true if search by user
      * @param user the user email if wants by email

@@ -121,10 +121,9 @@ CREATE TABLE `Like` (
 
 DROP TABLE IF EXISTS `Magazine_Tag`;
 CREATE TABLE `Magazine_Tag` (
-  `id` INT NOT NULL,
   `magazine` VARCHAR(30) NOT NULL,
   `tag` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`magazine`, `tag`),
   CONSTRAINT `fk_magazine_mag_tag`
     FOREIGN KEY (`magazine`)
     REFERENCES `Magazine_Web`.`Magazine` (`name`)
@@ -277,9 +276,3 @@ CREATE TABLE `Payment` (
     REFERENCES `Magazine_Web`.`Subscription` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
-
--- SQL USER
-DROP USER IF EXISTS 'ipc2'@'localhost';
-CREATE USER 'ipc2'@'localhost' IDENTIFIED BY 'ipc2+contraPjct0s';
-GRANT ALL PRIVILEGES ON `Magazine_Web`.* TO 'ipc2'@'localhost';
-FLUSH PRIVILEGES;

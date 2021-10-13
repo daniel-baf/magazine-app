@@ -28,9 +28,10 @@ public class UserChecker extends HttpServlet {
             throws ServletException, IOException {
         try {
             SignupMessage message = new LoginCheckerModel().verifyUser(request.getReader());
-            response.getWriter().append(new Parser().getJsonFromObject(message, message.getClass()));
+            response.getWriter().append(new Parser().toJSON(message, message.getClass()));
         } catch (Exception e) {
-            System.out.println("Error at [Contoller.Logs].[UserChecker] " + e.getMessage());
+            response.getWriter().append(new Parser().toJSON(new SignupMessage("Error al intentar verificar al usuario " + e.getMessage(), null), SignupMessage.class));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -50,14 +51,14 @@ public class UserChecker extends HttpServlet {
             switch (request.getParameter("action")) {
                 case "BASIC_INFO":
                     User user = (User) new LoginCheckerModel().searchUser(request.getParameter("email"));
-                    response.getWriter().append(parser.getJsonFromObject(user, user.getClass()));
+                    response.getWriter().append(parser.toJSON(user, user.getClass()));
                     break;
                 default:
                     response.getWriter().append(null);
             }
 
         } catch (Exception e) {
-            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error buscando usuario en [UserChecker] " + e.getMessage(), null), SignupMessage.class));
+            response.getWriter().append(parser.toJSON(new SignupMessage("Error buscando usuario en [UserChecker] " + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

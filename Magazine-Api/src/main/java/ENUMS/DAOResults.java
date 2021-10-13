@@ -2,11 +2,13 @@ package ENUMS;
 
 public enum DAOResults {
 
+    // VARIABLES
     EMAIL_IN_USE(-1, "EMAIL_IN_USE"),
     UNAUTHORIZED(-2, "UNAUTHORIZED"),
     ERROR_ON_INSERT(0, "ERROR_INSERT"),
     NO_ERROR(1, "NO_ERROR");
 
+    // METHODS
     private int code;
     private String message;
 

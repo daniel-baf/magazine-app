@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Contollers.Logs;
 
 import APIErrors.SignupMessage;
@@ -23,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 public class UserUpdater extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Controller, update the info of User/s
      *
      * @param request servlet request
      * @param response servlet response
@@ -37,9 +32,9 @@ public class UserUpdater extends HttpServlet {
         Parser parser = new Parser();
         try {
             SignupMessage message = new UserModel().updateUser(request.getReader());
-            response.getWriter().append(parser.getJsonFromObject(message, SignupMessage.class));
+            response.getWriter().append(parser.toJSON(message, SignupMessage.class));
         } catch (Exception e) {
-            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intentar Iniciar sesion en [UserUpdater] " + e.getMessage(), null), SignupMessage.class));
+            response.getWriter().append(parser.toJSON(new SignupMessage("Error al intentar Iniciar sesion en [UserUpdater] " + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

@@ -10,10 +10,11 @@ import java.sql.SQLException;
  */
 public class AdminUpdate {
 
+    // SQL queries
     private String SQL_UPDATE_ADMIN = "UPDATE Admin SET password=?, name =? WHERE (email=?)";
 
     /**
-     * This method update any admin's info at DATABASE
+     * This method update any admin info at DATABASE
      *
      * @param admin OBject with info
      * @return int, with the number of rows affected

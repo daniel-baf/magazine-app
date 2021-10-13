@@ -33,6 +33,13 @@ public class ReaderSelect {
         return null;
     }
 
+    /**
+     * get all the info of a <Reader> from <ResultSet>
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private Reader getReaderFromRs(ResultSet rs) throws SQLException {
         return new Reader(rs.getString("email"), rs.getString("password"), rs.getString("name"));
     }

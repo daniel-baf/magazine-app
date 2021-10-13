@@ -9,8 +9,17 @@ import DB.Domain.Magazine.CategoryDAO;
  */
 public class CategoriesModel {
 
+    /**
+     * Execute the actions from Categories from FRONTEND
+     *
+     * @param action
+     * @param email
+     * @return
+     */
     public StringArrayMessage executeModel(String action, String email) {
+        // Vars for response
         StringArrayMessage stringArrMessage = new StringArrayMessage();
+        // Execute actions
         switch (action) {
             case "BY_USER":
                 stringArrMessage.setStrings(new CategoryDAO().select(true, email));

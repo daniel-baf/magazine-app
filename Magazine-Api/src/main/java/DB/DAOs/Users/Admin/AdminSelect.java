@@ -12,10 +12,8 @@ import java.sql.SQLException;
  */
 public class AdminSelect {
 
+    // SQL queries
     private final String SQL_SELECT_ADMIN = "SELECT * FROM Magazine_Web.Admin WHERE email = ?";
-
-    public AdminSelect() {
-    }
 
     /**
      * select 1 admin from DB by email

@@ -29,6 +29,13 @@ public class ReaderUpdate {
         }
     }
 
+    /**
+     * Configure the <PreparedStatement> for Updates
+     *
+     * @param reader
+     * @param ps
+     * @throws SQLException
+     */
     private void configurePS(Reader reader, PreparedStatement ps) throws SQLException {
         ps.setString(1, reader.getName());
         ps.setString(2, reader.getPassword());

@@ -59,7 +59,6 @@ public class ReaderInsert {
         int results = 0;
         int subResult;
         // clear actual categories
-        // delete
         new ReaderDelete().deleteCategoryIntrest(true, reader, "");
         // insert
         for (String category : categories) {

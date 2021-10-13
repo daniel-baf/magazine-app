@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { User } from 'src/app/modules/Users/user.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
+import { RedirectService } from 'src/app/services/redirect.service';
 import { Routes } from 'src/app/vars/enums/ROUTES';
 
 @Component({
@@ -14,11 +14,18 @@ export class NavViewPageComponent implements OnInit {
   _user: User;
 
   constructor(
-    private _localStorageService: LocalStorageService
+    private _localStorageService: LocalStorageService,
+    private _router: RedirectService
   ) {
     this._editProfLink = Routes.EDIT_PROFILE;
     this._user = JSON.parse(`${this._localStorageService.getData('user')}`);
   }
 
   ngOnInit(): void {}
+
+  logout(event: Event) {
+    event.preventDefault();
+    this._localStorageService.clear();
+    this._router.redirect(Routes.HOME);
+  }
 }

@@ -34,9 +34,9 @@ public class CategoriesSelectContoller extends HttpServlet {
         Parser parser = new Parser();
         try {
             StringArrayMessage stringArrMessage = new CategoriesModel().executeModel(request.getParameter("action"), request.getParameter("email"));
-            response.getWriter().append(new Parser().getJsonFromObject(stringArrMessage, stringArrMessage.getClass()));
+            response.getWriter().append(new Parser().toJSON(stringArrMessage, stringArrMessage.getClass()));
         } catch (Exception e) {
-            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intetnar buscar categorias " + e.getMessage(), null), SignupMessage.class));
+            response.getWriter().append(parser.toJSON(new SignupMessage("Error al intetnar buscar categorias " + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
@@ -55,13 +55,17 @@ public class CategoriesSelectContoller extends HttpServlet {
         // validar que recibo
         Parser parser = new Parser();
         try {
-            StringArrayMessage emailArray = (StringArrayMessage) parser.getObjectFromJson(parser.getBody(request.getReader()), StringArrayMessage.class);
+            // response
+            StringArrayMessage emailArray = (StringArrayMessage) parser.toObject(parser.getBody(request.getReader()), StringArrayMessage.class);
+            // result of actions
             int result = new ReaderInsert().insertCategories(emailArray.getMessage(), emailArray.getArray());
+            // message response
             String message = result == emailArray.getArray().size() ? "SUCCESS" : "CANNOT_APPL";
+            // send response
             emailArray.setMessage(message);
-            response.getWriter().append(parser.getJsonFromObject(emailArray, StringArrayMessage.class));
+            response.getWriter().append(parser.toJSON(emailArray, StringArrayMessage.class));
         } catch (Exception e) {
-            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error al intetnar buscar categorias en [CategoriesSelectController] " + e.getMessage(), null), SignupMessage.class));
+            response.getWriter().append(parser.toJSON(new SignupMessage("Error al intetnar buscar categorias en [CategoriesSelectController] " + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
 

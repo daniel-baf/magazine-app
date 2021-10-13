@@ -15,9 +15,6 @@ import java.io.BufferedReader;
  */
 public class LoginCheckerModel {
 
-    public LoginCheckerModel() {
-    }
-
     /**
      * Verify if the credentials are correct and give access to system
      *
@@ -29,7 +26,7 @@ public class LoginCheckerModel {
         Parser parser = new Parser();
         // variables
         SignupMessage message = new SignupMessage();
-        User user = (User) new Parser().getObjectFromJson(parser.getBody(br), User.class);
+        User user = (User) new Parser().toObject(parser.getBody(br), User.class);
         User userDB = searchUser(user.getEmail());
         // set types
         String status = userDB != null && match(user, userDB) ? DAOResults.NO_ERROR.getMessage() : DAOResults.UNAUTHORIZED.getMessage();

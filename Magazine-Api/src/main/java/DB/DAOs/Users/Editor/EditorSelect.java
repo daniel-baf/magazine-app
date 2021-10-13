@@ -33,6 +33,13 @@ public class EditorSelect {
         return null;
     }
 
+    /**
+     * Get the <Editor> info from <PreparedStatement>
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private Editor getEditorFromRs(ResultSet rs) throws SQLException {
         return new Editor(rs.getString("email"), rs.getString("password"), rs.getString("name"), rs.getString("description"));
     }

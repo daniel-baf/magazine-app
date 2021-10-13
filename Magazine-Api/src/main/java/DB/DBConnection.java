@@ -6,9 +6,10 @@ import java.sql.SQLException;
 
 public class DBConnection {
 
-    private static final String MYSQl_URL = "jdbc:mysql://localhost:3306/Magazine_Web?autoReconnect=true&characterEncoding=UTF-8";
-    private String MYSQL_USER = "ipc2";
-    private String MYSQL_PASSWORD = "ipc2+contraPjct0s";
+    // Constants
+    private final String MYSQl_URL = "jdbc:mysql://localhost:3306/Magazine_Web?autoReconnect=true&characterEncoding=UTF-8";
+    private final String MYSQL_USER = "ipc2";
+    private final String MYSQL_PASSWORD = "ipc2+contraPjct0s";
     private static Connection connection = null;
 
     /**

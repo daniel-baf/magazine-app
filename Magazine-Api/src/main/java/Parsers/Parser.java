@@ -15,23 +15,41 @@ import java.time.LocalDate;
  */
 public class Parser {
 
+    // variables
     private Gson gson;
 
+    /**
+     * constructor
+     */
     public Parser() {
         gson = new Gson();
     }
 
-    public Object getObjectFromJson(String jsonString, Type type) {
+    /**
+     * THis method transform any <JSON> string to <object>
+     *
+     * @param jsonString
+     * @param type
+     * @return
+     */
+    public Object toObject(String jsonString, Type type) {
         return this.gson.fromJson(jsonString, type);
     }
 
-    // recibir un Objeto, el tipo del objeto
-    public String getJsonFromObject(Object src, Type typeOfSrc) {
+    /**
+     * This method transform any <object> to <JSON> string
+     *
+     * @param src
+     * @param typeOfSrc
+     * @return
+     */
+    public String toJSON(Object src, Type typeOfSrc) {
         return this.gson.toJson(src, typeOfSrc);
     }
 
     /**
-     * this method reads the BR from the FRONTEND and returns the string readed
+     * this method reads the <Buffered Reader> from the FRONTEND and returns the
+     * string read
      *
      * @param br
      * @return
@@ -51,6 +69,12 @@ public class Parser {
         }
     }
 
+    /**
+     * This method transform any <LocalDate> to <SQL Date>
+     *
+     * @param date
+     * @return
+     */
     public Date toDate(LocalDate date) {
         try {
             return Date.valueOf(date);
@@ -59,6 +83,12 @@ public class Parser {
         }
     }
 
+    /**
+     * This method transform any <String> to <LocalDate>
+     *
+     * @param dateString
+     * @return
+     */
     public LocalDate toLocalDate(String dateString) {
         return LocalDate.parse(dateString);
     }

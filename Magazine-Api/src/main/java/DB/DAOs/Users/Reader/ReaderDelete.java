@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
  */
 public class ReaderDelete {
 
+    // SQL sentences
     private String SQL_DELETE_USER_CATG = "DELETE FROM User_Intrest_Categories WHERE (reader = ?) and (category = ?)";
     private String SQL_DELETE_USER_CATG_ALL = "DELETE FROM User_Intrest_Categories WHERE (reader = ?)";
 
@@ -27,8 +28,7 @@ public class ReaderDelete {
             if (!deleteAll) {
                 ps.setString(2, category);
             }
-            int result = ps.executeUpdate();
-            return result;
+            return ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Error trying to DELETE CATEGORY from USER at [DB.DAOs.Users.Reader].[ReaderDelete] " + e.getMessage());
             return 0;

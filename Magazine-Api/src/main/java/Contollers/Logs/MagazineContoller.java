@@ -24,7 +24,7 @@ import javax.servlet.http.HttpServletResponse;
 public class MagazineContoller extends HttpServlet {
 
     /**
-     * Handles the HTTP <code>POST</code> method.
+     * Manage the actions of Magazine
      *
      * @param request servlet request
      * @param response servlet response
@@ -37,9 +37,9 @@ public class MagazineContoller extends HttpServlet {
         Parser parser = new Parser();
         try {
             MagazineMessage message = new MagazineModel().executeModel(request.getReader());
-            response.getWriter().append(parser.getJsonFromObject(message, MagazineMessage.class));
+            response.getWriter().append(parser.toJSON(message, MagazineMessage.class));
         } catch (Exception e) {
-            response.getWriter().append(parser.getJsonFromObject(new SignupMessage("Error trying to make a Magazine action at [MagazineController]" + e.getMessage(), null), SignupMessage.class));
+            response.getWriter().append(parser.toJSON(new SignupMessage("Error trying to make a Magazine action at [MagazineController]" + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }

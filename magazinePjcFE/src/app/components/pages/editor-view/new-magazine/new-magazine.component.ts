@@ -62,28 +62,21 @@ export class NewMagazineComponent implements OnInit {
   // METHOD
   public queueMagazine() {
     // create user
-    console.log(this._tagsMagazine.length);
-
-    if (this._magazineForm.valid && this._categories.length > 0) {
+    if (this._magazineForm.valid && this._tagsMagazine.length > 0) {
       // create magazine
       this.createMagazine();
-      console.log('ENVIANDO');
-
-      console.log(this._magazine);
-
       this.createMagazine;
       this._magazineService
         .queueOrPublishMagazine(new MagazineMessage('QUEUE', this._magazine))
         .subscribe(
           (_success: MagazineMessage) => {
-            console.log(_success);
             if (_success.message === 'NO_ERROR') {
               this.showResultMessage(
                 'Se ha puesto en lista de espera tu revista'
               );
             } else {
               this.showAlertMessage(
-                'No se ha podido publicar tu revista' + _success.message
+                'No se ha podido publicar tu revista, es posible que ya este registrada'
               );
             }
           },
@@ -150,7 +143,6 @@ export class NewMagazineComponent implements OnInit {
   public getFees() {
     this._feesService.getFees().subscribe((_success: number[]) => {
       this._companyFee = _success[0];
-      console.log(this._companyFee);
       this._magazineForm.controls['_companyFee'].setValue(this._companyFee);
     });
   }

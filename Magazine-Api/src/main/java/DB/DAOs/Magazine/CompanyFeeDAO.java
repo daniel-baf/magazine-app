@@ -12,8 +12,15 @@ import java.util.ArrayList;
  */
 public class CompanyFeeDAO {
 
+    // SQL queries
     private String SQL_SELECT_COMP_FEE = "SELECT * FROM Company_Fee";
 
+    /**
+     * Select all Fees from DB, the idea is to manage only 1 fee, but this can
+     * be useful in the future
+     *
+     * @return
+     */
     public ArrayList<Double> select() {
         try ( PreparedStatement ps = DBConnection.getConnection().prepareCall(SQL_SELECT_COMP_FEE)) {
             ArrayList<Double> list = new ArrayList<>();

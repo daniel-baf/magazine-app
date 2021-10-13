@@ -22,9 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CompanyFeeController", urlPatterns = {"/CompanyFeeController"})
 public class CompanyFeeController extends HttpServlet {
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
-     * Handles the HTTP <code>GET</code> method.
+     * Manage the company fee actions, controller
      *
      * @param request servlet request
      * @param response servlet response
@@ -40,7 +39,7 @@ public class CompanyFeeController extends HttpServlet {
                 list = new CompanyFeeDAO().select();
                 break;
         }
-        response.getWriter().append(new Parser().getJsonFromObject(list, new ArrayList<Double>().getClass()));
+        response.getWriter().append(new Parser().toJSON(list, new ArrayList<Double>().getClass()));
     }
 
 }
