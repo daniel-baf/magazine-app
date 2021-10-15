@@ -2,7 +2,9 @@
   <!-- Sidebar -->
   <nav id="sidebar">
     <div class="sidebar-header">
-      <h3>VISTA {{ _user.type }}</h3>
+      <a [routerLink]="_readerViewUrl">
+        <h3>VISTA {{ _user.type }}</h3>
+      </a>
     </div>
 
     <ul class="list-unstyled components">
@@ -13,11 +15,11 @@
           data-toggle="collapse"
           aria-expanded="false"
           class="dropdown-toggle"
-          >Home</a
+          >Acciones</a
         >
         <ul class="collapse list-unstyled" id="homeSubmenu">
           <li>
-            <a href="#">Home 1</a>
+            <a [routerLink]="[_magListUrl]">Nueva subscripcion</a>
           </li>
           <li>
             <a href="#">Home 2</a>

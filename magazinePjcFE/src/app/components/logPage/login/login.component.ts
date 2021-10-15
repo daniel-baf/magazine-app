@@ -67,8 +67,11 @@ export class LoginComponent implements OnInit {
       (_error: Error) => {
         // error -> show message
         this._isBackendError = true;
-        this._error = _error.message;
+        if (_error.name === 'HttpErrorResponse') {
+          _error.message = 'No hay conexion al servidor';
+        }
         this._localStorageService.clear();
+        this._error = _error.message;
       }
     );
   }

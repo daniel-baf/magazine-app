@@ -15,6 +15,7 @@ export class ApproveMagComponent implements OnInit {
   _toAdd: number = 5;
   _activeMag: Magazine;
   _showMessage: boolean = false;
+  _showSuccess: boolean = false;
 
   constructor(
     private _magService: MagazineService,
@@ -87,6 +88,12 @@ export class ApproveMagComponent implements OnInit {
       this._magService
         .updateMagazine(new MagazineMessage('UPDATE', this._activeMag))
         .subscribe((_success: MagazineMessage) => {
+          if (_success.message === 'NO_ERROR') {
+            this._showSuccess = true;
+            this.getMagazines();
+          } else {
+            this._showMessage = true;
+          }
           console.log(_success);
         });
     }

@@ -21,6 +21,7 @@ import { EditorAsideComponent } from './components/pages/editor-view/editor-asid
 import { NewMagazineComponent } from './components/pages/editor-view/new-magazine/new-magazine.component';
 import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/approve-mag.component';
 import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
+import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { PreviewMagazineComponent } from './components/pages/magazine/preview-ma
     NewMagazineComponent,
     ApproveMagComponent,
     PreviewMagazineComponent,
+    MagazineListComponent,
   ],
   imports: [
     BrowserModule,

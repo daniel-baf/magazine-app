@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/modules/Users/user.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
-import { RedirectService } from 'src/app/services/redirect.service';
+import { Routes } from 'src/app/vars/enums/ROUTES';
 
 @Component({
   selector: 'app-reader-view',
@@ -10,11 +10,10 @@ import { RedirectService } from 'src/app/services/redirect.service';
 })
 export class ReaderViewComponent implements OnInit {
   _user: User;
+  _magListUrl: string = Routes.MAGAZINE_LIST;
+  _readerViewUrl: string = Routes.PAGES;
 
-  constructor(
-    private _router: RedirectService,
-    private _storageService: LocalStorageService
-  ) {
+  constructor(private _storageService: LocalStorageService) {
     this._user = JSON.parse(`${this._storageService.getData('user')}`);
   }
 

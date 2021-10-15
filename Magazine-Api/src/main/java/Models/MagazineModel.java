@@ -37,8 +37,7 @@ public class MagazineModel {
                 result = new MagazineInsert().insert(message.getMagazine());
                 break;
             case "UPDATE":
-                Magazine mag = (Magazine) parser.toObject(parser.toJSON(message.getMagazine(), Magazine.class), Magazine.class);
-                mag.setApproved(true);
+                message.getMagazine().setApproved(true);
                 result = new MagazineUpdate().update(message.getMagazine());
             default:
         }

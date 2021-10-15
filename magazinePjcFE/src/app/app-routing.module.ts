@@ -10,6 +10,7 @@ import { EditProfileComponent } from './components/pages/edit-profile/edit-profi
 import { NewMagazineComponent } from './components/pages/editor-view/new-magazine/new-magazine.component';
 import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
 import { PagesComponent } from './components/pages/pages.component';
+import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -20,8 +21,8 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       {
-        path: 'edit-profile',
-        component: EditProfileComponent,
+        path: 'reader-view',
+        children: [{ path: 'mag-list', component: MagazineListComponent }],
       },
       {
         path: 'editor-view',
@@ -47,6 +48,10 @@ const routes: Routes = [
         children: [
           { path: 'preview/:name', component: PreviewMagazineComponent },
         ],
+      },
+      {
+        path: 'edit-profile',
+        component: EditProfileComponent,
       },
     ],
   },

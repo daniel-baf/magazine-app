@@ -86,10 +86,6 @@
         </button>
       </div>
       <div class="modal-body">
-        <div *ngIf="_showMessage" class="alert alert-warning" role="alert">
-          <strong>Alerta</strong>, el precio por dia debe ser distinto de 0 y
-          mayor que 0
-        </div>
         <div class="mt-5">
           <div class="d-flex">
             <div>
@@ -279,6 +275,15 @@
                 <li class="list-group-item disabled">Agrega cuantas quieras</li>
               </ul>
             </div>
+          </div>
+        </div>
+        <div>
+          <div *ngIf="_showSuccess" class="alert alert-success" role="alert">
+            La revista {{ _activeMag.name }}<strong> ha sido aprobada</strong>
+          </div>
+          <div *ngIf="_showMessage" class="alert alert-warning" role="alert">
+            <strong>Alerta</strong>, el precio por dia debe ser distinto de 0 y
+            mayor que 0
           </div>
         </div>
         <div class="modal-footer">
