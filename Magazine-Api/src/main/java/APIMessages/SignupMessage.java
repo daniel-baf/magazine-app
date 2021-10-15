@@ -1,4 +1,4 @@
-package APIErrors;
+package APIMessages;
 
 import DB.Domain.Users.User;
 

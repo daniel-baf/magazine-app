@@ -1,6 +1,6 @@
 package Contollers.Logs;
 
-import APIErrors.SignupMessage;
+import APIMessages.SignupMessage;
 import Models.SignupModel;
 import Parsers.Parser;
 import java.io.IOException;

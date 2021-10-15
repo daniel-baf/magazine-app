@@ -5,9 +5,10 @@ import { LoginComponent } from './components/logPage/login/login.component';
 import { MainComponent } from './components/logPage/main/main.component';
 import { SelectCategoriesComponent } from './components/logPage/signup/select-categories/select-categories.component';
 import { SignupComponent } from './components/logPage/signup/signup.component';
+import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/approve-mag.component';
 import { EditProfileComponent } from './components/pages/edit-profile/edit-profile.component';
-import { EditorViewComponent } from './components/pages/editor-view/editor-view.component';
 import { NewMagazineComponent } from './components/pages/editor-view/new-magazine/new-magazine.component';
+import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
 import { PagesComponent } from './components/pages/pages.component';
 
 const routes: Routes = [
@@ -19,16 +20,33 @@ const routes: Routes = [
     component: PagesComponent,
     children: [
       {
-        path: 'editor-view',
-        children: [{ path: 'new-mag', component: NewMagazineComponent }],
-      },
-      {
         path: 'edit-profile',
         component: EditProfileComponent,
       },
       {
-        path: 'editor-view/select-categories',
-        component: SelectCategoriesComponent,
+        path: 'editor-view',
+        children: [
+          { path: 'new-mag', component: NewMagazineComponent },
+          {
+            path: 'select-categories',
+            component: SelectCategoriesComponent,
+          },
+        ],
+      },
+      {
+        path: 'admin-view',
+        children: [
+          {
+            path: 'approve-mag',
+            component: ApproveMagComponent,
+          },
+        ],
+      },
+      {
+        path: 'magazine',
+        children: [
+          { path: 'preview/:name', component: PreviewMagazineComponent },
+        ],
       },
     ],
   },

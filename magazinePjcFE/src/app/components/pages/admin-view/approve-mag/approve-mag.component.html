@@ -1,0 +1,308 @@
+<div class="container mt-3 mb-3">
+  <h3>Aprobar revista</h3>
+  <div class="list-group">
+    <!-- active -->
+    <a
+      href="#"
+      class="
+        list-group-item list-group-item-action
+        flex-column
+        align-items-start
+      "
+      *ngFor="let _mag of _magazines"
+      data-toggle="modal"
+      data-target="#modelId"
+      (click)="setMagTmp(_mag)"
+    >
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ _mag.name }}</h5>
+        <small> Click para previsualizar </small>
+      </div>
+      <p class="mb-1">{{ _mag.description }}</p>
+      <small
+        >Puesto en lista de espera por {{ _mag.editor }} el
+        {{ _mag.dateString }}</small
+      >
+    </a>
+  </div>
+
+  <hr />
+
+  <div>
+    <div class="form-group">
+      <label for="itm-to-add">Mostrar mas</label>
+      <select
+        class="form-control"
+        name="itm-to-add"
+        id="itm-to-add"
+        [(ngModel)]="_toAdd"
+      >
+        <option selected value="5">5</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
+        <option value="50">50</option>
+        <option value="200">200</option>
+      </select>
+    </div>
+    <button
+      type="button"
+      name=""
+      id=""
+      class="btn btn-primary btn-lg btn-block"
+      (click)="showMoreMagazines()"
+    >
+      Ver mas
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary btn-block mt-2"
+      (click)="resetItemsToShow()"
+    >
+      Ver menos
+    </button>
+  </div>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modelId"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modelTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-ku" role="dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Revista: {{ _activeMag.name }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div *ngIf="_showMessage" class="alert alert-warning" role="alert">
+          <strong>Alerta</strong>, el precio por dia debe ser distinto de 0 y
+          mayor que 0
+        </div>
+        <div class="mt-5">
+          <div class="d-flex">
+            <div>
+              <h4>Revista</h4>
+              <form class="form mb-5">
+                <div class="form-group">
+                  <label for="name">Nombre revista</label>
+                  <input
+                    required
+                    type="text"
+                    class="form-control"
+                    name="name"
+                    id="name"
+                    aria-describedby="nameHelp"
+                    placeholder="El nombre de la revista"
+                    [value]="_activeMag.name"
+                    readonly
+                  />
+                  <small id="nameHelp" class="form-text text-muted"
+                    >No pueden existir 2 revistas con el mismo nombre</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="price">Precio mensual</label>
+                  <input
+                    required
+                    type="number"
+                    class="form-control"
+                    name="price"
+                    id="price"
+                    aria-describedby="priceHelp"
+                    placeholder="El costo de subscripción"
+                    step="0.01"
+                    min="0"
+                    [value]="_activeMag.mensuality"
+                    readonly
+                  />
+                  <small id="priceHelp" class="form-text text-muted"
+                    >El precio mínimmo es 0</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="companyFee">Porcentaje para la empresa</label>
+                  <input
+                    required
+                    type="number"
+                    class="form-control"
+                    name="companyFee"
+                    id="companyFee"
+                    aria-describedby="companyFeeHep"
+                    placeholder="Porcentaje de la empresa por subscipciòn"
+                    [value]="_activeMag.companyFee"
+                    readonly
+                  />
+                  <small id="companyFeeHep" class="form-text text-muted"
+                    >La empresa se queda un porcentaje de cada subscripción
+                    obtenida</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="costPerDay">Costo por dia</label>
+                  <input
+                    required
+                    type="number"
+                    class="form-control"
+                    name="costPerDay"
+                    id="costPerDay"
+                    aria-describedby="costPerDayHelp"
+                    placeholder="Costo de mantenimiento por dia"
+                    [(ngModel)]="_activeMag.costPerDay"
+                  />
+                  <small id="costPerDayHelp" class="form-text text-muted"
+                    >El costo que lleva mantener la revista publicada</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="creationDate">Fecha de creación</label>
+                  <input
+                    required
+                    type="date"
+                    class="form-control"
+                    name="creationDate"
+                    id="creationDate"
+                    aria-describedby="creationDateHelpId"
+                    placeholder="La fecha en que se creó la revista"
+                    [value]="_activeMag.dateString"
+                    readonly
+                  />
+                  <small id="creationDateHelpId" class="form-text text-muted"
+                    >Para efectos de calificación se permite elegir la
+                    fecha</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="description">Descripción</label>
+                  <textarea
+                    class="form-control"
+                    name="description"
+                    id="description"
+                    rows="5"
+                    maxlength="3000"
+                    [value]="_activeMag.description"
+                    readonly
+                  ></textarea>
+                </div>
+                <div class="d-flex">
+                  <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                      <input
+                        required
+                        class="form-check-input"
+                        type="checkbox"
+                        name="allowLikes"
+                        id="allowLikes"
+                        [checked]="_activeMag.allowLikes"
+                        disabled
+                      />
+                      Quiero que mi revista reciba likes
+                    </label>
+                  </div>
+                  <div class="form-check">
+                    <label class="form-check-label">
+                      <input
+                        required
+                        type="checkbox"
+                        class="form-check-input"
+                        name="allowComments"
+                        id="allowComments"
+                        [checked]="_activeMag.allowComment"
+                        disabled
+                      />
+                      Quiero que mi revista reciba comentarios
+                    </label>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label for="category">Categoria</label>
+                  <input
+                    required
+                    type="text"
+                    class="form-control"
+                    name="category"
+                    id="category"
+                    aria-describedby="categoryHel-p"
+                    placeholder="La categoria de la revista"
+                    [value]="_activeMag.category"
+                    readonly
+                  />
+                  <small id="categoryHel-p" class="form-text text-muted"
+                    >La categoria es una lista hecha por los admins</small
+                  >
+                </div>
+                <div class="form-group">
+                  <label for="editor">Editor</label>
+                  <input
+                    required
+                    type="text"
+                    class="form-control"
+                    name="editor"
+                    id="editor"
+                    aria-describedby="editorHelp"
+                    placeholder="El editor de la revista"
+                    [value]="_activeMag.editor"
+                    readonly
+                  />
+                  <small id="editorHelp" class="form-text text-muted"
+                    >El nombre de quien publica la revista</small
+                  >
+                </div>
+              </form>
+            </div>
+            <div class="ml-5">
+              <h4>Etiquetas revista</h4>
+              <ul class="list-group">
+                <li class="list-group-item active">Etiquetas agregadas</li>
+                <li
+                  *ngFor="let _tag of _activeMag.tags"
+                  class="list-group-item"
+                >
+                  <div
+                    class="d-flex justify-content-between"
+                    style="align-items: center"
+                  >
+                    {{ _tag }}
+                  </div>
+                </li>
+                <li class="list-group-item disabled">Agrega cuantas quieras</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-dark"
+            data-dismiss="modal"
+            (click)="removeActualMag()"
+          >
+            Cerrar
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            (click)="denyPublishment()"
+          >
+            Negar publicaciòn
+          </button>
+          <button type="button" class="btn btn-primary" (click)="approveMag()">
+            Guardar y aprobar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

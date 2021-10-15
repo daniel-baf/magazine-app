@@ -1,7 +1,9 @@
 package DB.DAOs.Magazine;
 
+import DB.DBConnection;
 import ENUMS.DAOResults;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 
 /**
@@ -9,10 +11,11 @@ import java.util.ArrayList;
  *
  * @author jefemayoneso
  */
-public class MagazineTagInsert {
+public class MagazineTagDAO {
 
     // SQL queries
     private String SQL_INERT_MAG_TAG = "INSERT INTO Magazine_Tag (magazine, tag) VALUES (?, ?)";
+    private String SQL_SELECT_TAGS_MAG = "SELECT * FROM Magazine_Tag WHERE magazine = ?";
 
     /**
      * Insert 1 magazine with 1 single tag
@@ -48,5 +51,25 @@ public class MagazineTagInsert {
             System.out.println("Error trying to insert Magazine Tags at [MagazineTagInsert] " + e.getMessage());
             return DAOResults.ERROR_ON_INSERT.getCode();
         }
+    }
+
+    /**
+     * Select the tags from any magazine
+     *
+     * @param magazine = all
+     * @return
+     */
+    public ArrayList<String> select(String magazine) {
+        ArrayList<String> tags = new ArrayList<>();
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_TAGS_MAG)) {
+            ps.setString(1, magazine);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                tags.add(rs.getString("tag"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error trying to get  Tagssfor magazine at [MagazineTagDAO] " + e.getMessage());
+        }
+        return tags;
     }
 }

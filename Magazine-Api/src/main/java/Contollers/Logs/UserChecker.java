@@ -1,6 +1,6 @@
 package Contollers.Logs;
 
-import APIErrors.SignupMessage;
+import APIMessages.SignupMessage;
 import DB.Domain.Users.User;
 import Models.LoginCheckerModel;
 import Parsers.Parser;

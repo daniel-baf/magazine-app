@@ -7,4 +7,6 @@ export enum Routes {
   SELECT_CAT = '/pages/editor-view/select-categories',
   // MAGAZINE
   NEW_MAGAZINE = '/pages/editor-view/new-mag',
+  APPROVE_MAGAZINE = '/pages/admin-view/approve-mag',
+  PREVIEW_MAGAZINE = '/pages/magazine/preview',
 }

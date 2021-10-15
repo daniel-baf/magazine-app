@@ -39,6 +39,8 @@ public class Magazine {
         this.allowComment = allowComment;
         this.editor = editor;
         this.tags = tags;
+        this.category = catgory;
+        this.dateString = date.toString();
     }
 
     /**

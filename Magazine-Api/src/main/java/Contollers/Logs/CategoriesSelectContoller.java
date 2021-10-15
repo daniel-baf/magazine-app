@@ -1,7 +1,7 @@
 package Contollers.Logs;
 
-import APIErrors.SignupMessage;
-import APIErrors.StringArrayMessage;
+import APIMessages.SignupMessage;
+import APIMessages.StringArrayMessage;
 import DB.DAOs.Users.Reader.ReaderInsert;
 import Models.CategoriesModel;
 import Parsers.Parser;

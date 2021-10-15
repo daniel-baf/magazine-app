@@ -1,6 +1,6 @@
 package Models;
 
-import APIErrors.SignupMessage;
+import APIMessages.SignupMessage;
 import DB.DAOs.Users.Editor.EditorInsert;
 import DB.DAOs.Users.Reader.ReaderInsert;
 import DB.Domain.Users.Editor;

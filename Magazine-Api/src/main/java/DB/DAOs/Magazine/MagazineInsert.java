@@ -25,7 +25,7 @@ public class MagazineInsert {
                 if (ps.executeUpdate() != 0) { // magazine insertee
                     // insert tags
                     new TagsInsert().insert(magazine.getTags());
-                    if (new MagazineTagInsert().insert(magazine.getName(), magazine.getTags()) != 0) {
+                    if (new MagazineTagDAO().insert(magazine.getName(), magazine.getTags()) != 0) {
                         result = 1;
                     }
 

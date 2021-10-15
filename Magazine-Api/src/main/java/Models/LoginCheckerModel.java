@@ -1,6 +1,6 @@
 package Models;
 
-import APIErrors.SignupMessage;
+import APIMessages.SignupMessage;
 import DB.DAOs.Users.UserCommonDAO;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;

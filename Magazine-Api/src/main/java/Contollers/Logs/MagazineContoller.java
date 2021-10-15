@@ -1,15 +1,12 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package Contollers.Logs;
 
-import APIErrors.MagazineMessage;
-import APIErrors.SignupMessage;
+import APIMessages.MagazineMessage;
+import APIMessages.SignupMessage;
+import DB.Domain.Magazine.Magazine;
 import Models.MagazineModel;
 import Parsers.Parser;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,9 +36,18 @@ public class MagazineContoller extends HttpServlet {
             MagazineMessage message = new MagazineModel().executeModel(request.getReader());
             response.getWriter().append(parser.toJSON(message, MagazineMessage.class));
         } catch (Exception e) {
+        }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        Parser parser = new Parser();
+        try {
+            ArrayList<Magazine> magazines = new MagazineModel().selectMagazines(request.getParameter("action"), request.getParameter("cuantity"));
+            response.getWriter().append(parser.toJSON(magazines, new ArrayList<Magazine>().getClass()));
+        } catch (Exception e) {
             response.getWriter().append(parser.toJSON(new SignupMessage("Error trying to make a Magazine action at [MagazineController]" + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
-
 }

@@ -1,10 +1,14 @@
 package Models;
 
-import APIErrors.MagazineMessage;
+import APIMessages.MagazineMessage;
 import DB.DAOs.Magazine.MagazineInsert;
+import DB.DAOs.Magazine.MagazineSelect;
+import DB.DAOs.Magazine.MagazineUpdate;
+import DB.Domain.Magazine.Magazine;
 import ENUMS.DAOResults;
 import Parsers.Parser;
 import java.io.BufferedReader;
+import java.util.ArrayList;
 
 /**
  * This class execute the Magazine creation actions
@@ -32,11 +36,43 @@ public class MagazineModel {
             case "QUEUE":
                 result = new MagazineInsert().insert(message.getMagazine());
                 break;
+            case "UPDATE":
+                Magazine mag = (Magazine) parser.toObject(parser.toJSON(message.getMagazine(), Magazine.class), Magazine.class);
+                mag.setApproved(true);
+                result = new MagazineUpdate().update(message.getMagazine());
             default:
         }
         // set response message
         String messString = result == DAOResults.ERROR_ON_INSERT.getCode() ? "ERROR_INSERT" : "NO_ERROR";
         message.setMessage(messString);
         return message;
+    }
+
+    /**
+     * return a list of magazines
+     *
+     * @param action
+     * @param cuantity
+     * @return
+     */
+    public ArrayList<Magazine> selectMagazines(String action, String cuantity) {
+        Parser parser = new Parser();
+        ArrayList<Magazine> mags = new ArrayList<>();
+        switch (action) {
+            case "ALL":
+                mags = new MagazineSelect().select(parser.toInteger(cuantity), 0); // 0 = ALL
+                break;
+            case "NO_PUBLISHED":
+                mags = new MagazineSelect().select(parser.toInteger(cuantity), 2); // 2 = NO PUBLISHED
+                break;
+            case "PUBLISHED":
+                mags = new MagazineSelect().select(parser.toInteger(cuantity), 1); // 1 = PUBLISHED 
+                break;
+            case "ONE":
+                break;
+            default:
+        }
+
+        return mags;
     }
 }

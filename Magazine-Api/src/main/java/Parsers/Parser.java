@@ -92,4 +92,18 @@ public class Parser {
     public LocalDate toLocalDate(String dateString) {
         return LocalDate.parse(dateString);
     }
+
+    /**
+     * Parse a SQL date to LocalDate
+     *
+     * @param date
+     * @return
+     */
+    public LocalDate toLocalDate(Date date) {
+        return date.toLocalDate();
+    }
+
+    public Integer toInteger(String parameter) {
+        return Integer.valueOf(parameter);
+    }
 }

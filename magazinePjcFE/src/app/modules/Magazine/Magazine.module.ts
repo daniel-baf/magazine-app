@@ -1,16 +1,16 @@
 export class Magazine {
   constructor(
-    private name: string,
-    private mensuality: number,
-    private companyFee: number,
-    private costPerDay: number,
-    private dateString: string,
-    private description: string,
-    private allowComment: boolean,
-    private allowLikes: boolean,
-    private category: string,
-    private editor: string,
-    private approved: boolean,
-    private tags: string[]
+    public name: string,
+    public mensuality: number,
+    public companyFee: number,
+    public costPerDay: number,
+    public dateString: string,
+    public description: string,
+    public allowComment: boolean,
+    public allowLikes: boolean,
+    public category: string,
+    public editor: string,
+    public approved: boolean,
+    public tags: string[]
   ) {}
 }
