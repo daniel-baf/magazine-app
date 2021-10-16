@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
 
@@ -9,8 +10,13 @@ import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
 })
 export class PreviewMagazineComponent implements OnInit {
   public _activeMag: Magazine;
+  public _allowLikesMsg: string;
+  public _allowCommentMsg: string;
 
-  constructor(private _magazineService: MagazineService) {
+  constructor(
+    private _magazineService: MagazineService,
+    private _route: ActivatedRoute
+  ) {
     this._activeMag = this.newEmptyMag();
   }
 
@@ -35,14 +41,24 @@ export class PreviewMagazineComponent implements OnInit {
     );
   }
 
+  private setMessages() {
+    this._allowCommentMsg =
+      this._activeMag.allowComment === true ? 'recibe' : 'no recibe';
+    this._allowLikesMsg =
+      this._activeMag.allowLikes === true ? 'recibe' : 'no recibe';
+  }
+
   generateMagazine() {
-    this._magazineService.getMagazine(this._activeMag.name).subscribe(
-      (_success: Magazine[]) => {
-        this._activeMag = _success[0];
-      },
-      (_error: Error) => {
-        console.log(_error);
-      }
-    );
+    this._magazineService
+      .getMagazine(`${this._route.snapshot.paramMap.get('name')}`)
+      .subscribe(
+        (_success: Magazine[]) => {
+          this._activeMag = _success[0];
+          this.setMessages();
+        },
+        (_error: Error) => {
+          console.log(_error);
+        }
+      );
   }
 }

@@ -1,187 +1,77 @@
-<div class="mt-5">
-  <div class="d-flex">
+<div class="container mt-4">
+  <div>
+    <!-- MAG PREVIEW -->
     <div>
-      <h4>Revista</h4>
-      <form class="form mb-5">
-        <div class="form-group">
-          <label for="name">Nombre revista</label>
-          <input
-            required
-            type="text"
-            class="form-control"
-            name="name"
-            id="name"
-            aria-describedby="nameHelp"
-            placeholder="El nombre de la revista"
-            [value]="_activeMag.name"
-            readonly
+      <div class="row d-flex justify-content-center">
+        <!-- IMG -->
+        <div class="col-sm-4 mt-4">
+          <img
+            src="https://3.bp.blogspot.com/-9HBBvbBxrxs/Uc5sPVvJJVI/AAAAAAAAFpE/ULGOHbmZkWE/s1600/perros%2Bdormidos.jpg"
+            class="
+              img-fluid
+              ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}
+            "
+            alt="img magazine"
           />
-          <small id="nameHelp" class="form-text text-muted"
-            >No pueden existir 2 revistas con el mismo nombre</small
-          >
         </div>
-        <div class="form-group">
-          <label for="price">Precio mensual</label>
-          <input
-            required
-            type="number"
-            class="form-control"
-            name="price"
-            id="price"
-            aria-describedby="priceHelp"
-            placeholder="El costo de subscripción"
-            step="0.01"
-            min="0"
-            [value]="_activeMag.mensuality"
-            readonly
-          />
-          <small id="priceHelp" class="form-text text-muted"
-            >El precio mínimmo es 0</small
-          >
-        </div>
-        <div class="form-group">
-          <label for="companyFee">Porcentaje para la empresa</label>
-          <input
-            required
-            type="number"
-            class="form-control"
-            name="companyFee"
-            id="companyFee"
-            aria-describedby="companyFeeHep"
-            placeholder="Porcentaje de la empresa por subscipciòn"
-            [value]="_activeMag.companyFee"
-            readonly
-          />
-          <small id="companyFeeHep" class="form-text text-muted"
-            >La empresa se queda un porcentaje de cada subscripción
-            obtenida</small
-          >
-        </div>
-        <div class="form-group">
-          <label for="costPerDay">Costo por dia</label>
-          <input
-            required
-            type="number"
-            class="form-control"
-            name="costPerDay"
-            id="costPerDay"
-            aria-describedby="costPerDayHelp"
-            placeholder="Costo de mantenimiento por dia"
-            [(ngModel)]="_activeMag.costPerDay"
-          />
-          <small id="costPerDayHelp" class="form-text text-muted"
-            >El costo que lleva mantener la revista publicada</small
-          >
-        </div>
-        <div class="form-group">
-          <label for="creationDate">Fecha de creación</label>
-          <input
-            required
-            type="date"
-            class="form-control"
-            name="creationDate"
-            id="creationDate"
-            aria-describedby="creationDateHelpId"
-            placeholder="La fecha en que se creó la revista"
-            [value]="_activeMag.dateString"
-            readonly
-          />
-          <small id="creationDateHelpId" class="form-text text-muted"
-            >Para efectos de calificación se permite elegir la fecha</small
-          >
-        </div>
-        <div class="form-group">
-          <label for="description">Descripción</label>
-          <textarea
-            class="form-control"
-            name="description"
-            id="description"
-            rows="5"
-            maxlength="3000"
-            [value]="_activeMag.description"
-            readonly
-          ></textarea>
-        </div>
-        <div class="d-flex">
-          <div class="form-check form-check-inline">
-            <label class="form-check-label">
-              <input
-                required
-                class="form-check-input"
-                type="checkbox"
-                name="allowLikes"
-                id="allowLikes"
-                [checked]="_activeMag.allowLikes"
-                disabled
-              />
-              Quiero que mi revista reciba likes
-            </label>
+        <!-- END IMG -->
+        <!-- BASIC INFO -->
+        <div class="col-md-6 mt-4">
+          <div>
+            <h3>{{ _activeMag.name }}</h3>
           </div>
-          <div class="form-check">
-            <label class="form-check-label">
-              <input
-                required
-                type="checkbox"
-                class="form-check-input"
-                name="allowComments"
-                id="allowComments"
-                [checked]="_activeMag.allowComment"
-                disabled
-              />
-              Quiero que mi revista reciba comentarios
-            </label>
+          <div>
+            <div class="row mt-4">
+              <div class="col-md-6">
+                <p>Precio: {{ _activeMag.mensuality | currency: "Q" }} /mes</p>
+                <p>
+                  Esta revista {{ _allowCommentMsg }} comentarios y
+                  {{ _allowLikesMsg }} me gusta
+                </p>
+              </div>
+              <div class="col-md-6">
+                <p>
+                  Publicada por: {{ _activeMag.editor }} el
+                  {{ _activeMag.dateString }}
+                </p>
+              </div>
+            </div>
           </div>
         </div>
-        <div class="form-group">
-          <label for="category">Categoria</label>
-          <input
-            required
-            type="text"
-            class="form-control"
-            name="category"
-            id="category"
-            aria-describedby="categoryHel-p"
-            placeholder="La categoria de la revista"
-            [value]="_activeMag.category"
-            readonly
-          />
-          <small id="categoryHel-p" class="form-text text-muted"
-            >La categoria es una lista hecha por los admins</small
-          >
+        <!-- END BASIC INFO -->
+      </div>
+
+      <div></div>
+      <div class="row mt-4">
+        <div class="col-lg-8">
+          <p>{{ _activeMag.description }}</p>
         </div>
-        <div class="form-group">
-          <label for="editor">Editor</label>
-          <input
-            required
-            type="text"
-            class="form-control"
-            name="editor"
-            id="editor"
-            aria-describedby="editorHelp"
-            placeholder="El editor de la revista"
-            [value]="_activeMag.editor"
-            readonly
-          />
-          <small id="editorHelp" class="form-text text-muted"
-            >El nombre de quien publica la revista</small
-          >
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p>Categoria: {{ _activeMag.category }}</p>
+          <!-- TODO show the number of likes from DB -->
+          <p>Me gusta: 12</p>
         </div>
-      </form>
+        <div class="col-md-6">
+          <p>Tags</p>
+          <ul class="list-group">
+            <li class="list-group-item" *ngFor="let _tag of _activeMag.tags">
+              {{ _tag }}
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="ml-5">
-      <h4>Etiquetas revista</h4>
+    <!-- END MAG PREVIEW -->
+    <!-- START COMMENTS -->
+    <section>
+      <hr />
       <ul class="list-group">
-        <li class="list-group-item active">Etiquetas agregadas</li>
-        <li *ngFor="let _tag of _activeMag.tags" class="list-group-item">
-          <div
-            class="d-flex justify-content-between"
-            style="align-items: center"
-          >
-            {{ _tag }}
-          </div>
-        </li>
-        <li class="list-group-item disabled">Agrega cuantas quieras</li>
+        DEBO MOSTRAR LOS COMENTARIOSi
+        <!-- TODO show commetns -->
       </ul>
-    </div>
+    </section>
+    <!-- END COMMENTTS -->
   </div>
 </div>

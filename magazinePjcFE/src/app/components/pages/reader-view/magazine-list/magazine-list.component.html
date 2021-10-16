@@ -31,17 +31,107 @@
         <th>{{ _mag.name }}</th>
         <th>{{ _mag.category }}</th>
         <th class="d-flex">
-          <button type="button" class="btn btn-success mr-2">Comprar</button>
           <button
             type="button"
-            name="preview"
-            id="preview"
-            class="btn btn-primary"
+            class="btn btn-success mr-2"
+            (click)="showBuyMag(_mag)"
+            data-toggle="modal"
+            data-target="#modelId"
           >
-            Preview
+            Comprar
           </button>
+          <a
+            name="previewPage"
+            id="previewPage"
+            class="btn btn-primary"
+            [routerLink]="[_previewMagUrl, _mag.name]"
+            role="button"
+            >Preview</a
+          >
         </th>
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modelId"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modelTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nueva subscripcion</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p>
+          Estas a punto de comprar una subscripcion para la revista
+          {{ _magToBuy.name }}
+        </p>
+
+        <form class="form" [formGroup]="_buySubForm">
+          <div class="form-group">
+            <label for="subscriptionType">Tipo de subscripciòn</label>
+            <select
+              class="custom-select"
+              name="subscriptionType"
+              id="subscriptionType"
+              required
+              formControlName="_months"
+            >
+              <option value="NO_VALID" selected disabled>Seleccionar</option>
+              <option value="monthly">Mensual</option>
+              <option value="yearly">Anual</option>
+            </select>
+            <div class="form-group">
+              <label for="startDate">Fecha adquisición</label>
+              <input
+                type="date"
+                class="form-control"
+                name="startDate"
+                id="startDate"
+                aria-describedby="helpId"
+                placeholder="Fecha en la que la subscripciòn estuvo activa"
+                required
+                formControlName="_date"
+              />
+              <small id="helpId" class="form-text text-muted"
+                >Para calificacion, se puede elegir la fecha en que la
+                subscripciòn fuè obtenida</small
+              >
+            </div>
+          </div>
+          <!-- TODO add pteions to set the credit card number... -->
+        </form>
+        <div *ngIf="_showALertMsg" class="alert alert-danger" role="alert">
+          <strong>ALERTA</strong> {{ _alertMsg }}
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Cerrar
+        </button>
+        <button
+          type="button"
+          class="btn btn-primary"
+          (click)="proceedPayment()"
+        >
+          Pagar
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

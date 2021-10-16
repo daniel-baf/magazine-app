@@ -1,8 +1,11 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
+import { SubscriptionMag } from 'src/app/modules/Magazine/Subscription.module';
 import { User } from 'src/app/modules/Users/user.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
+import { Routes } from 'src/app/vars/enums/ROUTES';
 
 @Component({
   selector: 'app-magazine-list',
@@ -15,10 +18,15 @@ export class MagazineListComponent implements OnInit {
   public _actualPage: number;
   public _offset: number;
   public _limit: number;
-  public _finishPage = 5;
+  public _finishPage: number = 5;
+  public _showScrollHeight: number = 400;
+  public _hideScrollHeight: number = 200;
+  public _magToBuy: Magazine;
   public _showGoUpButton: boolean;
-  public _showScrollHeight = 400;
-  public _hideScrollHeight = 200;
+  public _showALertMsg: boolean = false;
+  public _alertMsg: string;
+  public _previewMagUrl: string = Routes.PUBLIC_PREVIEW_MAGAZINE;
+  public _buySubForm: FormGroup;
 
   constructor(
     private _magService: MagazineService,
@@ -29,6 +37,7 @@ export class MagazineListComponent implements OnInit {
     this._limit = 10;
     this._actualPage = 1;
     this._showGoUpButton = false;
+    this._buySubForm = this.generateFormGroup();
   }
 
   ngOnInit(): void {
@@ -36,6 +45,7 @@ export class MagazineListComponent implements OnInit {
     // this.add40Lines();
     this._user = JSON.parse(`${this._storageService.getData('user')}`);
     this.getMagazines();
+    this._magToBuy = this.newEmptyMag();
   }
 
   onScroll() {
@@ -45,6 +55,13 @@ export class MagazineListComponent implements OnInit {
     } else {
       console.log('No more lines. Finish page!');
     }
+  }
+
+  private generateFormGroup(): FormGroup {
+    return new FormGroup({
+      _months: new FormControl('NO_VALID', [Validators.required]),
+      _date: new FormControl('', [Validators.required]),
+    });
   }
 
   private getMagazines() {
@@ -67,6 +84,72 @@ export class MagazineListComponent implements OnInit {
   scrollTop() {
     document.body.scrollTop = 0; // Safari
     document.documentElement.scrollTop = 0; // Other
+  }
+
+  public showBuyMag(_mag: Magazine) {
+    this._showALertMsg = false;
+    this._magToBuy = _mag;
+  }
+
+  public proceedPayment() {
+    console.log('enviar');
+    if (this._buySubForm.valid && this.isMonthValid()) {
+      // calc the number of months
+      let months: number =
+        this._buySubForm.controls['_months'].value === 'yearly' ? 12 : 1;
+      // cast dates to string
+      let dateTmp = new Date(this._buySubForm.controls['_date'].value);
+      let endDate = new Date(
+        new Date(dateTmp).setMonth(dateTmp.getMonth() + +months)
+      )
+        .toISOString()
+        .slice(0, 10);
+      // create objetct to send as JSON
+      let subscrip = new SubscriptionMag(
+        0,
+        months,
+        endDate,
+        this._buySubForm.controls['_date'].value,
+        this._magToBuy.name,
+        this._user.email
+      );
+
+      // call httpRequest
+      this.registPayment();
+
+      console.log(subscrip);
+    } else {
+      this._showALertMsg = true;
+      this._alertMsg = 'Los datos ingresados son invalidos';
+    }
+  }
+
+  private isMonthValid(): boolean {
+    return (
+      this._buySubForm.controls['_months'].value === 'yearly' ||
+      this._buySubForm.controls['_months'].value === 'monthly'
+    );
+  }
+
+  private registPayment(): void {
+
+  }
+
+  public newEmptyMag(): Magazine {
+    return new Magazine(
+      '',
+      0,
+      0,
+      0,
+      '0000-00-00',
+      '',
+      false,
+      false,
+      '',
+      '',
+      false,
+      []
+    );
   }
 
   @HostListener('window:scroll', [])
