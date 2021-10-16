@@ -1,1 +1,47 @@
-<p>magazine-list works!</p>
+<div
+  class="container"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  (scrolled)="onScroll()"
+>
+  <hr />
+  <h2>Revistas</h2>
+  <p>Se muestran revistas basados en tus categorias de interes</p>
+  <hr />
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col"><strong>Nombre</strong></th>
+        <th scope="col">Categoria</th>
+        <th scope="col" [width]="30" class="text-center">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <button
+        [ngClass]="'no-hidden'"
+        *ngIf="_showGoUpButton"
+        class="btn btn-dark"
+        (click)="scrollTop()"
+      >
+        GO UP
+      </button>
+      <tr *ngFor="let _mag of _magsToShow; index as i">
+        <th scope="row">{{ i + 1 }}</th>
+        <th>{{ _mag.name }}</th>
+        <th>{{ _mag.category }}</th>
+        <th class="d-flex">
+          <button type="button" class="btn btn-success mr-2">Comprar</button>
+          <button
+            type="button"
+            name="preview"
+            id="preview"
+            class="btn btn-primary"
+          >
+            Preview
+          </button>
+        </th>
+      </tr>
+    </tbody>
+  </table>
+</div>

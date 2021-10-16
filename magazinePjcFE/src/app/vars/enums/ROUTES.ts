@@ -9,6 +9,7 @@ export enum Routes {
   NEW_MAGAZINE = '/pages/editor-view/new-mag',
   APPROVE_MAGAZINE = '/pages/admin-view/approve-mag',
   PREVIEW_MAGAZINE = '/pages/magazine/preview',
+  PUBLIC_PREVIEW_MAGAZINE = '/magazine/preview/',
   // READER VIEW
   MAGAZINE_LIST = '/pages/reader-view/mag-list',
 }

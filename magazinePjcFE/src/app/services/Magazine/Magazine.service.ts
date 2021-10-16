@@ -24,10 +24,28 @@ export class MagazineService {
     );
   }
 
-  public updateMagazine(_magazineMessage: MagazineMessage): Observable<MagazineMessage> {
+  public getMagazineForUser(
+    _limit: number,
+    _offset: number,
+    _reader: string
+  ): Observable<Magazine[]> {
+    return this._http.get<Magazine[]>(
+      `${APIs.MAGAZINE_CONTOLLER}?action=USER_INTEREST&limit=${_limit}&offset=${_offset}&reader=${_reader}`
+    );
+  }
+
+  public updateMagazine(
+    _magazineMessage: MagazineMessage
+  ): Observable<MagazineMessage> {
     return this._http.post<MagazineMessage>(
       APIs.MAGAZINE_CONTOLLER,
       _magazineMessage
+    );
+  }
+
+  public getMagazine(_magName: string): Observable<Magazine[]> {
+    return this._http.get<Magazine[]>(
+      `${APIs.MAGAZINE_CONTOLLER}?action=ONE&mag-name=${_magName}`
     );
   }
 }

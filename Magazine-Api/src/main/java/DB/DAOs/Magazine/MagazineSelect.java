@@ -16,8 +16,25 @@ public class MagazineSelect {
 
     // SQL queries
     private final String SQL_SELECT_MULT_MAG = "SELECT * FROM Magazine";
+    private final String SQL_SELECT_MAGS_FOR_USER = "SELECT * FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
+            + "ON m.category=rc.category AND rc.reader=? AND m.approved='1' LIMIT ? OFFSET ?";
 
-    public Magazine select(String name) {
+    /**
+     * Select all the information about 1 magazine by name
+     *
+     * @param email
+     * @return
+     */
+    public Magazine select(String email) {
+        String SQL_TMP = SQL_SELECT_MULT_MAG + " WHERE `name`=?";
+        try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_TMP)) {
+            ps.setString(1, email);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return configurePSSelect(rs);
+            }
+        } catch (Exception e) {
+        }
         return null;
     }
 
@@ -37,6 +54,32 @@ public class MagazineSelect {
             while (rs.next()) {
                 magazines.add(configurePSSelect(rs));
             }
+        } catch (Exception e) {
+            System.out.println("Error trying to get magazines at [MagazineSelect] " + e.getMessage());
+        }
+        return magazines;
+    }
+
+    /**
+     * this method return <limit> magazines, starting at <offset> for infinite
+     * scroll
+     *
+     * @param limit
+     * @param offset
+     * @param reader
+     * @return
+     */
+    public ArrayList<Magazine> select(int limit, int offset, String reader) {
+        ArrayList<Magazine> magazines = new ArrayList<>();
+        try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_SELECT_MAGS_FOR_USER)) {
+            ps.setString(1, reader);
+            ps.setInt(2, limit);
+            ps.setInt(3, offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                magazines.add(configurePSSelect(rs));
+            }
+            System.out.println("magazines: " + magazines.size());
         } catch (Exception e) {
             System.out.println("Error trying to get magazines at [MagazineSelect] " + e.getMessage());
         }

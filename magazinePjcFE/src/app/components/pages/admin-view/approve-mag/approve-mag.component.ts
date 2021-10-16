@@ -23,7 +23,6 @@ export class ApproveMagComponent implements OnInit {
   ) {
     this.configCuanitytToShow();
     this._activeMag = this.newEmptyMag();
-    // this.saveCuantityToShow();
   }
 
   ngOnInit(): void {

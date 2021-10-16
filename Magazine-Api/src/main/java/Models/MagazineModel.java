@@ -9,6 +9,7 @@ import ENUMS.DAOResults;
 import Parsers.Parser;
 import java.io.BufferedReader;
 import java.util.ArrayList;
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * This class execute the Magazine creation actions
@@ -50,25 +51,37 @@ public class MagazineModel {
     /**
      * return a list of magazines
      *
-     * @param action
-     * @param cuantity
+     * @param request
      * @return
      */
-    public ArrayList<Magazine> selectMagazines(String action, String cuantity) {
+    public ArrayList<Magazine> selectMagazines(HttpServletRequest request) {
         Parser parser = new Parser();
         ArrayList<Magazine> mags = new ArrayList<>();
-        switch (action) {
+        MagazineSelect magSelect = new MagazineSelect();
+        switch (request.getParameter("action")) {
             case "ALL":
-                mags = new MagazineSelect().select(parser.toInteger(cuantity), 0); // 0 = ALL
+                mags = magSelect.select(parser.toInteger(request.getParameter("cuantity")), 0); // 0 = ALL
                 break;
             case "NO_PUBLISHED":
-                mags = new MagazineSelect().select(parser.toInteger(cuantity), 2); // 2 = NO PUBLISHED
+                mags = magSelect.select(parser.toInteger(request.getParameter("cuantity")), 2); // 2 = NO PUBLISHED
                 break;
             case "PUBLISHED":
-                mags = new MagazineSelect().select(parser.toInteger(cuantity), 1); // 1 = PUBLISHED 
+                mags = magSelect.select(parser.toInteger(request.getParameter("cuantity")), 1); // 1 = PUBLISHED 
                 break;
             case "ONE":
+                mags = new ArrayList<>();
+                mags.add(magSelect.select(request.getParameter("mag-name")));
                 break;
+            case "USER_INTEREST":
+                mags = magSelect.select(
+                        parser.toInteger(request.getParameter("limit")),
+                        parser.toInteger(request.getParameter("offset")),
+                        request.getParameter("reader"));
+                for (Magazine mag : mags) {
+                    System.out.println(mag.toString());
+                }
+                break;
+
             default:
         }
 

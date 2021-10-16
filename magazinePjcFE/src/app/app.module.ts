@@ -22,6 +22,7 @@ import { NewMagazineComponent } from './components/pages/editor-view/new-magazin
 import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/approve-mag.component';
 import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
 import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 @NgModule({
   declarations: [
@@ -50,6 +51,7 @@ import { MagazineListComponent } from './components/pages/reader-view/magazine-l
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    InfiniteScrollModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
