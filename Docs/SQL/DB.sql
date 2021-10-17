@@ -209,7 +209,7 @@ CREATE TABLE `Post` (
 
 DROP TABLE IF EXISTS `Subscription`;
 CREATE TABLE `Subscription` (
-  `id` INT NOT NULL,
+  `id` INT NOT NULL AUTO_INCREMENT,
   `months` TINYINT(3) NOT NULL,
   `expiration_date` DATE NOT NULL,
   `acquisition_date` DATE NOT NULL,

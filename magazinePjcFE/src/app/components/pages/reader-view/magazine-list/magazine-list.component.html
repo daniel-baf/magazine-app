@@ -119,6 +119,9 @@
         <div *ngIf="_showALertMsg" class="alert alert-danger" role="alert">
           <strong>ALERTA</strong> {{ _alertMsg }}
         </div>
+        <div *ngIf="_showSuccessMsg" class="alert alert-success" role="alert">
+          <strong>{{_successMsg}}</strong>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">

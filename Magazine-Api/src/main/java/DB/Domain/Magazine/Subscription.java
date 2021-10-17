@@ -21,17 +21,17 @@ public class Subscription {
     public Subscription() {
     }
 
-    public Subscription(int id, int months, String expirationDateString, String acquisitionDateString, String magazine, String reader) {
+    public Subscription(int id, int months, LocalDate expirationDate, LocalDate acquisitionDate, String magazine, String reader) {
         Parser parser = new Parser();
         this.id = id;
         this.months = months;
-        this.expirationDateString = expirationDateString;
-        this.acquisitionDateString = acquisitionDateString;
+        this.expirationDate = expirationDate;
+        this.acquisitionDate = acquisitionDate;
         this.magazine = magazine;
         this.reader = reader;
         // string to date
-        this.acquisitionDate = parser.toLocalDate(this.acquisitionDateString);
-        this.expirationDate = parser.toLocalDate(this.expirationDateString);
+        this.acquisitionDateString = acquisitionDate.toString();
+        this.expirationDateString = expirationDate.toString();
     }
 
     /**
@@ -116,6 +116,34 @@ public class Subscription {
      */
     public void setReader(String reader) {
         this.reader = reader;
+    }
+
+    /**
+     * @return the expirationDateString
+     */
+    public String getExpirationDateString() {
+        return expirationDateString;
+    }
+
+    /**
+     * @param expirationDateString the expirationDateString to set
+     */
+    public void setExpirationDateString(String expirationDateString) {
+        this.expirationDateString = expirationDateString;
+    }
+
+    /**
+     * @return the acquisitionDateString
+     */
+    public String getAcquisitionDateString() {
+        return acquisitionDateString;
+    }
+
+    /**
+     * @param acquisitionDateString the acquisitionDateString to set
+     */
+    public void setAcquisitionDateString(String acquisitionDateString) {
+        this.acquisitionDateString = acquisitionDateString;
     }
 
 }

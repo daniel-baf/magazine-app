@@ -14,7 +14,7 @@ import java.sql.SQLException;
  */
 public class SubscriptionInsert {
 
-    private String SQL_INSERT_SUB = "INSERT INTO Subscription (months, expiration_date, acquisition_date, magazine, reader) VALUES (?, ?, ?, ?, ?, ?)";
+    private String SQL_INSERT_SUB = "INSERT INTO Subscription (months, expiration_date, acquisition_date, magazine, reader) VALUES (?, ?, ?, ?, ?)";
 
     /**
      * Insert a subscription, but, on each SUb, there's a payment associated
@@ -25,13 +25,10 @@ public class SubscriptionInsert {
     public int insert(Subscription sub) {
         // INSERT payment
         int result = 0;
-        System.out.println("se inicia el insert");
         try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_INSERT_SUB, PreparedStatement.RETURN_GENERATED_KEYS)) {
             DB.DBConnection.getConnection().setAutoCommit(false);
-            System.out.println("autocomit falso");
             configurePSInsert(ps, sub);
             if (ps.executeUpdate() != 0) { // insert the new sub
-                System.out.println("se ha insertado la subscripcion");
                 // get the sub fee and the id of subscriptions and price
                 Double subFee = new CompanyFeeDAO().select().get(0);
                 ResultSet rs = ps.getGeneratedKeys();
@@ -39,12 +36,10 @@ public class SubscriptionInsert {
                 Payment payment;
                 int tmp;
                 if (rs.next()) {
-                    System.out.println("se ha obtenido el id de la sub");
                     tmp = rs.getInt(1);
-                    System.out.println(tmp);
-                    payment = new Payment(tmp, price * (1 - subFee), price * subFee);
+                    sub.setId(tmp);
+                    payment = new Payment(tmp, price * (1 - (subFee / 100)), price * (subFee / 100));
                     if (new PaymentInsert().insert(payment) != 0) {
-                        System.out.println("se ha puesto el pago");
                         result = 1;
                     }
                 }

@@ -79,7 +79,6 @@ public class MagazineSelect {
             while (rs.next()) {
                 magazines.add(configurePSSelect(rs));
             }
-            System.out.println("magazines: " + magazines.size());
         } catch (Exception e) {
             System.out.println("Error trying to get magazines at [MagazineSelect] " + e.getMessage());
         }

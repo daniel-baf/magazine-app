@@ -1,10 +1,13 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
 import { SubscriptionMag } from 'src/app/modules/Magazine/Subscription.module';
+import { SubscriptionMessage } from 'src/app/modules/Messages/SubscriptionMessage.module';
 import { User } from 'src/app/modules/Users/user.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
+import { SubscriptionService } from 'src/app/services/Magazine/Subscription.service';
 import { Routes } from 'src/app/vars/enums/ROUTES';
 
 @Component({
@@ -24,13 +27,16 @@ export class MagazineListComponent implements OnInit {
   public _magToBuy: Magazine;
   public _showGoUpButton: boolean;
   public _showALertMsg: boolean = false;
+  public _showSuccessMsg = false;
+  public _successMsg: string;
   public _alertMsg: string;
   public _previewMagUrl: string = Routes.PUBLIC_PREVIEW_MAGAZINE;
   public _buySubForm: FormGroup;
 
   constructor(
     private _magService: MagazineService,
-    private _storageService: LocalStorageService
+    private _storageService: LocalStorageService,
+    private _subscriptionService: SubscriptionService
   ) {
     this._actualPage = 1;
     this._offset = 0;
@@ -88,11 +94,11 @@ export class MagazineListComponent implements OnInit {
 
   public showBuyMag(_mag: Magazine) {
     this._showALertMsg = false;
+    this._showSuccessMsg = false;
     this._magToBuy = _mag;
   }
 
   public proceedPayment() {
-    console.log('enviar');
     if (this._buySubForm.valid && this.isMonthValid()) {
       // calc the number of months
       let months: number =
@@ -105,7 +111,7 @@ export class MagazineListComponent implements OnInit {
         .toISOString()
         .slice(0, 10);
       // create objetct to send as JSON
-      let subscrip = new SubscriptionMag(
+      let _subscriptn = new SubscriptionMag(
         0,
         months,
         endDate,
@@ -113,11 +119,8 @@ export class MagazineListComponent implements OnInit {
         this._magToBuy.name,
         this._user.email
       );
-
       // call httpRequest
-      this.registPayment();
-
-      console.log(subscrip);
+      this.registPayment(_subscriptn);
     } else {
       this._showALertMsg = true;
       this._alertMsg = 'Los datos ingresados son invalidos';
@@ -131,8 +134,20 @@ export class MagazineListComponent implements OnInit {
     );
   }
 
-  private registPayment(): void {
-
+  private registPayment(_subscription: SubscriptionMag): void {
+    this._subscriptionService
+      .registNewSub(_subscription)
+      .subscribe((_success: SubscriptionMessage) => {
+        if (_success.message === 'NO_ERROR') {
+          this._showSuccessMsg = true;
+          this._successMsg =
+            'Se ha aprovado el pago y se te ha entregado una subscripciòn';
+        } else {
+          this._showALertMsg = true;
+          this._alertMsg = 'No se ha podido completar el pago ';
+        }
+        console.log(_success);
+      });
   }
 
   public newEmptyMag(): Magazine {

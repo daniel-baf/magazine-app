@@ -77,9 +77,6 @@ public class MagazineModel {
                         parser.toInteger(request.getParameter("limit")),
                         parser.toInteger(request.getParameter("offset")),
                         request.getParameter("reader"));
-                for (Magazine mag : mags) {
-                    System.out.println(mag.toString());
-                }
                 break;
 
             default:

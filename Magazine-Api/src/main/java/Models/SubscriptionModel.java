@@ -1,6 +1,7 @@
 package Models;
 
 import APIMessages.SubscriptionMessage;
+import DB.DAOs.Magazine.SubscriptionInsert;
 import DB.Domain.Magazine.Subscription;
 import Parsers.Parser;
 import java.io.IOException;
@@ -19,6 +20,11 @@ public class SubscriptionModel {
         SubscriptionMessage subMsg = new SubscriptionMessage();
         // call method
         subMsg.setSubscription((Subscription) parser.toObject(parser.getBody(request.getReader()), Subscription.class)); // we receibe a JSON 
+        subMsg.getSubscription().setAcquisitionDate(parser.toLocalDate(subMsg.getSubscription().getAcquisitionDateString()));
+        subMsg.getSubscription().setExpirationDate(parser.toLocalDate(subMsg.getSubscription().getExpirationDateString()));
+        int result = new SubscriptionInsert().insert(subMsg.getSubscription());
+        String message = result != 0 ? "NO_ERROR" : "ERROR_INSERT";
+        subMsg.setMessage(message);
         return subMsg;
     }
 
