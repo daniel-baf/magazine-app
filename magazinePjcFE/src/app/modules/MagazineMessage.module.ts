@@ -2,17 +2,7 @@ export class MagazineMessage {
   constructor(public message: string, public magazine: Magazine) {}
 }
 
-export class MagazinePost {
-  constructor(
-    public id: number,
-    public title: string,
-    public dateString: String,
-    public pdf: File,
-    public magazine: string
-  ) {}
-}
-
-export class PostMessage {
+export class MagazinePostMessage {
   constructor(public message: string, public post: MagazinePost) {}
 }
 
@@ -30,5 +20,14 @@ export class Magazine {
     public editor: string,
     public approved: boolean,
     public tags: string[]
+  ) {}
+}
+
+export class MagazinePost {
+  constructor(
+    public id: number,
+    public title: string,
+    public dateString: string,
+    public magazine: string
   ) {}
 }

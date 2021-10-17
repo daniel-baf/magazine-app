@@ -1,6 +1,7 @@
 <div class="container mt-3">
   <h4>Publicar nuevo post</h4>
   <div>
+    <!-- START POST FORM -->
     <form
       class="form"
       enctype="multipart/form-data"
@@ -63,6 +64,7 @@
           placeholder="El archivo en PDF"
           aria-describedby="pdfHelp"
           formControlName="_pdf"
+          (change)="setPDF($event)"
         />
         <small id="pdfHelp" class="form-text text-muted"
           >El PDF debe contener el contendio del post</small
@@ -70,5 +72,17 @@
       </div>
       <button type="submit" class="btn btn-primary btn-block">Publicar</button>
     </form>
+    <!-- END FORM POST -->
+
+    <!-- START ALERT MESSAGESi -->
+    <div>
+      <div *ngIf="_showSuccessMsg" class="alert alert-success" role="alert">
+        <strong>success</strong>
+      </div>
+      <div *ngIf="_showErrorMsg" class="alert alert-danger" role="alert">
+        <strong>Cuidado</strong> {{ _errorMsg }}
+      </div>
+    </div>
+    <!-- END ALERT MESSAGES -->
   </div>
 </div>

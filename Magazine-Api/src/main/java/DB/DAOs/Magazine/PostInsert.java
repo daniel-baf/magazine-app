@@ -10,5 +10,5 @@ package DB.DAOs.Magazine;
  * @author jefemayoneso
  */
 public class PostInsert {
-    
+
 }

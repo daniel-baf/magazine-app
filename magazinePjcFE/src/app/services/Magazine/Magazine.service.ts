@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   Magazine,
   MagazineMessage,
+  MagazinePostMessage,
 } from 'src/app/modules/MagazineMessage.module';
 import { APIs } from 'src/app/vars/enums/API';
 
@@ -51,5 +52,18 @@ export class MagazineService {
     );
   }
 
-  // public updatePost(_post: Post)
+  public uploadPost(_postMessage: MagazinePostMessage, _file: File) {
+    console.log('enviando');
+    console.log(_postMessage);
+
+    const _formData = new FormData();
+    console.log(JSON.stringify(_postMessage));
+
+    _formData.append('mag-post', JSON.stringify(_postMessage));
+    _formData.append('datafile', _file, _file.name);
+    return this._http.post<MagazinePostMessage>(
+      `${APIs.MAGAZINE_POST_CONTROLLER}`,
+      _formData
+    );
+  }
 }
