@@ -1,3 +1,6 @@
+export class SignUpMessage {
+  constructor(public message: string, public user: User) {}
+}
 export class User {
   constructor(
     public email: string,

@@ -1,9 +1,11 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
-import { MagazineMessage } from 'src/app/modules/Messages/MagazineMessage.module';
-import { StringArrayMessage } from 'src/app/modules/Messages/StringArrayMessage.module';
-import { User } from 'src/app/modules/Users/user.module';
+import {
+  Magazine,
+  MagazineMessage,
+} from 'src/app/modules/MagazineMessage.module';
+import { User } from 'src/app/modules/SignUpMessge.module';
+import { StringArrayMessage } from 'src/app/modules/ArrayMessage.module';
 import { CategoriesService } from 'src/app/services/CategoriesActions.service';
 import { CompanyFeeService } from 'src/app/services/Fees/CompanyFee.service';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';

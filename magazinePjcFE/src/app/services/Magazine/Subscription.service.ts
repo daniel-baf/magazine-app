@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { SubscriptionMag } from 'src/app/modules/Magazine/Subscription.module';
-import { SubscriptionMessage } from 'src/app/modules/Messages/SubscriptionMessage.module';
+import {
+  SubscriptionMag,
+  SubscriptionMessage,
+} from 'src/app/modules/SubscriptionMessage.module';
 import { APIs } from 'src/app/vars/enums/API';
 
 @Injectable({ providedIn: 'root' })

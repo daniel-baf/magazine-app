@@ -7,7 +7,8 @@ import { SelectCategoriesComponent } from './components/logPage/signup/select-ca
 import { SignupComponent } from './components/logPage/signup/signup.component';
 import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/approve-mag.component';
 import { EditProfileComponent } from './components/pages/edit-profile/edit-profile.component';
-import { NewMagazineComponent } from './components/pages/editor-view/new-magazine/new-magazine.component';
+import { NewMagazineComponent } from './components/pages/editor-view/magActions/new-magazine/new-magazine.component';
+import { UploadPostComponent } from './components/pages/editor-view/magActions/upload-post/upload-post.component';
 import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
 import { PagesComponent } from './components/pages/pages.component';
 import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
@@ -27,10 +28,12 @@ const routes: Routes = [
       {
         path: 'editor-view',
         children: [
-          { path: 'new-mag', component: NewMagazineComponent },
           {
-            path: 'select-categories',
-            component: SelectCategoriesComponent,
+            path: 'mag',
+            children: [
+              { path: 'new-mag', component: NewMagazineComponent },
+              { path: 'upload-post', component: UploadPostComponent },
+            ],
           },
         ],
       },

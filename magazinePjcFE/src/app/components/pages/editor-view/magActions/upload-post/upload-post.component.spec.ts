@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ErrorComponent } from './error.component';
+import { UploadPostComponent } from './upload-post.component';
 
-describe('ErrorComponent', () => {
-  let component: ErrorComponent;
-  let fixture: ComponentFixture<ErrorComponent>;
+describe('UploadPostComponent', () => {
+  let component: UploadPostComponent;
+  let fixture: ComponentFixture<UploadPostComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ErrorComponent ]
+      declarations: [ UploadPostComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ErrorComponent);
+    fixture = TestBed.createComponent(UploadPostComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

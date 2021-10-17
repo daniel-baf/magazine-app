@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StringArrayMessage } from '../modules/Messages/StringArrayMessage.module';
+import { StringArrayMessage } from '../modules/ArrayMessage.module';
 import { APIs } from '../vars/enums/API';
 
 @Injectable({

@@ -1,9 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { APIs } from 'src/app/vars/enums/API';
-import { User } from 'src/app/modules/Users/user.module';
 import { Observable } from 'rxjs';
-import { SignUpMessage } from 'src/app/modules/Messages/SignUpMessge.module';
+import { SignUpMessage, User } from 'src/app/modules/SignUpMessge.module';
 
 @Injectable({
   providedIn: 'root',

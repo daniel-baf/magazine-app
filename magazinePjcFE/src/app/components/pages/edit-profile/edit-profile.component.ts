@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { SignUpMessage } from 'src/app/modules/Messages/SignUpMessge.module';
-import { StringArrayMessage } from 'src/app/modules/Messages/StringArrayMessage.module';
-import { User } from 'src/app/modules/Users/user.module';
+import { SignUpMessage, User } from 'src/app/modules/SignUpMessge.module';
+import { StringArrayMessage } from 'src/app/modules/ArrayMessage.module';
 import { CategoriesService } from 'src/app/services/CategoriesActions.service';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { LoginService } from 'src/app/services/Logs/login.service';

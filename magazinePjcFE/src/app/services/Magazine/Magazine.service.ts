@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
-import { MagazineMessage } from 'src/app/modules/Messages/MagazineMessage.module';
+import {
+  Magazine,
+  MagazineMessage,
+} from 'src/app/modules/MagazineMessage.module';
 import { APIs } from 'src/app/vars/enums/API';
 
 @Injectable({ providedIn: 'root' })
@@ -48,4 +50,6 @@ export class MagazineService {
       `${APIs.MAGAZINE_CONTOLLER}?action=ONE&mag-name=${_magName}`
     );
   }
+
+  // public updatePost(_post: Post)
 }

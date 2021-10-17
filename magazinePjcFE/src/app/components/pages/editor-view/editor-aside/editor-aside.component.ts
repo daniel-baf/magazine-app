@@ -8,9 +8,11 @@ import { Routes } from 'src/app/vars/enums/ROUTES';
 })
 export class EditorAsideComponent implements OnInit {
   _newMagLink: string;
+  _uploadPostUrl: string;
 
   constructor() {
     this._newMagLink = Routes.NEW_MAGAZINE;
+    this._uploadPostUrl = Routes.UPLOAD_POST;
   }
 
   ngOnInit(): void {}

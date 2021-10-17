@@ -4,11 +4,10 @@ function getLocalStorage() {
   return localStorage;
 }
 
+// CREATE A GLOBAL LOCAL STORAGE USING SERVICES
 @Injectable({
   providedIn: 'root',
 })
-
-// CREATE A GLOBAL LOCAL STORAGE USING SERVICES
 export class LocalStorageRef {
   constructor() {}
 

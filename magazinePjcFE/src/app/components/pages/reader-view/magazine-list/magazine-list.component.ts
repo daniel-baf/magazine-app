@@ -1,10 +1,11 @@
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, HostListener, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
-import { SubscriptionMag } from 'src/app/modules/Magazine/Subscription.module';
-import { SubscriptionMessage } from 'src/app/modules/Messages/SubscriptionMessage.module';
-import { User } from 'src/app/modules/Users/user.module';
+import { Magazine } from 'src/app/modules/MagazineMessage.module';
+import { User } from 'src/app/modules/SignUpMessge.module';
+import {
+  SubscriptionMag,
+  SubscriptionMessage,
+} from 'src/app/modules/SubscriptionMessage.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
 import { SubscriptionService } from 'src/app/services/Magazine/Subscription.service';

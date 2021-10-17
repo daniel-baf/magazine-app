@@ -18,11 +18,12 @@ import { FooterComponent } from './components/pages/footer/footer.component';
 import { MainComponent } from './components/logPage/main/main.component';
 import { PagesComponent } from './components/pages/pages.component';
 import { EditorAsideComponent } from './components/pages/editor-view/editor-aside/editor-aside.component';
-import { NewMagazineComponent } from './components/pages/editor-view/new-magazine/new-magazine.component';
+import { NewMagazineComponent } from './components/pages/editor-view/magActions/new-magazine/new-magazine.component';
 import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/approve-mag.component';
 import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
 import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { UploadPostComponent } from './components/pages/editor-view/magActions/upload-post/upload-post.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     ApproveMagComponent,
     PreviewMagazineComponent,
     MagazineListComponent,
+    UploadPostComponent,
   ],
   imports: [
     BrowserModule,

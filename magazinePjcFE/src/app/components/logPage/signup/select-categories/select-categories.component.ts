@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { StringArrayMessage } from 'src/app/modules/Messages/StringArrayMessage.module';
-import { User } from 'src/app/modules/Users/user.module';
+import { User } from 'src/app/modules/SignUpMessge.module';
+import { StringArrayMessage } from 'src/app/modules/ArrayMessage.module';
 import { CategoriesService } from 'src/app/services/CategoriesActions.service';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 

@@ -1,0 +1,74 @@
+<div class="container mt-3">
+  <h4>Publicar nuevo post</h4>
+  <div>
+    <form
+      class="form"
+      enctype="multipart/form-data"
+      [formGroup]="_postForm"
+      (ngSubmit)="uploadPost()"
+    >
+      <div class="form-group">
+        <label for="post-title">Titulo post</label>
+        <input
+          type="text"
+          class="form-control"
+          name="post-title"
+          id="post-title"
+          aria-describedby="postTitleHelp"
+          placeholder="El titulo del post"
+          formControlName="_name"
+        />
+        <small id="postTitleHelp" class="form-text text-muted"
+          >El titulo puede ser el tomo o un nombre nuevo</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="datePosting">Fecha de publicación</label>
+        <input
+          type="date"
+          class="form-control"
+          name="datePosting"
+          id="datePosting"
+          aria-describedby="datePostingHelp"
+          placeholder="La fecha en que se publicó el post a la revista"
+          formControlName="_date"
+        />
+        <small id="datePostingHelp" class="form-text text-muted"
+          >Para efectos de calificación la fecha de publicación debe ser
+          ingresada manualmente</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="magazine">Revista</label>
+        <select
+          class="form-control"
+          name="magazine"
+          id="magazine"
+          formControlName="_magazine"
+        >
+          <option>revista1</option>
+          <option>revista2</option>
+          <option>revista3</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="pdf">Archivo</label>
+        <input
+          type="file"
+          accept="application/pdf"
+          class="form-control-file"
+          name="pdf"
+          id="pdf"
+          placeholder="El archivo en PDF"
+          aria-describedby="pdfHelp"
+          formControlName="_pdf"
+        />
+        <small id="pdfHelp" class="form-text text-muted"
+          >El PDF debe contener el contendio del post</small
+        >
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Publicar</button>
+    </form>
+  </div>
+</div>

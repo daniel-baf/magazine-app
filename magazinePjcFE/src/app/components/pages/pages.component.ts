@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from 'src/app/modules/Users/user.module';
+import { User } from 'src/app/modules/SignUpMessge.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 
 @Component({

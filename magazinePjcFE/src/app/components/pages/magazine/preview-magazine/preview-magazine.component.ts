@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
+import { Magazine } from 'src/app/modules/MagazineMessage.module';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
 
 @Component({

@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { User } from 'src/app/modules/Users/user.module';
+import { User } from 'src/app/modules/SignUpMessge.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { RedirectService } from 'src/app/services/redirect.service';
 import { Routes } from 'src/app/vars/enums/ROUTES';

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Magazine } from 'src/app/modules/Magazine/Magazine.module';
-import { MagazineMessage } from 'src/app/modules/Messages/MagazineMessage.module';
+import {
+  Magazine,
+  MagazineMessage,
+} from 'src/app/modules/MagazineMessage.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
 
@@ -93,7 +95,6 @@ export class ApproveMagComponent implements OnInit {
           } else {
             this._showMessage = true;
           }
-          console.log(_success);
         });
     }
   }
