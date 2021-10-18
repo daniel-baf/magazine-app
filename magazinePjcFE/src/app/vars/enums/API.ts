@@ -10,6 +10,6 @@ export enum APIs {
   // magazines
   MAGAZINE_CONTOLLER = 'http://localhost:8080/Magazine-Api/MagazineContoller',
   FEES_CONTROLLER = 'http://localhost:8080/Magazine-Api/CompanyFeeController',
-  SUBSCRIPTION_CONTOLLER = 'http://localhost:8080/Magazine-Api/CashierController',
+  SUBSCRIPTION_CONTOLLER = 'http://localhost:8080/Magazine-Api/SubscriptionController',
   MAGAZINE_POST_CONTROLLER = 'http://localhost:8080/Magazine-Api/MagazinePostController',
 }

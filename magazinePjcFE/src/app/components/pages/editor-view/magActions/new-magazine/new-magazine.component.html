@@ -142,7 +142,9 @@
             formControlName="_category"
           >
             <option value="NO_VALID" disabled selected>SELECCIONAR</option>
-            <option *ngFor="let _cat of _categories">{{ _cat }}</option>
+            <option *ngFor="let _cat of _categories" [value]="_cat">
+              {{ _cat }}
+            </option>
           </select>
         </div>
         <div class="form-group">

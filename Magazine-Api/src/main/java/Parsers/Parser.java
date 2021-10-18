@@ -8,8 +8,8 @@ import java.sql.Date;
 import java.time.LocalDate;
 
 /**
- * This class convert a JSON to <object> who extends from User this <objects>
- * such as Admin, Reader or Editor
+ * This class convert a JSON to object who extends from User this such as Admin,
+ * Reader or Editor
  *
  * @author jefemayoneso
  */
@@ -26,7 +26,7 @@ public class Parser {
     }
 
     /**
-     * THis method transform any <JSON> string to <object>
+     * THis method transform any JSON string to OBJECT
      *
      * @param jsonString
      * @param type
@@ -37,7 +37,7 @@ public class Parser {
     }
 
     /**
-     * This method transform any <object> to <JSON> string
+     * This method transform any OBJECT to JSON string
      *
      * @param src
      * @param typeOfSrc
@@ -48,7 +48,7 @@ public class Parser {
     }
 
     /**
-     * this method reads the <Buffered Reader> from the FRONTEND and returns the
+     * this method reads the BUFFERED READER from the FRONTEND and returns the
      * string read
      *
      * @param br
@@ -70,7 +70,7 @@ public class Parser {
     }
 
     /**
-     * This method transform any <LocalDate> to <SQL Date>
+     * This method transform any lOCALDATE to SQL DATE
      *
      * @param date
      * @return
@@ -84,7 +84,7 @@ public class Parser {
     }
 
     /**
-     * This method transform any <String> to <LocalDate>
+     * This method transform any String to LocalDate
      *
      * @param dateString
      * @return
@@ -103,6 +103,12 @@ public class Parser {
         return date.toLocalDate();
     }
 
+    /**
+     * Cast a string to Integer
+     *
+     * @param parameter
+     * @return
+     */
     public Integer toInteger(String parameter) {
         return Integer.valueOf(parameter);
     }

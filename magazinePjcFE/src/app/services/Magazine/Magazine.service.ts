@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import {
   Magazine,
   MagazineMessage,
+  MagazinePost,
   MagazinePostMessage,
 } from 'src/app/modules/MagazineMessage.module';
 import { APIs } from 'src/app/vars/enums/API';
@@ -52,18 +53,30 @@ export class MagazineService {
     );
   }
 
-  public uploadPost(_postMessage: MagazinePostMessage, _file: File) {
-    console.log('enviando');
-    console.log(_postMessage);
+  public getMagazineOwned(_username: String, _limit: number, _offset: number) {
+    return this._http.get<Magazine[]>(
+      `${APIs.MAGAZINE_CONTOLLER}?action=EDITOR_OWNED&editor=${_username}&limit=${_limit}&offset=${_offset}`
+    );
+  }
 
+  public uploadPost(_postMessage: MagazinePostMessage, _file: File) {
     const _formData = new FormData();
     console.log(JSON.stringify(_postMessage));
-
     _formData.append('mag-post', JSON.stringify(_postMessage));
     _formData.append('datafile', _file, _file.name);
     return this._http.post<MagazinePostMessage>(
       `${APIs.MAGAZINE_POST_CONTROLLER}`,
       _formData
+    );
+  }
+
+  public getPosts(
+    _magazine: String,
+    _limit: number,
+    _offset: number
+  ): Observable<MagazinePost[]> {
+    return this._http.get<MagazinePost[]>(
+      `${APIs.MAGAZINE_POST_CONTROLLER}?action=FOR_MAG&magazine=${_magazine}&limit=${_limit}&offset=${_offset}`
     );
   }
 }

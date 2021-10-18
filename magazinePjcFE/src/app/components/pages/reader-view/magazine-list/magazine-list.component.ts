@@ -49,7 +49,6 @@ export class MagazineListComponent implements OnInit {
 
   ngOnInit(): void {
     this._magsToShow = new Array<Magazine>();
-    // this.add40Lines();
     this._user = JSON.parse(`${this._storageService.getData('user')}`);
     this.getMagazines();
     this._magToBuy = this.newEmptyMag();
@@ -147,7 +146,6 @@ export class MagazineListComponent implements OnInit {
           this._showALertMsg = true;
           this._alertMsg = 'No se ha podido completar el pago ';
         }
-        console.log(_success);
       });
   }
 

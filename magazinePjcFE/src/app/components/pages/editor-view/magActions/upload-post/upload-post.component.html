@@ -1,88 +1,174 @@
-<div class="container mt-3">
-  <h4>Publicar nuevo post</h4>
-  <div>
-    <!-- START POST FORM -->
-    <form
-      class="form"
-      enctype="multipart/form-data"
-      [formGroup]="_postForm"
-      (ngSubmit)="uploadPost()"
-    >
-      <div class="form-group">
-        <label for="post-title">Titulo post</label>
-        <input
-          type="text"
-          class="form-control"
-          name="post-title"
-          id="post-title"
-          aria-describedby="postTitleHelp"
-          placeholder="El titulo del post"
-          formControlName="_name"
-        />
-        <small id="postTitleHelp" class="form-text text-muted"
-          >El titulo puede ser el tomo o un nombre nuevo</small
-        >
-      </div>
-      <div class="form-group">
-        <label for="datePosting">Fecha de publicación</label>
-        <input
-          type="date"
-          class="form-control"
-          name="datePosting"
-          id="datePosting"
-          aria-describedby="datePostingHelp"
-          placeholder="La fecha en que se publicó el post a la revista"
-          formControlName="_date"
-        />
-        <small id="datePostingHelp" class="form-text text-muted"
-          >Para efectos de calificación la fecha de publicación debe ser
-          ingresada manualmente</small
-        >
-      </div>
-      <div class="form-group">
-        <label for="magazine">Revista</label>
-        <select
-          class="form-control"
-          name="magazine"
-          id="magazine"
-          formControlName="_magazine"
-        >
-          <option>revista1</option>
-          <option>revista2</option>
-          <option>revista3</option>
-        </select>
-      </div>
+<div
+  class="container mt-5"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  (scrolled)="onScroll()"
+>
+  <h3>Tus revistas</h3>
 
-      <div class="form-group">
-        <label for="pdf">Archivo</label>
-        <input
-          type="file"
-          accept="application/pdf"
-          class="form-control-file"
-          name="pdf"
-          id="pdf"
-          placeholder="El archivo en PDF"
-          aria-describedby="pdfHelp"
-          formControlName="_pdf"
-          (change)="setPDF($event)"
-        />
-        <small id="pdfHelp" class="form-text text-muted"
-          >El PDF debe contener el contendio del post</small
-        >
-      </div>
-      <button type="submit" class="btn btn-primary btn-block">Publicar</button>
-    </form>
-    <!-- END FORM POST -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Revista</th>
+        <th scope="col">Fecha creación</th>
+        <th scope="col" style="width: 15%">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <button
+        [ngClass]="'no-hidden'"
+        *ngIf="_showGoUpButton"
+        class="btn btn-dark"
+        (click)="scrollTop()"
+      >
+        Subir
+      </button>
+      <tr *ngFor="let _mag of _magazines; index as i">
+        <td>{{ i + 1 }}</td>
+        <td scope="row">{{ _mag.name }}</td>
+        <td>{{ _mag.dateString | date }}</td>
+        <td>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-primary"
+            data-toggle="modal"
+            data-target="#modelId"
+            (click)="setMag(_mag)"
+          >
+            Subir post
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
-    <!-- START ALERT MESSAGESi -->
-    <div>
-      <div *ngIf="_showSuccessMsg" class="alert alert-success" role="alert">
-        <strong>success</strong>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modelId"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modelTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Nueva publicación</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
       </div>
-      <div *ngIf="_showErrorMsg" class="alert alert-danger" role="alert">
-        <strong>Cuidado</strong> {{ _errorMsg }}
+      <div class="modal-body">
+        <div>
+          <!-- START POST FORM -->
+          <form
+            class="form"
+            enctype="multipart/form-data"
+            [formGroup]="_postForm"
+            (ngSubmit)="uploadPost()"
+          >
+            <div class="form-group">
+              <label for="post-title">Titulo post</label>
+              <input
+                type="text"
+                class="form-control"
+                name="post-title"
+                id="post-title"
+                aria-describedby="postTitleHelp"
+                placeholder="El titulo del post"
+                formControlName="_name"
+              />
+              <small id="postTitleHelp" class="form-text text-muted"
+                >El titulo puede ser el tomo o un nombre nuevo</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="datePosting">Fecha de publicación</label>
+              <input
+                type="date"
+                class="form-control"
+                name="datePosting"
+                id="datePosting"
+                aria-describedby="datePostingHelp"
+                placeholder="La fecha en que se publicó el post a la revista"
+                formControlName="_date"
+              />
+              <small id="datePostingHelp" class="form-text text-muted"
+                >Para efectos de calificación la fecha de publicación debe ser
+                ingresada manualmente</small
+              >
+            </div>
+
+            <div class="form-group">
+              <label for="magazine">Revista</label>
+              <input
+                type="text"
+                class="form-control"
+                name="magazine"
+                id="magazine"
+                aria-describedby="magazineHelp"
+                placeholder="El nombre de la revista"
+                formControlName="_magazine"
+                readonly
+              />
+              <small id="magazineHelp" class="form-text text-muted"
+                >La revista a la que el post se subirá</small
+              >
+            </div>
+            <div class="form-group">
+              <label for="pdf">Archivo</label>
+              <input
+                type="file"
+                accept="application/pdf"
+                class="form-control-file"
+                name="pdf"
+                id="pdf"
+                placeholder="El archivo en PDF"
+                aria-describedby="pdfHelp"
+                formControlName="_pdf"
+                (change)="setPDF($event)"
+              />
+              <small id="pdfHelp" class="form-text text-muted"
+                >El PDF debe contener el contendio del post</small
+              >
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">
+              Publicar
+            </button>
+          </form>
+          <!-- END FORM POST -->
+
+          <!-- START ALERT MESSAGESi -->
+          <div class="mt-3">
+            <div
+              *ngIf="_showSuccessMsg"
+              class="alert alert-success"
+              role="alert"
+            >
+              <strong>Listo</strong> {{ _successMsg }}
+            </div>
+            <div *ngIf="_showErrorMsg" class="alert alert-danger" role="alert">
+              <strong>Cuidado</strong> {{ _errorMsg }}
+            </div>
+          </div>
+          <!-- END ALERT MESSAGES -->
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">
+          Close
+        </button>
+        <button type="button" class="btn btn-primary">Save</button>
       </div>
     </div>
-    <!-- END ALERT MESSAGES -->
   </div>
 </div>

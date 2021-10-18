@@ -9,8 +9,11 @@ import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/a
 import { EditProfileComponent } from './components/pages/edit-profile/edit-profile.component';
 import { NewMagazineComponent } from './components/pages/editor-view/magActions/new-magazine/new-magazine.component';
 import { UploadPostComponent } from './components/pages/editor-view/magActions/upload-post/upload-post.component';
+import { PostListComponent } from './components/pages/magazine/post-list/post-list.component';
+import { ReadPostComponent } from './components/pages/magazine/post-list/read-post/read-post.component';
 import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
 import { PagesComponent } from './components/pages/pages.component';
+import { ReadMagComponent } from './components/pages/reader-view/mag-reader-options/read-mag/read-mag.component';
 import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
 
 const routes: Routes = [
@@ -23,7 +26,15 @@ const routes: Routes = [
     children: [
       {
         path: 'reader-view',
-        children: [{ path: 'mag-list', component: MagazineListComponent }],
+        children: [
+          {
+            path: 'mgrdoptn',
+            children: [
+              { path: 'mag-list', component: MagazineListComponent },
+              { path: 'read-mag', component: ReadMagComponent },
+            ],
+          },
+        ],
       },
       {
         path: 'editor-view',
@@ -35,6 +46,7 @@ const routes: Routes = [
               { path: 'upload-post', component: UploadPostComponent },
             ],
           },
+          { path: 'select-categories', component: SelectCategoriesComponent },
         ],
       },
       {
@@ -50,6 +62,8 @@ const routes: Routes = [
         path: 'magazine',
         children: [
           { path: 'preview/:name', component: PreviewMagazineComponent },
+          { path: 'post-list/:magazine', component: PostListComponent },
+          { path: 'read-post/:id', component: ReadPostComponent },
         ],
       },
       {

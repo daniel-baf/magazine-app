@@ -59,11 +59,11 @@ CREATE TABLE `Magazine` (
   `cost_per_day` DECIMAL(6,2) NULL DEFAULT 0,
   `creation_date` DATE NOT NULL,
   `description` LONGTEXT NOT NULL,
-  `allow_comment` SMALLINT(1) NULL DEFAULT 0,
-  `allow_likes` SMALLINT(1) NULL DEFAULT 0,
+  `allow_comment` SMALLINT NULL DEFAULT 0,
+  `allow_likes` SMALLINT NULL DEFAULT 0,
   `category` VARCHAR(50) NOT NULL,
   `editor` VARCHAR(50) NOT NULL,
-  `approved` TINYINT(1) NULL DEFAULT 0,
+  `approved` TINYINT NULL DEFAULT 0,
   PRIMARY KEY (`name`),
   CONSTRAINT `fk_editor_magazine`
     FOREIGN KEY (`editor`)
@@ -197,7 +197,7 @@ CREATE TABLE `Post` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(100) NOT NULL,
   `date` DATE NOT NULL,
-  `pdf` LONGBLOB NOT NULL,
+  `pdf` VARCHAR(1000) NOT NULL,
   `magazine` VARCHAR(30) NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_magazine_post_idx` (`magazine` ASC) VISIBLE,
@@ -210,7 +210,7 @@ CREATE TABLE `Post` (
 DROP TABLE IF EXISTS `Subscription`;
 CREATE TABLE `Subscription` (
   `id` INT NOT NULL AUTO_INCREMENT,
-  `months` TINYINT(3) NOT NULL,
+  `months` TINYINT NOT NULL,
   `expiration_date` DATE NOT NULL,
   `acquisition_date` DATE NOT NULL,
   `magazine` VARCHAR(30) NOT NULL,
@@ -235,7 +235,7 @@ CREATE TABLE `Add` (
   `expiration_date` DATE NOT NULL,
   `start_date` DATE NOT NULL,
   `shown_counter` INT NOT NULL,
-  `type` TINYINT(1) NOT NULL,
+  `type` TINYINT NOT NULL,
   `advertiser` VARCHAR(50) NOT NULL,
   `shown_url` VARCHAR(800) NULL,
   `video_url` VARCHAR(800) NULL DEFAULT 'not video',

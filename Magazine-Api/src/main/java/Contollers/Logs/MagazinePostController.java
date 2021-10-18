@@ -1,18 +1,17 @@
 package Contollers.Logs;
 
 import APIMessages.MagazinePostMessage;
+import DB.Domain.Magazine.MagazinePost;
 import Models.MagazinePostModel;
 import Parsers.Parser;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.tomcat.util.codec.binary.Base64;
 
 /**
  * A controller for magazine posts actions
@@ -42,8 +41,6 @@ public class MagazinePostController extends HttpServlet {
         Parser parser = new Parser();
         try {
             MagazinePostMessage mpms = new MagazinePostModel().updatePost(request);
-//            escribirArchivo(mpms.getPost().getPdfBase64());
-
             response.getWriter().append(parser.toJSON(mpms, MagazinePostMessage.class));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -51,4 +48,27 @@ public class MagazinePostController extends HttpServlet {
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }
     }
+
+    /**
+     * Return list of Posts
+     *
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        Parser parser = new Parser();
+        try {
+            ArrayList<MagazinePost> posts = new MagazinePostModel().getPosts(request);
+            response.getWriter().append(parser.toJSON(posts, posts.getClass()));
+        } catch (Exception e) {
+            System.out.println("Error while getting Posts at [MagazinePostController] " + e.getMessage());
+            response.getWriter().append(parser.toJSON(new MagazinePostMessage("Error trying to make a Magazine action at [MagazineController]" + e.getMessage(), null), MagazinePostMessage.class));
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }

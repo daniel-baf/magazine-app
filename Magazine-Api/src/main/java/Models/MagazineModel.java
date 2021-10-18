@@ -78,7 +78,10 @@ public class MagazineModel {
                         parser.toInteger(request.getParameter("offset")),
                         request.getParameter("reader"));
                 break;
-
+            case "EDITOR_OWNED":
+                mags = magSelect.select(request.getParameter("editor"),
+                        parser.toInteger(request.getParameter("limit")),
+                        parser.toInteger(request.getParameter("offset")));
             default:
         }
 

@@ -23,4 +23,14 @@ export class SubscriptionService {
       _subscription
     );
   }
+
+  public getActiveSubs(
+    _user: String,
+    _limit: number,
+    _offset: number
+  ): Observable<SubscriptionMag[]> {
+    return this._http.get<SubscriptionMag[]>(
+      `${APIs.SUBSCRIPTION_CONTOLLER}?user=${_user}&action=ACTIVE_USER&limit=${_limit}&offset=${_offset}`
+    );
+  }
 }

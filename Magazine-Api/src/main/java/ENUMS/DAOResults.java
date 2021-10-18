@@ -6,7 +6,9 @@ public enum DAOResults {
     EMAIL_IN_USE(-1, "EMAIL_IN_USE"),
     UNAUTHORIZED(-2, "UNAUTHORIZED"),
     ERROR_ON_INSERT(0, "ERROR_INSERT"),
-    NO_ERROR(1, "NO_ERROR");
+    NO_ERROR(1, "NO_ERROR"),
+    FILES_PDF_PATH(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/Posts/"),
+    FILES_IMG_PATH(-3, "");
 
     // METHODS
     private int code;

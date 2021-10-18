@@ -11,6 +11,7 @@ import { Routes } from 'src/app/vars/enums/ROUTES';
 export class ReaderViewComponent implements OnInit {
   _user: User;
   _magListUrl: string = Routes.MAGAZINE_LIST;
+  _readMagUrl: string = Routes.READ_MAGAZINE;
   _readerViewUrl: string = Routes.PAGES;
 
   constructor(private _storageService: LocalStorageService) {

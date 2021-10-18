@@ -1,0 +1,50 @@
+<div
+  class="container container-sm mt-5"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  (scrolled)="onScroll()"
+>
+  <div>
+    <h4>Subscripciones activas</h4>
+  </div>
+
+  <div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Revista</th>
+          <th scope="col">Adquirida</th>
+          <th scope="col">Vence</th>
+          <th scope="col" style="width: 15%">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <button
+          [ngClass]="'no-hidden'"
+          *ngIf="_showGoUpButton"
+          class="btn btn-dark"
+          (click)="scrollTop()"
+        >
+          Subir
+        </button>
+        <tr *ngFor="let _sub of _subs; index as i">
+          <td scope="row">{{ i + 1 }}</td>
+          <td scope="row">{{ _sub.magazine }}</td>
+          <td scope="row">{{ _sub.acquisitionDateString | date }}</td>
+          <td scope="row">{{ _sub.expirationDateString | date }}</td>
+          <td scope="row">
+            <a
+              name="see-post"
+              id="see-post"
+              class="btn btn-primary"
+              [routerLink]="[_postListUrl, _sub.magazine]"
+              role="button"
+              >Ver posts</a
+            >
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

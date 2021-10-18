@@ -24,6 +24,9 @@ import { PreviewMagazineComponent } from './components/pages/magazine/preview-ma
 import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { UploadPostComponent } from './components/pages/editor-view/magActions/upload-post/upload-post.component';
+import { ReadMagComponent } from './components/pages/reader-view/mag-reader-options/read-mag/read-mag.component';
+import { PostListComponent } from './components/pages/magazine/post-list/post-list.component';
+import { ReadPostComponent } from './components/pages/magazine/post-list/read-post/read-post.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +49,9 @@ import { UploadPostComponent } from './components/pages/editor-view/magActions/u
     PreviewMagazineComponent,
     MagazineListComponent,
     UploadPostComponent,
+    ReadMagComponent,
+    PostListComponent,
+    ReadPostComponent,
   ],
   imports: [
     BrowserModule,

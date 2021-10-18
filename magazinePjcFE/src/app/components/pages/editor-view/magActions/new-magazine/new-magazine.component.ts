@@ -108,7 +108,7 @@ export class NewMagazineComponent implements OnInit {
       ]),
       _allowLikes: new FormControl(true),
       _allowComment: new FormControl(true),
-      _category: new FormControl(this._categories, [Validators.required]),
+      _category: new FormControl('NO_VALID', [Validators.required]),
       _editor: new FormControl(this._user.email, [Validators.required]),
     });
   }

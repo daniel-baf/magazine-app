@@ -1,11 +1,12 @@
 package Models;
 
 import APIMessages.MagazinePostMessage;
+import DB.DAOs.Magazine.MagazinePostInsert;
+import DB.DAOs.Magazine.MagazinePostSelect;
+import DB.Domain.Magazine.MagazinePost;
 import Parsers.Parser;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.Part;
@@ -17,39 +18,43 @@ import javax.servlet.http.Part;
  */
 public class MagazinePostModel {
 
+    /**
+     * Update a new post and save the file at server
+     *
+     * @param request
+     * @return
+     * @throws IOException
+     * @throws ServletException
+     */
     public MagazinePostMessage updatePost(HttpServletRequest request) throws IOException, ServletException {
         Parser parser = new Parser();
-
         Part filePart = request.getPart("datafile");
-        System.out.println(filePart);
-        String tmp = request.getParameter("mag-post");
-        System.out.println(tmp);
-        MagazinePostMessage message = (MagazinePostMessage) parser.toObject(tmp, MagazinePostMessage.class);
-        System.out.println(message.toString());
-//        String fileName = filePart.getHeader("Content-type");
-//        InputStream fileStream = filePart.getInputStream();
-//        System.out.println(fileName);
-//        System.out.println(filePart.getHeader("Content-disposition"));
-//
-//        try ( BufferedReader in = new BufferedReader(new InputStreamReader(fileStream))) {
-//            String line = in.readLine();
-//            while (line != null) {
-//                System.out.println(line);
-//                line = in.readLine();
-//            }
-//            String filePath = "/home/jefemayoneso" + "/" + "archivo";
-//            filePart.write(filePath);
-//
-//        } catch (Exception ex) {
-//            // manejo de error
-//        }
+        MagazinePostMessage message = (MagazinePostMessage) parser.toObject(request.getParameter("mag-post"), MagazinePostMessage.class);
 
-        System.out.println(request.getParameter("mag-post"));
-
-//        MagazinePostMessage messageResponse = (MagazinePostMessage) parser.toObject(request.getParameter("object"), MagazinePostMessage.class);
-//        System.out.println(messageResponse.toString());
-//        System.out.println("casted");
-        return null;
+        switch (message.getMessage()) {
+            case "CREATE":
+                message.getPost().setPdfPart(filePart);
+                message.getPost().setDate(parser.toLocalDate(message.getPost().getDateString()));
+                String msg = new MagazinePostInsert().insert(message.getPost()) != 0 ? "NO_ERROR" : "ERROR_INSERT";
+                message.setMessage(msg);
+                break;
+            default:
+                message.setMessage("UNKNOWN_ACTION");
+        }
+        return message;
     }
 
+    public ArrayList<MagazinePost> getPosts(HttpServletRequest request) {
+        Parser parser = new Parser();
+        ArrayList<MagazinePost> posts;
+        switch (request.getParameter("action")) {
+            case "FOR_MAG":
+                posts = new MagazinePostSelect().select(request.getParameter("magazine"),
+                        parser.toInteger(request.getParameter("limit")), parser.toInteger(request.getParameter("offset")));
+                break;
+            default:
+                return null;
+        }
+        return posts;
+    }
 }

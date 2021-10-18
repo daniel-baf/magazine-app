@@ -2,9 +2,11 @@ package Models;
 
 import APIMessages.SubscriptionMessage;
 import DB.DAOs.Magazine.SubscriptionInsert;
+import DB.DAOs.Magazine.SubscriptionSelect;
 import DB.Domain.Magazine.Subscription;
 import Parsers.Parser;
 import java.io.IOException;
+import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -14,6 +16,13 @@ import javax.servlet.http.HttpServletRequest;
  */
 public class SubscriptionModel {
 
+    /**
+     * Take a list a subscription on database to guaranty access to magazines
+     *
+     * @param request
+     * @return
+     * @throws IOException
+     */
     public SubscriptionMessage newSubscription(HttpServletRequest request) throws IOException {
         // variables
         Parser parser = new Parser();
@@ -28,4 +37,13 @@ public class SubscriptionModel {
         return subMsg;
     }
 
+    public ArrayList<Subscription> getSubscription(String user, String action, int limit, int offset) {
+        switch (action) {
+            case "ACTIVE_USER":
+                return new SubscriptionSelect().select(user, limit, offset);
+            default:
+                System.out.println("UNKNOWN action at [SubscriptionModel]");
+                return null;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 package DB.Domain.Magazine;
 
-import java.io.File;
 import java.time.LocalDate;
+import javax.servlet.http.Part;
 
 /**
  * This class is a representation of a post at database
@@ -14,21 +14,31 @@ public class MagazinePost {
     private String title;
     private String dateString;
     private String magazine;
-    private String pdfBase64;
-//    private File pdf;
+    private String pdfNamePath;
     private LocalDate date;
+    private Part pdfPart;
 
     public MagazinePost() {
     }
 
-    public MagazinePost(int id, String title, String magazine, LocalDate date, File pdf) {
+    public MagazinePost(int id, String title, String magazine, LocalDate date, String pdfNamePath) {
         this.id = id;
         this.title = title;
         this.magazine = magazine;
         this.date = date;
-//        this.pdf = pdf;
+        this.pdfNamePath = pdfNamePath;
         // casts
         this.dateString = date.toString();
+    }
+
+    public MagazinePost(int id, String title, String dateString, String magazine, String pdfNamePath, LocalDate date, Part pdfPart) {
+        this.id = id;
+        this.title = title;
+        this.dateString = dateString;
+        this.magazine = magazine;
+        this.pdfNamePath = pdfNamePath;
+        this.date = date;
+        this.pdfPart = pdfPart;
     }
 
     /**
@@ -101,35 +111,37 @@ public class MagazinePost {
         this.date = date;
     }
 
-//    /**
-//     * @return the pdf
-//     */
-//    public File getPdf() {
-//        return pdf;
-//    }
-//    /**
-//     * @param pdf the pdf to set
-//     */
-//    public void setPdf(File pdf) {
-//        this.setPdf(pdf);
-//    }
+    /**
+     * @return the pdf
+     */
+    public String getPdfNamePath() {
+        return pdfNamePath;
+    }
+
+    /**
+     * @param pdfNamePath
+     */
+    public void setPdfNamePath(String pdfNamePath) {
+        this.pdfNamePath = pdfNamePath;
+    }
+
     @Override
     public String toString() {
-        return "post id=" + this.getId() + " title=" + this.getTitle() + " magazine=" + this.getMagazine() + " date=" + this.getDateString();
+        return "post id=" + this.getId() + " title=" + this.getTitle() + " magazine=" + this.getMagazine() + " date=" + this.getDateString() + "path=" + this.getPdfNamePath();
     }
 
     /**
-     * @return the pdfBase64
+     * @return the pdfPart
      */
-    public String getPdfBase64() {
-        return pdfBase64;
+    public Part getPdfPart() {
+        return pdfPart;
     }
 
     /**
-     * @param pdfBase64 the pdfBase64 to set
+     * @param pdfPart the pdfPart to set
      */
-    public void setPdfBase64(String pdfBase64) {
-        this.pdfBase64 = pdfBase64;
+    public void setPdfPart(Part pdfPart) {
+        this.pdfPart = pdfPart;
     }
 
 }
