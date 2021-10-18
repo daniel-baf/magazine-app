@@ -1,8 +1,8 @@
 package Models;
 
 import APIMessages.MagazinePostMessage;
-import DB.DAOs.Magazine.MagazinePostInsert;
-import DB.DAOs.Magazine.MagazinePostSelect;
+import DB.DAOs.Magazine.Post.MagazinePostInsert;
+import DB.DAOs.Magazine.Post.MagazinePostSelect;
 import DB.Domain.Magazine.MagazinePost;
 import Parsers.Parser;
 import java.io.IOException;
@@ -52,7 +52,12 @@ public class MagazinePostModel {
                 posts = new MagazinePostSelect().select(request.getParameter("magazine"),
                         parser.toInteger(request.getParameter("limit")), parser.toInteger(request.getParameter("offset")));
                 break;
+            case "SPECIFIC":
+                posts = new ArrayList<MagazinePost>();
+                posts.add(new MagazinePostSelect().select(parser.toInteger(request.getParameter("id"))));
+                break;
             default:
+                System.out.println("UNKNOWN action at [MagazinePostModel]");
                 return null;
         }
         return posts;

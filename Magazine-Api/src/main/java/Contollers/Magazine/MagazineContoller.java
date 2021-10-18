@@ -1,4 +1,4 @@
-package Contollers.Logs;
+package Contollers.Magazine;
 
 import APIMessages.MagazineMessage;
 import APIMessages.SignupMessage;

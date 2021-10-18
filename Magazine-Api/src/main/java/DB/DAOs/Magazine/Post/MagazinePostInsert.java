@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DB.DAOs.Magazine;
+package DB.DAOs.Magazine.Post;
 
 import DB.DBConnection;
 import DB.Domain.Magazine.MagazinePost;

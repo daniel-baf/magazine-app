@@ -28,7 +28,7 @@ export class MagazinePost {
     public id: number,
     public title: string,
     public dateString: string,
-    public pdf: File,
+    public pdf: File | null,
     public magazine: string
   ) {}
 }

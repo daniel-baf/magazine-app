@@ -1,4 +1,4 @@
-package DB.DAOs.Magazine;
+package DB.DAOs.Magazine.Post;
 
 import DB.Domain.Magazine.MagazinePost;
 import Parsers.Parser;

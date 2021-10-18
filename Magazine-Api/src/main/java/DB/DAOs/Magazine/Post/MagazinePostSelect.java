@@ -1,4 +1,4 @@
-package DB.DAOs.Magazine;
+package DB.DAOs.Magazine.Post;
 
 import DB.DBConnection;
 import DB.Domain.Magazine.MagazinePost;
@@ -16,6 +16,7 @@ import java.util.ArrayList;
 public class MagazinePostSelect {
 
     private String SQL_SELECT_POSTS = "SELECT * FROM  Post WHERE magazine=? LIMIT ? OFFSET ?";
+    private String SQL_SELECT_MAG = "SELECT * FROM  Post WHERE id=?";
 
     /**
      * Select some post to show at FE
@@ -41,6 +42,26 @@ public class MagazinePostSelect {
         return posts;
     }
 
+    public MagazinePost select(int id) {
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_MAG)) {
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return getPostFromRS(rs);
+            }
+        } catch (Exception e) {
+            System.out.println("Error trying to get mag post at [MagazinePostSelect] " + e.getMessage());
+        }
+        return null;
+    }
+
+    /**
+     * Shared method to get file
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private MagazinePost getPostFromRS(ResultSet rs) throws SQLException {
         Parser parser = new Parser();
         return new MagazinePost(

@@ -1,4 +1,4 @@
-package DB.DAOs.Magazine;
+package DB.DAOs.Magazine.Financials;
 
 import DB.Domain.Magazine.Payment;
 import java.sql.PreparedStatement;

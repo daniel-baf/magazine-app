@@ -1,4 +1,4 @@
-package Contollers.Logs;
+package Contollers.User;
 
 import APIMessages.SignupMessage;
 import Models.UserModel;

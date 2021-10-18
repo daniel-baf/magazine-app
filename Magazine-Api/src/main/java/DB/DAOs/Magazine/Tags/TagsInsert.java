@@ -1,4 +1,4 @@
-package DB.DAOs.Magazine;
+package DB.DAOs.Magazine.Tags;
 
 import DB.DBConnection;
 import ENUMS.DAOResults;

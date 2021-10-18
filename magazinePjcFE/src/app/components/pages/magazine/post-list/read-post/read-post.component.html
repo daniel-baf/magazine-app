@@ -1,1 +1,33 @@
-<p>read-post works!</p>
+<div class="container mt-5">
+  <div>
+    <h4>{{ _post.title }}</h4>
+  </div>
+
+  <div class="mt-3">
+    <div class="row">
+      <div class="col-xl-8">
+        <iframe
+          [src]="_mapUrl"
+          frameborder="0"
+          width="100%"
+          max-width="1400px"
+          height="700px"
+          allowfullscreen="true"
+          loading="lazy"
+        ></iframe>
+      </div>
+      <div class="col-sm-4">
+        <p>Revista: {{ _post.magazine }}</p>
+        <p>{{ _post.dateString }}</p>
+        <a
+          name=""
+          id=""
+          class="btn btn-lg btn-block btn-outline-success"
+          href="{{ _downloadPdf }}"
+          role="button"
+          >Descargar</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

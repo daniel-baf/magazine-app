@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Contollers.Logs;
+package Contollers.Finance;
 
-import DB.DAOs.Magazine.CompanyFeeDAO;
+import DB.DAOs.Company.CompanyFeeDAO;
 import Parsers.Parser;
 import java.io.IOException;
 import java.util.ArrayList;

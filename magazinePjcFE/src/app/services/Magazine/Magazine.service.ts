@@ -79,4 +79,10 @@ export class MagazineService {
       `${APIs.MAGAZINE_POST_CONTROLLER}?action=FOR_MAG&magazine=${_magazine}&limit=${_limit}&offset=${_offset}`
     );
   }
+
+  public getBasicInfoToShowPost(_id: number): Observable<MagazinePost[]> {
+    return this._http.get<MagazinePost[]>(
+      `${APIs.MAGAZINE_POST_CONTROLLER}?action=SPECIFIC&id=${_id}`
+    );
+  }
 }

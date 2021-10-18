@@ -1,8 +1,8 @@
 package Models;
 
 import APIMessages.SubscriptionMessage;
-import DB.DAOs.Magazine.SubscriptionInsert;
-import DB.DAOs.Magazine.SubscriptionSelect;
+import DB.DAOs.Magazine.Financials.SubscriptionInsert;
+import DB.DAOs.Magazine.Financials.SubscriptionSelect;
 import DB.Domain.Magazine.Subscription;
 import Parsers.Parser;
 import java.io.IOException;

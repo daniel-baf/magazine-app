@@ -40,8 +40,6 @@
         </div>
         <!-- END BASIC INFO -->
       </div>
-
-      <div></div>
       <div class="row mt-4">
         <div class="col-lg-8">
           <p>{{ _activeMag.description }}</p>
@@ -67,6 +65,36 @@
     <!-- START COMMENTS -->
     <section>
       <hr />
+      <!-- LIKE TOGGLE -->
+      <div>
+        <button type="button" class="btn nt-lg btn-block btn-outline-primary">
+          Me gusta
+        </button>
+      </div>
+      <!-- END LIKE TOGGLE -->
+      <!-- START COMMENT SECTION -->
+      <div>
+        <!-- LEAVE COMMENT -->
+        <div class="mt-3">
+          <div class="form-group">
+            <label for="comment">Comentario</label>
+            <input
+              type="text"
+              class="form-control"
+              name="comment"
+              id="comment"
+              aria-describedby="commentHelp"
+              placeholder="Dejanos un comentario"
+            />
+            <small id="commentHelp" class="form-text text-muted"
+              >Comenta lo que piensas de la revista</small
+            >
+          </div>
+          <button type="button" class="btn btn-primary btn-lg">Comentar</button>
+        </div>
+        <!-- END LEAVE COMMETN -->
+      </div>
+      <!-- END COMMENT SECTION -->
       <ul class="list-group">
         DEBO MOSTRAR LOS COMENTARIOSi
         <!-- TODO show commetns -->

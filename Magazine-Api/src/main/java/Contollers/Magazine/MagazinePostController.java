@@ -1,4 +1,4 @@
-package Contollers.Logs;
+package Contollers.Magazine;
 
 import APIMessages.MagazinePostMessage;
 import DB.Domain.Magazine.MagazinePost;
