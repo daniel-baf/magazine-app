@@ -1,8 +1,8 @@
-package Contollers.Logs;
+package Contollers.Finance;
 
 import APIMessages.SignupMessage;
 import APIMessages.SubscriptionMessage;
-import DB.Domain.Magazine.Subscription;
+import DB.Domain.Financial.Subscription;
 import Models.SubscriptionModel;
 import Parsers.Parser;
 import java.io.IOException;

@@ -3,7 +3,7 @@ package Models;
 import APIMessages.SubscriptionMessage;
 import DB.DAOs.Magazine.Financials.SubscriptionInsert;
 import DB.DAOs.Magazine.Financials.SubscriptionSelect;
-import DB.Domain.Magazine.Subscription;
+import DB.Domain.Financial.Subscription;
 import Parsers.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,6 +37,15 @@ public class SubscriptionModel {
         return subMsg;
     }
 
+    /**
+     * Return a list of subscription
+     *
+     * @param user
+     * @param action
+     * @param limit
+     * @param offset
+     * @return
+     */
     public ArrayList<Subscription> getSubscription(String user, String action, int limit, int offset) {
         switch (action) {
             case "ACTIVE_USER":

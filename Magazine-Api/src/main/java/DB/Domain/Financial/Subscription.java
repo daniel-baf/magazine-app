@@ -1,4 +1,4 @@
-package DB.Domain.Magazine;
+package DB.Domain.Financial;
 
 import Parsers.Parser;
 import java.time.LocalDate;

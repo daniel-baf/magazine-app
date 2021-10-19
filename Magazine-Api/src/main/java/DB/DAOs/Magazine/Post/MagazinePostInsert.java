@@ -36,7 +36,6 @@ public class MagazinePostInsert {
                 ResultSet rs = ps.getGeneratedKeys();
                 if (rs.next()) { // if inserted
                     post.setId(rs.getInt(1));
-                    System.out.println(post.getId());
                     String path = DAOResults.FILES_PDF_PATH.getMessage();
                     FileWriterCP fileWriter = new FileWriterCP();
                     if (fileWriter.write(post.getPdfPart(),

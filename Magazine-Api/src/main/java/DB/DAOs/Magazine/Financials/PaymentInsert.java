@@ -1,6 +1,6 @@
 package DB.DAOs.Magazine.Financials;
 
-import DB.Domain.Magazine.Payment;
+import DB.Domain.Financial.Payment;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

@@ -48,8 +48,7 @@
       <div class="row">
         <div class="col-md-6">
           <p>Categoria: {{ _activeMag.category }}</p>
-          <!-- TODO show the number of likes from DB -->
-          <p>Me gusta: 12</p>
+          <p>Me gusta: {{ _likesCounter }}</p>
         </div>
         <div class="col-md-6">
           <p>Tags</p>
@@ -85,20 +84,78 @@
               id="comment"
               aria-describedby="commentHelp"
               placeholder="Dejanos un comentario"
+              [(ngModel)]="_newComment.text"
             />
             <small id="commentHelp" class="form-text text-muted"
               >Comenta lo que piensas de la revista</small
             >
           </div>
-          <button type="button" class="btn btn-primary btn-lg">Comentar</button>
+          <div class="form-group">
+            <label for="date">Fecha</label>
+            <input
+              type="date"
+              class="form-control"
+              name="date"
+              id="date"
+              aria-describedby="dateHelp"
+              placeholder="Fecha en que se publica el comentario"
+              [(ngModel)]="_newComment.dateString"
+            />
+            <small id="dateHelp" class="form-text text-muted"
+              >Para calificacion, se debe elegir la fecha</small
+            >
+          </div>
+          <button
+            type="button"
+            class="btn btn-primary btn-lg"
+            (click)="commentMag()"
+          >
+            Comentar
+          </button>
+          <div class="mt-2">
+            <div *ngIf="_showAlertMsg" class="alert alert-warning" role="alert">
+              <strong>{{ _alertMsg }}</strong>
+            </div>
+            <div
+              *ngIf="_showSUccessMsg"
+              class="alert alert-success"
+              role="alert"
+            >
+              <strong>Comentario publicado</strong>
+            </div>
+          </div>
         </div>
         <!-- END LEAVE COMMETN -->
       </div>
       <!-- END COMMENT SECTION -->
-      <ul class="list-group">
-        DEBO MOSTRAR LOS COMENTARIOSi
-        <!-- TODO show commetns -->
-      </ul>
+      <!-- SHOW COMMETNS -->
+      <!-- START COMMENT -->
+      <div infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
+        <h5>Comentarios</h5>
+        <ul class="list-group">
+          <li class="list-group-item disabled" *ngFor="let _comm of _comments">
+            <div class="media">
+              <img
+                src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwallup.net%2Fwp-content%2Fuploads%2F2018%2F10%2F06%2F364495-dog-puppy-dogs-baby.jpg&f=1&nofb=1"
+                width="64"
+                height="64"
+                class="
+                  img-fluid
+                  ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}
+                "
+                alt="img user"
+              />
+              <div class="media-body">
+                <p class="name">
+                  {{ _comm.user }} <span>{{ _comm.dateString }}</span>
+                </p>
+                <p class="comment">{{ _comm.text }}</p>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <!-- END SHOW COMMENT -->
     </section>
     <!-- END COMMENTTS -->
   </div>

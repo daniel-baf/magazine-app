@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import {
   Magazine,
+  MagazineComment,
+  MagazineCommentMessage,
   MagazineMessage,
   MagazinePost,
   MagazinePostMessage,
@@ -61,7 +63,6 @@ export class MagazineService {
 
   public uploadPost(_postMessage: MagazinePostMessage, _file: File) {
     const _formData = new FormData();
-    console.log(JSON.stringify(_postMessage));
     _formData.append('mag-post', JSON.stringify(_postMessage));
     _formData.append('datafile', _file, _file.name);
     return this._http.post<MagazinePostMessage>(
@@ -83,6 +84,33 @@ export class MagazineService {
   public getBasicInfoToShowPost(_id: number): Observable<MagazinePost[]> {
     return this._http.get<MagazinePost[]>(
       `${APIs.MAGAZINE_POST_CONTROLLER}?action=SPECIFIC&id=${_id}`
+    );
+  }
+
+  public getComments(
+    _mag: string,
+    _limit: number,
+    _offset: number
+  ): Observable<MagazineComment[]> {
+    return this._http.get<MagazineComment[]>(
+      `${APIs.MAGAZINE_REACTIONS_CONTROLLER}?action=GET_MAG_COMMENT&magazine=${_mag}&limit=${_limit}&offset=${_offset}`
+    );
+  }
+
+  public commentMagazine(_comment: MagazineComment): Observable<string> {
+    let _formData = new FormData();
+    _formData.append('action', 'NEW_COMMENT');
+    _formData.append('comment', JSON.stringify(_comment));
+    return this._http.post(`${APIs.MAGAZINE_REACTIONS_CONTROLLER}`, _formData, {
+      responseType: 'text',
+    });
+  }
+
+  public leaveLike(_user: String, _magazine: string) {}
+
+  public getLikesCounter(_magazine: string): Observable<number> {
+    return this._http.get<number>(
+      `${APIs.MAGAZINE_REACTIONS_CONTROLLER}?action=GET_LIKES_COUNTER&magazine=${_magazine}`
     );
   }
 }

@@ -1,4 +1,4 @@
-package DB.Domain.Magazine;
+package DB.Domain.Financial;
 
 /**
  *

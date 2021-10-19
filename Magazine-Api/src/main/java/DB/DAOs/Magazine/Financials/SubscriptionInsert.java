@@ -2,8 +2,8 @@ package DB.DAOs.Magazine.Financials;
 
 import DB.DAOs.Company.CompanyFeeDAO;
 import DB.DAOs.Magazine.MagazineSelect;
-import DB.Domain.Magazine.Payment;
-import DB.Domain.Magazine.Subscription;
+import DB.Domain.Financial.Payment;
+import DB.Domain.Financial.Subscription;
 import Parsers.Parser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

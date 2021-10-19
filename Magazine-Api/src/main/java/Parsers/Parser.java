@@ -47,6 +47,10 @@ public class Parser {
         return this.gson.toJson(src, typeOfSrc);
     }
 
+    public String toJSON(String stg) {
+        return this.gson.toJson(stg);
+    }
+
     /**
      * this method reads the BUFFERED READER from the FRONTEND and returns the
      * string read

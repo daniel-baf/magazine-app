@@ -1,6 +1,6 @@
 package APIMessages;
 
-import DB.Domain.Magazine.Subscription;
+import DB.Domain.Financial.Subscription;
 
 /**
  * Element used for communication with subscription tasks

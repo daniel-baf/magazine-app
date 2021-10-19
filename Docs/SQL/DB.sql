@@ -103,11 +103,10 @@ CREATE TABLE `Comment` (
 
 DROP TABLE IF EXISTS `Like`;
 CREATE TABLE `Like` (
-  `id` INT NOT NULL,
   `date` DATE NOT NULL,
   `magazine` VARCHAR(30) NOT NULL,
   `user` VARCHAR(50) NOT NULL,
-  PRIMARY KEY (`id`),
+  PRIMARY KEY (`magazine`, `user`),
   CONSTRAINT `fk_like_user`
     FOREIGN KEY (`user`)
     REFERENCES `Magazine_Web`.`Reader` (`email`)

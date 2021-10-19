@@ -1,7 +1,7 @@
 package DB.DAOs.Magazine.Financials;
 
 import DB.DBConnection;
-import DB.Domain.Magazine.Subscription;
+import DB.Domain.Financial.Subscription;
 import Parsers.Parser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class SubscriptionSelect {
 
-    private final String SQL_SELECT_ACTIVE_SUB = "SELECT * FROM Subscription WHERE reader = ? LIMIT ? OFFSET ?";
+    private final String SQL_SELECT_ACTIVE_SUB = "SELECT * FROM Subscription WHERE reader = ? AND expiration_date >= NOW() LIMIT ? OFFSET ?";
 
     /**
      * This method gets all active subscription for a reader from DB

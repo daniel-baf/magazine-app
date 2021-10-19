@@ -6,6 +6,10 @@ export class MagazinePostMessage {
   constructor(public message: string, public post: MagazinePost) {}
 }
 
+export class MagazineCommentMessage {
+  constructor(public message: string, public comment: MagazineComment) {}
+}
+
 export class Magazine {
   constructor(
     public name: string,
@@ -29,6 +33,16 @@ export class MagazinePost {
     public title: string,
     public dateString: string,
     public pdf: File | null,
+    public magazine: string
+  ) {}
+}
+
+export class MagazineComment {
+  constructor(
+    public id: number,
+    public dateString: String,
+    public text: string,
+    public user: string,
     public magazine: string
   ) {}
 }
