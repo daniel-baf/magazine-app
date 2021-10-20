@@ -52,6 +52,11 @@ export class SignupComponent implements OnInit {
       }
     } else {
       this.showMessageError = true;
+      console.log(this._signUpForm.controls['_name'].valid);
+      console.log(this._signUpForm.controls['_email'].valid);
+      console.log(this._signUpForm.controls['_isEditor'].valid);
+      console.log(this._signUpForm.controls['_password'].valid);
+      console.log(this._signUpForm.controls['_description'].valid);
     }
   }
 

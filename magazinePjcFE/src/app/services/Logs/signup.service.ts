@@ -11,6 +11,7 @@ export class SignupService {
   constructor(private _http: HttpClient) {}
 
   signUpStep1(_user: User): Observable<SignUpMessage> {
+    console.log(_user.name);
     return this._http.post<SignUpMessage>(`${APIs.SIGNUP}`, _user);
   }
 

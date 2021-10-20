@@ -146,8 +146,6 @@ export class PreviewMagazineComponent implements OnInit {
     } else {
       this.showAlertMsg('no has ingresado una fecha');
     }
-    // let like: MagazineLike
-    // TODO leave likes
   }
 
   public commentMag() {

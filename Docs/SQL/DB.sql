@@ -227,8 +227,8 @@ CREATE TABLE `Subscription` (
     ON UPDATE CASCADE);
 
 -- ADDS
-DROP TABLE IF EXISTS `Add`;
-CREATE TABLE `Add` (
+DROP TABLE IF EXISTS `Ad`;
+CREATE TABLE `Ad` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `advertiser_paid` DECIMAL(8,2) NOT NULL,
   `expiration_date` DATE NOT NULL,
@@ -241,26 +241,26 @@ CREATE TABLE `Add` (
   `img_local_path` VARCHAR(600) NULL,
   `text` MEDIUMTEXT NULL,
   PRIMARY KEY (`id`),
-  CONSTRAINT `fk_advertiser_add`
+  CONSTRAINT `fk_advertiser_ad`
     FOREIGN KEY (`advertiser`)
     REFERENCES `Magazine_Web`.`Advertiser` (`name`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
 
-DROP TABLE IF EXISTS `Add_Tag`;
-CREATE TABLE `Add_Tag` (
+DROP TABLE IF EXISTS `Ad_Tag`;
+CREATE TABLE `Ad_Tag` (
   `tag` VARCHAR(50) NOT NULL,
-  `add` INT NOT NULL,
-  PRIMARY KEY (`tag`, `add`),
-  CONSTRAINT `fk_tag_add_tag`
+  `ad` INT NOT NULL,
+  PRIMARY KEY (`tag`, `ad`),
+  CONSTRAINT `fk_tag_ad_tag`
     FOREIGN KEY (`tag`)
     REFERENCES `Magazine_Web`.`Tag` (`name`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE,
-  CONSTRAINT `fk_add_add_tag`
-    FOREIGN KEY (`add`)
-    REFERENCES `Magazine_Web`.`Add` (`id`)
-    ON DELETE RESTRICT
+  CONSTRAINT `fk_ad_ad_tag`
+    FOREIGN KEY (`ad`)
+    REFERENCES `Magazine_Web`.`Ad` (`id`)
+    ON DELETE CASCADE
     ON UPDATE CASCADE);
     
 -- payment

@@ -13,6 +13,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.DefaultJasperReportsContext;
+// JASPER
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
+import net.sf.jasperreports.engine.JasperFillManager;
 
 /**
  *
@@ -34,16 +42,21 @@ public class FileGiver extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Parser parser = new Parser();
-        switch (request.getParameter("action")) {
-            case "SHOW_PDF":
-                showPDF(response, parser.toInteger(request.getParameter("id")));
-            case "DOWNLOAD_PDF":
-                downloadPDF(response, request.getParameter("id"));
-                break;
-            case "SHOW_JASPER_TMP":
-                showJasper();
-                // get Jasper
-                break;
+        response.setContentType("text/plain;charset=UTF-8");
+        try {
+            switch (request.getParameter("action")) {
+                case "SHOW_PDF":
+                    MagazinePost post = new MagazinePostSelect().select(parser.toInteger(request.getParameter("id")));
+                    showPDF(response, post.getPdfNamePath());
+                case "DOWNLOAD_PDF":
+                    downloadPDF(response, request.getParameter("id"));
+                    break;
+//            case "SHOW_JASPER_TMP":
+//                showJasperAsHTML(response);
+//                // get Jasper
+//                break;
+            }
+        } catch (Exception e) {
         }
     }
 
@@ -53,9 +66,8 @@ public class FileGiver extends HttpServlet {
      * @param response
      * @param id
      */
-    private void showPDF(HttpServletResponse response, int id) {
-        MagazinePost post = new MagazinePostSelect().select(id);
-        try ( BufferedInputStream fileStream = new BufferedInputStream(new FileInputStream(post.getPdfNamePath()))) {
+    private void showPDF(HttpServletResponse response, String path) {
+        try ( BufferedInputStream fileStream = new BufferedInputStream(new FileInputStream(path))) {
             response.setContentType("application/pdf");
             int data = fileStream.read();
             while (data > -1) {
@@ -67,6 +79,14 @@ public class FileGiver extends HttpServlet {
         }
     }
 
+    /**
+     * This method generate a PDF file for download
+     *
+     * @param response
+     * @param id
+     * @throws FileNotFoundException
+     * @throws IOException
+     */
     private void downloadPDF(HttpServletResponse response, String id) throws FileNotFoundException, IOException {
         Parser parser = new Parser();
         MagazinePost post = new MagazinePostSelect().select(parser.toInteger(id));
@@ -75,6 +95,14 @@ public class FileGiver extends HttpServlet {
         download(response, inputStream, filename);
     }
 
+    /**
+     * This method generate the downloadable file
+     *
+     * @param response
+     * @param inputStream
+     * @param fileName
+     * @throws IOException
+     */
     private void download(HttpServletResponse response, InputStream inputStream, String fileName) throws IOException {
         try ( BufferedInputStream fileStream = new BufferedInputStream(inputStream)) {
             response.setContentType("text/plain;charset=UTF-8");
@@ -86,11 +114,20 @@ public class FileGiver extends HttpServlet {
             }
         }
     }
-    
-    private void showJasper() {
-        try (InputStream template = JasperReportsApplication.class){
-            
+
+    private void showJasperAsHTML(HttpServletResponse response) {
+        String reportPath = "/home/jefemayoneso/Documents/Angular/projects/magazine-app/Magazine-Api/src/main/java/resources/Jasper/Simple_Blue.jasper";
+        try {
+            // get inputstream
+            response.setContentType("text/html");
+            InputStream inputStream = JRLoader.getFileInputStream(reportPath);
+            JasperPrint jPrint = JasperFillManager.fillReport(inputStream, null, DB.DBConnection.getConnection());
+            HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+            htmlExporter.setExporterInput(new SimpleExporterInput(jPrint));
+            htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+            htmlExporter.exportReport();
         } catch (Exception e) {
+            System.out.println("Error JASPER " + e.getMessage());
         }
     }
 }

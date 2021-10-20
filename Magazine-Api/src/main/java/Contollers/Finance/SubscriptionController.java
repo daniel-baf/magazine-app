@@ -32,6 +32,7 @@ public class SubscriptionController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             SubscriptionMessage submsg = new SubscriptionModel().newSubscription(request);
@@ -54,6 +55,7 @@ public class SubscriptionController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             ArrayList<Subscription> subs = new SubscriptionModel().getSubscription(

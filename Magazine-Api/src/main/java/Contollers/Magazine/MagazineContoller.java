@@ -31,6 +31,7 @@ public class MagazineContoller extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             MagazineMessage message = new MagazineModel().executeModel(request.getReader());
@@ -43,6 +44,7 @@ public class MagazineContoller extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             ArrayList<Magazine> magazines = new MagazineModel().selectMagazines(request);

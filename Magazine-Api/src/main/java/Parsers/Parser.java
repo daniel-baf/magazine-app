@@ -66,6 +66,7 @@ public class Parser {
                 body += line;
                 line = br.readLine();
             }
+            System.out.println(body);
             return body;
         } catch (IOException e) {
             System.out.println("Error parsing request string from buffered reader at [Parsers].[ReaderBR]\n" + e.getMessage());

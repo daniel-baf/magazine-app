@@ -28,6 +28,7 @@ public class SignUpController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             SignupMessage supm = new SignupModel().signUp(request.getReader());

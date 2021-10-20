@@ -51,7 +51,7 @@ public class MagazineInsert {
         int allowLieks = magazine.isAllowLikes() ? 1 : 0;
         int approved = magazine.isApproved() ? 1 : 0;
         // configure preparedstatement
-        ps.setString(1, magazine.getName());
+        ps.setString(1, magazine.getName().toLowerCase());
         ps.setDouble(2, magazine.getMensuality());
         ps.setDouble(3, magazine.getCompanyFee());
         ps.setDouble(4, magazine.getCostPerDay());

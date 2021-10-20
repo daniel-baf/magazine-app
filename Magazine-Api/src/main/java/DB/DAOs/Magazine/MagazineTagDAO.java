@@ -26,8 +26,8 @@ public class MagazineTagDAO {
      */
     public int insert(String magazine, String tag) {
         try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_INERT_MAG_TAG)) {
-            ps.setString(1, magazine);
-            ps.setString(2, tag);
+            ps.setString(1, magazine.toLowerCase());
+            ps.setString(2, tag.toLowerCase());
             return ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erryr trying to insert Magazine Tag at [MagazineTagInsert] " + e.getMessage());

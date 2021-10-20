@@ -18,7 +18,7 @@ export class ReadMagComponent implements OnInit {
   public _actualPage: number;
   public _offset: number;
   public _limit: number = 20;
-  public _finishPage: number = 5;
+  public _finishPage: number = 50;
   public _showScrollHeight: number = 400;
   public _hideScrollHeight: number = 200;
   public _showGoUpButton: boolean;

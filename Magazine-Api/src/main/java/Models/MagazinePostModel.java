@@ -27,8 +27,10 @@ public class MagazinePostModel {
      * @throws ServletException
      */
     public MagazinePostMessage updatePost(HttpServletRequest request) throws IOException, ServletException {
+        request.setCharacterEncoding("utf-8");
         Parser parser = new Parser();
         Part filePart = request.getPart("datafile");
+        System.out.println(request.getParameter("mag-post"));
         MagazinePostMessage message = (MagazinePostMessage) parser.toObject(request.getParameter("mag-post"), MagazinePostMessage.class);
 
         switch (message.getMessage()) {

@@ -24,6 +24,10 @@ export class AdminViewComponent implements OnInit {
   ngOnInit(): void {}
 
   private configureLinksArray(): string[] {
-    return [Routes.APPROVE_MAGAZINE, Routes.ADVERTISER_LIST, Routes.CREATE_ADD];
+    return [
+      Routes.APPROVE_MAGAZINE,
+      Routes.ADVERTISER_LIST,
+      Routes.NEW_ADVERTISER,
+    ];
   }
 }

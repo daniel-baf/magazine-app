@@ -1,1 +1,32 @@
-<p>new-advertiser works!</p>
+<div class="container mt-5">
+  <h3>Regista un nuevo anunciante</h3>
+  <div class="row d-flex justify-content-center">
+    <form class="form" [formGroup]="_advertiserForm" (ngSubmit)="sendForm()">
+      <div class="form-group">
+        <label for="advertiser">Nombre</label>
+        <input
+          type="text"
+          class="form-control"
+          name="advertiser"
+          id="advertiser"
+          aria-describedby="advertiserHelp"
+          placeholder="El nombre del anunciante/empresa"
+          formControlName="_name"
+          required
+        />
+        <small id="advertiserHelp" class="form-text text-muted"
+          >El nombre no se puede repetir</small
+        >
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Registar</button>
+    </form>
+  </div>
+  <div class="mt-3">
+    <div *ngIf="_showErrorMsg" class="alert alert-danger" role="alert">
+      <strong>{{ _errorMsg }}</strong>
+    </div>
+    <div *ngIf="_showSuccessMsg" class="alert alert-success" role="alert">
+      <strong>{{ _successMsg }}</strong>
+    </div>
+  </div>
+</div>

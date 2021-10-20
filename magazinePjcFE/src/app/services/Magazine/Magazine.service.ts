@@ -122,4 +122,10 @@ export class MagazineService {
       `${APIs.MAGAZINE_REACTIONS_CONTROLLER}?action=GET_LIKES_COUNTER&magazine=${_magazine}`
     );
   }
+
+  public getTags(): Observable<string[]> {
+    return this._http.get<string[]>(
+      `${APIs.MAGAZINE_REACTIONS_CONTROLLER}?action=GET_TAGS`
+    );
+  }
 }

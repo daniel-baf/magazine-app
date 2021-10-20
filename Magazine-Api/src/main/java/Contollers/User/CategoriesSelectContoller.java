@@ -31,6 +31,7 @@ public class CategoriesSelectContoller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             StringArrayMessage stringArrMessage = new CategoriesModel().executeModel(request.getParameter("action"), request.getParameter("email"));
@@ -53,6 +54,7 @@ public class CategoriesSelectContoller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         // validar que recibo
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             // response

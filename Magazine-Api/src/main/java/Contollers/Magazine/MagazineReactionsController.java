@@ -3,6 +3,7 @@ package Contollers.Magazine;
 import APIMessages.SignupMessage;
 import DB.Domain.Magazine.Relations.Comment;
 import DB.Domain.Magazine.Relations.Like;
+import DB.Domain.Magazine.TagsDAO;
 import Models.CommentModel;
 import Models.LikesModel;
 import Parsers.Parser;
@@ -40,6 +41,7 @@ public class MagazineReactionsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             switch (request.getParameter("action")) {
@@ -49,6 +51,10 @@ public class MagazineReactionsController extends HttpServlet {
                 case "GET_LIKES_COUNTER":
                     int counter = new LikesModel().getLikesCounter(request.getParameter("magazine"));
                     response.getWriter().append(String.valueOf(counter));
+                    break;
+                case "GET_TAGS":
+                    ArrayList<String> tags = new TagsDAO().select();
+                    response.getWriter().append(parser.toJSON(tags, tags.getClass()));
                     break;
                 default:
                     System.out.println("UNKNOWN action at [MagazineInteractionsController]");
@@ -69,22 +75,19 @@ public class MagazineReactionsController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
-//        CommentMessage message = (CommentMessage) parser.toObject(parser.getBody(request.getReader()), CommentMessage.class);
         try {
             switch (request.getParameter("action")) {
                 case "NEW_COMMENT":
                     Comment comment = (Comment) parser.toObject(request.getParameter("comment"), Comment.class);
                     comment.setDate(parser.toLocalDate(comment.getDateString()));
-                    String tmp = new CommentModel().publishComment(comment);
-                    response.getWriter().append(parser.toJSON(tmp));
+                    response.getWriter().append(new CommentModel().publishComment(comment));
                     break;
                 case "LEAVE_LIKE":
                     Like like = (Like) parser.toObject(request.getParameter("like"), Like.class);
                     like.setDate(parser.toLocalDate(like.getDateString()));
-                    System.out.println(like.getUser());
                     response.getWriter().append(new LikesModel().leaveLike(like));
-                    System.out.println("like done");
                     break;
                 default:
                     System.out.println("Error while getting commnets");

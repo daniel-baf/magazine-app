@@ -1,22 +1,304 @@
-<p>advertiser-list works!</p>
-
-<h1>Prueba de ver jasper</h1>
-
-<div class="mt-3">
-  <div class="row">
-    <div class="col-xl-8">
-      <iframe
-        [src]="_mapUrl"
-        frameborder="0"
-        width="100%"
-        max-width="1400px"
-        height="700px"
-        allowfullscreen="true"
-        loading="lazy"
-      ></iframe>
+<div
+  class="container mt-5"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  (scrolled)="onScroll()"
+>
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-8">
+      <h3>Anunciantes</h3>
+      <table class="table table-striped table-inverse table-responsive">
+        <thead class="thead-inverse">
+          <tr>
+            <th>#</th>
+            <th style="width: 60%">Anunciante</th>
+            <th style="width: 25%">Accion</th>
+          </tr>
+        </thead>
+        <tbody>
+          <button
+            [ngClass]="'no-hidden'"
+            *ngIf="_showGoUpButton"
+            class="btn btn-dark"
+            (click)="scrollTop()"
+          >
+            Subir
+          </button>
+          <tr *ngFor="let _advertiser of _advertisers; index as i">
+            <td scope="row">{{ i + 1 }}</td>
+            <td scope="row">{{ _advertiser }}</td>
+            <td scope="row">
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modelId"
+                (click)="setActiveAdvertiser(_advertiser)"
+              >
+                Nuevo Anuncio
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <div class="col-sm-4">
-      <p>Boton</p>
+  </div>
+</div>
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="modelId"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="modelTitleId"
+  aria-hidden="true"
+>
+  <div class="modal-dialog modal-ku" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ _activeAdvertiser | uppercase }}</h5>
+        <button
+          type="button"
+          class="close"
+          data-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form class="form" [formGroup]="_newAdForm">
+          <div class="row align-items-center">
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="ammount">Pago</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  name="ammount"
+                  id="ammount"
+                  aria-describedby="ammountHelp"
+                  placeholder="Ingresa la cantidad del pago que ha dado el anunciante"
+                  step="0.01"
+                  min="0"
+                  formControlName="_ammount"
+                  required
+                />
+                <small id="ammountHelp" class="form-text text-muted"
+                  >La moneda es en quetzales, el pago minimo es de Q0.00</small
+                >
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="type">Tipo</label>
+                <select
+                  class="form-control"
+                  name="type"
+                  id="type"
+                  formControlName="_type"
+                  required
+                >
+                  <option value="" disabled selected>SELECCIONAR</option>
+                  <option value="1">Texto</option>
+                  <option value="2">Imagen y texto</option>
+                  <option value="3">Video y texto</option>
+                </select>
+                <small
+                  >Elige el tipo de anuncio que quieres crear, cada anuncio
+                  solicita distinta informacion</small
+                >
+              </div>
+            </div>
+            <div class="col-sm-4">
+              <div class="form-group">
+                <label for="expiration">Expiracion</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="expiration"
+                  id="expiration"
+                  aria-describedby="expirationHelp"
+                  placeholder="Fecha en la que expira"
+                  formControlName="_expirationDate"
+                  required
+                />
+                <small id="expirationHelp" class="form-text text-muted"
+                  >Fecha en la que el anuncio se auto desactivará</small
+                >
+              </div>
+              <div class="form-group">
+                <label for="startDate">Fecha inicio</label>
+                <input
+                  type="date"
+                  class="form-control"
+                  name="startDate"
+                  id="startDate"
+                  aria-describedby="startDateHelp"
+                  placeholder="Fecha en la que inicio a mostarse el anuncio"
+                  formControlName="_startDate"
+                />
+                <small id="startDateHelp" class="form-text text-muted"
+                  >Fecha de inicio de anuncio</small
+                >
+              </div>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center">
+            <div class="col-sm-6">
+              <div class="form-group">
+                <label for="advertiser">Anunciante</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  name="advertiser"
+                  id="advertiser"
+                  aria-describedby="advertiserHelp"
+                  placeholder="El nombre del anunciante"
+                  formControlName="_advertiser"
+                  readonly
+                  required
+                />
+                <small id="advertiserHelp" class="form-text text-muted"
+                  >El nombre del anunciante</small
+                >
+              </div>
+            </div>
+            <div>
+              <div class="form-group">
+                <label for="category">Etiquetas</label>
+                <select
+                  class="custom-select overflow-auto"
+                  name="category"
+                  id="category"
+                  formControlName="_tags"
+                >
+                  <option selected disabled value="">SELECCIONAR</option>
+                  <option value="{{ _tag }}" *ngFor="let _tag of _tags">
+                    {{ _tag }}
+                  </option>
+                </select>
+              </div>
+              <button
+                type="button"
+                class="btn btn-outline-info"
+                (click)="addTagForAd()"
+              >
+                Agregar
+              </button>
+            </div>
+          </div>
+          <div class="row d-flex justify-content-center mt-4">
+            <div class="col-sm-8">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tag</th>
+                    <th style="width: 20%">Accion</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let _tag of _tagsForAd; index as i">
+                    <td scope="row">{{ i }}</td>
+                    <td scope="row">{{ _tag }}</td>
+                    <td scope="row">
+                      <button
+                        type="button"
+                        name=""
+                        id=""
+                        class="btn btn-danger btn-block"
+                        (click)="removeTagForAd(_tag)"
+                      >
+                        Borrar
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <!-- START DIVS FOR DIFFERENT TYPE -->
+          <div class="row d-flex justify-content-center">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label for="text">Texto</label>
+                <textarea
+                  maxlength="3500"
+                  class="form-control"
+                  name="text"
+                  id="text"
+                  rows="6"
+                  cols="50"
+                  required
+                  resi
+                  formControlName="_text"
+                ></textarea>
+              </div>
+            </div>
+            <div [ngSwitch]="_newAdForm.controls['_type'].value">
+              <div *ngSwitchCase="2">
+                <div class="form-group">
+                  <label for="image">Fotografia</label>
+                  <input
+                    type="file"
+                    class="form-control-file"
+                    name="image"
+                    id="image"
+                    placeholder="Sube la fotografia"
+                    aria-describedby="imageHelp"
+                    formControlName="_img"
+                    accept="image/png, image/jpeg"
+                    (change)="setImg($event)"
+                  />
+                  <small id="imageHelp" class="form-text text-muted"
+                    >La imagen debe estar en formato jpeg o png</small
+                  >
+                </div>
+              </div>
+              <div *ngSwitchCase="3">
+                <div class="form-group">
+                  <label for="videoUrl">URL video</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="videoUrl"
+                    id="videoUrl"
+                    aria-describedby="videoUrlHelp"
+                    placeholder="El link del video"
+                    formControlName="_videoUrl"
+                  />
+                  <small id="videoUrlHelp" class="form-text text-muted"
+                    >El link debe empezar por http</small
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- END DIVS FOR DIFFREENT TYPE -->
+        </form>
+        <div>
+          <div *ngIf="_showSuccessMsg" class="alert alert-success" role="alert">
+            <strong>{{ _successMsg }}</strong>
+          </div>
+          <div *ngIf="_showAlertMsg" class="alert alert-danger" role="alert">
+            <strong>{{ _alertMsg }}</strong>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="button"
+          class="btn btn-secondary"
+          data-dismiss="modal"
+          (click)="resetForm()"
+        >
+          Cerrar
+        </button>
+        <button type="button" class="btn btn-primary" (click)="createAdd()">
+          Guardar
+        </button>
+      </div>
     </div>
   </div>
 </div>

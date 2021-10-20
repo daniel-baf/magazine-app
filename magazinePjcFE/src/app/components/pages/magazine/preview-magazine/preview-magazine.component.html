@@ -49,6 +49,7 @@
         <div class="col-md-6">
           <p>Categoria: {{ _activeMag.category }}</p>
           <p>Me gusta: {{ _likesCounter }}</p>
+          <p>Comentarios: {{ _comments.length }}</p>
         </div>
         <div class="col-md-6">
           <p>Tags</p>
@@ -151,6 +152,7 @@
       <!-- START COMMENT -->
       <div infiniteScroll [infiniteScrollDistance]="2" (scrolled)="onScroll()">
         <h5>Comentarios</h5>
+        <hr />
         <ul class="list-group">
           <li class="list-group-item disabled" *ngFor="let _comm of _comments">
             <div class="media">
@@ -174,6 +176,7 @@
           </li>
         </ul>
       </div>
+      <hr />
       <!-- END SHOW COMMENT -->
     </section>
     <!-- END COMMENTTS -->

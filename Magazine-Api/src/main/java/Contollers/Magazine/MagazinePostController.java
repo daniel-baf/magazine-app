@@ -38,6 +38,7 @@ public class MagazinePostController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             MagazinePostMessage mpms = new MagazinePostModel().updatePost(request);
@@ -60,6 +61,7 @@ public class MagazinePostController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
         Parser parser = new Parser();
         try {
             ArrayList<MagazinePost> posts = new MagazinePostModel().getPosts(request);

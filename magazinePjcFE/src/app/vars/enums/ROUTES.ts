@@ -17,6 +17,7 @@ export enum Routes {
   APPROVE_MAGAZINE = '/pages/admin-view/approve-mag',
   ADVERTISER_LIST = '/pages/admin-view/adds/advertiser-list',
   CREATE_ADD = '/pages/admin-view/adds/advertiser-list/new-add',
+  NEW_ADVERTISER = '/pages/admin-view/adds/new-advertiser',
   // EDITOR
   NEW_MAGAZINE = '/pages/editor-view/mag/new-mag',
   UPLOAD_POST = '/pages/editor-view/mag/upload-post',
