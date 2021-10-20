@@ -65,30 +65,42 @@
     <section>
       <hr />
       <!-- LIKE TOGGLE -->
-      <div>
-        <button type="button" class="btn nt-lg btn-block btn-outline-primary">
-          Me gusta
-        </button>
-      </div>
-      <!-- END LIKE TOGGLE -->
-      <!-- START COMMENT SECTION -->
-      <div>
-        <!-- LEAVE COMMENT -->
-        <div class="mt-3">
+      <div class="row d-flex justify-content-center">
+        <div *ngIf="_activeMag.allowLikes" class="col-md-4">
+          <div class="form-group">
+            <label for="likeDate">Fecha like</label>
+            <input
+              type="date"
+              class="form-control"
+              name="likeDate"
+              id="likeDate"
+              aria-describedby="likeDateHelp"
+              placeholder="likeDate"
+              [(ngModel)]="_likeDate"
+            />
+            <small id="likeDateHelp" class="form-text text-muted"
+              >La fecha en que quieres que se registre el like</small
+            >
+          </div>
+          <button
+            type="button"
+            class="btn nt-lg btn-outline-primary"
+            (click)="leaveLike()"
+          >
+            Me gusta
+          </button>
+        </div>
+        <div *ngIf="_activeMag.allowComment" class="col-md-6">
           <div class="form-group">
             <label for="comment">Comentario</label>
-            <input
-              type="text"
+            <textarea
               class="form-control"
               name="comment"
               id="comment"
-              aria-describedby="commentHelp"
+              rows="5"
               placeholder="Dejanos un comentario"
               [(ngModel)]="_newComment.text"
-            />
-            <small id="commentHelp" class="form-text text-muted"
-              >Comenta lo que piensas de la revista</small
-            >
+            ></textarea>
           </div>
           <div class="form-group">
             <label for="date">Fecha</label>
@@ -112,6 +124,13 @@
           >
             Comentar
           </button>
+        </div>
+      </div>
+      <!-- END LIKE TOGGLE -->
+      <!-- START COMMENT SECTION -->
+      <div>
+        <!-- LEAVE COMMENT -->
+        <div class="mt-3">
           <div class="mt-2">
             <div *ngIf="_showAlertMsg" class="alert alert-warning" role="alert">
               <strong>{{ _alertMsg }}</strong>
@@ -121,7 +140,7 @@
               class="alert alert-success"
               role="alert"
             >
-              <strong>Comentario publicado</strong>
+              <strong>{{ _successMsg }}</strong>
             </div>
           </div>
         </div>

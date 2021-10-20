@@ -2,7 +2,9 @@ package Models;
 
 import DB.DAOs.Magazine.Relations.CommentInsert;
 import DB.DAOs.Magazine.Relations.CommentSelect;
+import DB.DAOs.Magazine.Relations.LikeInsert;
 import DB.Domain.Magazine.Relations.Comment;
+import DB.Domain.Magazine.Relations.Like;
 import java.util.ArrayList;
 
 /**
@@ -33,8 +35,7 @@ public class CommentModel {
     public String publishComment(Comment comment) {
         if (new CommentInsert().insert(comment) > 0) {
             return "NO_ERROR";
-        } else {
-            return "ERROR_ON_INSERT";
         }
+        return "ERROR_ON_INSERT";
     }
 }

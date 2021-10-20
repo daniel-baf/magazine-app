@@ -115,8 +115,8 @@ CREATE TABLE `Like` (
   CONSTRAINT `fk_like_magazine`
     FOREIGN KEY (`magazine`)
     REFERENCES `Magazine_Web`.`Magazine` (`name`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION);
+    ON DELETE RESTRICT
+    ON UPDATE CASCADE);
 
 DROP TABLE IF EXISTS `Magazine_Tag`;
 CREATE TABLE `Magazine_Tag` (

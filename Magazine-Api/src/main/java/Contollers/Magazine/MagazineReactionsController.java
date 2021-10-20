@@ -2,6 +2,7 @@ package Contollers.Magazine;
 
 import APIMessages.SignupMessage;
 import DB.Domain.Magazine.Relations.Comment;
+import DB.Domain.Magazine.Relations.Like;
 import Models.CommentModel;
 import Models.LikesModel;
 import Parsers.Parser;
@@ -77,6 +78,13 @@ public class MagazineReactionsController extends HttpServlet {
                     comment.setDate(parser.toLocalDate(comment.getDateString()));
                     String tmp = new CommentModel().publishComment(comment);
                     response.getWriter().append(parser.toJSON(tmp));
+                    break;
+                case "LEAVE_LIKE":
+                    Like like = (Like) parser.toObject(request.getParameter("like"), Like.class);
+                    like.setDate(parser.toLocalDate(like.getDateString()));
+                    System.out.println(like.getUser());
+                    response.getWriter().append(new LikesModel().leaveLike(like));
+                    System.out.println("like done");
                     break;
                 default:
                     System.out.println("Error while getting commnets");

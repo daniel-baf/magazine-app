@@ -46,3 +46,11 @@ export class MagazineComment {
     public magazine: string
   ) {}
 }
+
+export class MagazineLike {
+  constructor(
+    public dateString: string,
+    public magazine: string,
+    public user: string
+  ) {}
+}

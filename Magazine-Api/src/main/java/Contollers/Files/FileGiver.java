@@ -40,6 +40,10 @@ public class FileGiver extends HttpServlet {
             case "DOWNLOAD_PDF":
                 downloadPDF(response, request.getParameter("id"));
                 break;
+            case "SHOW_JASPER_TMP":
+                showJasper();
+                // get Jasper
+                break;
         }
     }
 
@@ -80,6 +84,13 @@ public class FileGiver extends HttpServlet {
                 response.getOutputStream().write(data);
                 data = fileStream.read();
             }
+        }
+    }
+    
+    private void showJasper() {
+        try (InputStream template = JasperReportsApplication.class){
+            
+        } catch (Exception e) {
         }
     }
 }

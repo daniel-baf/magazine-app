@@ -5,6 +5,7 @@ import {
   Magazine,
   MagazineComment,
   MagazineCommentMessage,
+  MagazineLike,
   MagazineMessage,
   MagazinePost,
   MagazinePostMessage,
@@ -106,7 +107,15 @@ export class MagazineService {
     });
   }
 
-  public leaveLike(_user: String, _magazine: string) {}
+  public leaveLike(_like: MagazineLike) {
+    console.log('dejandol lik');
+    let _formData = new FormData();
+    _formData.append('action', 'LEAVE_LIKE');
+    _formData.append('like', JSON.stringify(_like));
+    return this._http.post(`${APIs.MAGAZINE_REACTIONS_CONTROLLER}`, _formData, {
+      responseType: 'text',
+    });
+  }
 
   public getLikesCounter(_magazine: string): Observable<number> {
     return this._http.get<number>(

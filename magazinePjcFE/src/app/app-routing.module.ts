@@ -5,6 +5,9 @@ import { LoginComponent } from './components/logPage/login/login.component';
 import { MainComponent } from './components/logPage/main/main.component';
 import { SelectCategoriesComponent } from './components/logPage/signup/select-categories/select-categories.component';
 import { SignupComponent } from './components/logPage/signup/signup.component';
+import { AdvertiserListComponent } from './components/pages/admin-view/adds/advertiser-list/advertiser-list.component';
+import { NewAddComponent } from './components/pages/admin-view/adds/advertiser-list/new-add/new-add.component';
+import { NewAdvertiserComponent } from './components/pages/admin-view/adds/new-advertiser/new-advertiser.component';
 import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/approve-mag.component';
 import { EditProfileComponent } from './components/pages/edit-profile/edit-profile.component';
 import { NewMagazineComponent } from './components/pages/editor-view/magActions/new-magazine/new-magazine.component';
@@ -55,6 +58,19 @@ const routes: Routes = [
           {
             path: 'approve-mag',
             component: ApproveMagComponent,
+          },
+          {
+            path: 'adds',
+            children: [
+              {
+                path: 'advertiser-list',
+                component: AdvertiserListComponent,
+                children: [
+                  { path: 'new-add/:advertiser', component: NewAddComponent },
+                ],
+              },
+              { path: 'new-advertiser', component: NewAdvertiserComponent },
+            ],
           },
         ],
       },

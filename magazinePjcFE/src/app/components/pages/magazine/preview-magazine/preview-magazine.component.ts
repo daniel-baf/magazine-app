@@ -4,6 +4,7 @@ import {
   Magazine,
   MagazineComment,
   MagazineCommentMessage,
+  MagazineLike,
 } from 'src/app/modules/MagazineMessage.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
@@ -19,7 +20,9 @@ export class PreviewMagazineComponent implements OnInit {
   public _comments: Array<MagazineComment>;
   public _allowLikesMsg: string;
   public _allowCommentMsg: string;
+  public _likeDate: string = '';
   public _alertMsg: string;
+  public _successMsg: string;
   public _likesCounter: number;
   public _showAlertMsg: boolean = false;
   public _showSUccessMsg: boolean = false;
@@ -116,6 +119,37 @@ export class PreviewMagazineComponent implements OnInit {
       });
   }
 
+  public leaveLike() {
+    if (this._likeDate.trim() != '') {
+      this._magazineService
+        .leaveLike(
+          new MagazineLike(
+            this._likeDate,
+            this._activeMag.name,
+            JSON.parse(`${this._storageService.getData('user')}`).email
+          )
+        )
+        .subscribe(
+          (_scs: string) => {
+            if (_scs === 'NO_ERROR') {
+              this.showSuccess('Se ha registrado');
+              this.getLikesCounter();
+            } else {
+              this.showAlertMsg('No se ha podido registrar la reaccion');
+            }
+          },
+          (_error: Error) => {
+            console.log('Error');
+            console.log(_error);
+          }
+        );
+    } else {
+      this.showAlertMsg('no has ingresado una fecha');
+    }
+    // let like: MagazineLike
+    // TODO leave likes
+  }
+
   public commentMag() {
     if (this.formValid()) {
       this._newComment = new MagazineComment(
@@ -130,7 +164,7 @@ export class PreviewMagazineComponent implements OnInit {
         .subscribe(
           (_success: string) => {
             if (_success === 'NO_ERROR') {
-              this._showSUccessMsg = true;
+              this.showSuccess('comentario registrado');
             } else {
               this.showAlertMsg('no se ha podido publicar tu comentario');
             }
@@ -153,6 +187,11 @@ export class PreviewMagazineComponent implements OnInit {
     } else {
       return false;
     }
+  }
+
+  private showSuccess(_message: string) {
+    this._showSUccessMsg = true;
+    this._successMsg = _message;
   }
 
   // INFINITE SCROLL

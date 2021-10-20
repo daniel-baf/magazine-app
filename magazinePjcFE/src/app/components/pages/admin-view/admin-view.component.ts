@@ -23,14 +23,7 @@ export class AdminViewComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  redirectSubAdminPage(_event: Event, _towards: String) {
-    switch (_towards) {
-      case 'APPROVE_MAG':
-        break;
-    }
-  }
-
   private configureLinksArray(): string[] {
-    return [Routes.APPROVE_MAGAZINE];
+    return [Routes.APPROVE_MAGAZINE, Routes.ADVERTISER_LIST, Routes.CREATE_ADD];
   }
 }
