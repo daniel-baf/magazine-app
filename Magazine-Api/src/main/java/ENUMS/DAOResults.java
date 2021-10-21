@@ -8,7 +8,9 @@ public enum DAOResults {
     ERROR_ON_INSERT(0, "ERROR_INSERT"),
     NO_ERROR(1, "NO_ERROR"),
     FILES_PDF_PATH(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/Posts/"),
-    FILES_IMG_PATH_AD(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/img/ad/");
+    FILES_IMG_PATH_AD(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/img/ad/"),
+    FILES_IMG_PATH_PROF_EDITOR(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/"),
+    FILES_IMG_PATH_PROF_READER(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/");
 
     // METHODS
     private int code;

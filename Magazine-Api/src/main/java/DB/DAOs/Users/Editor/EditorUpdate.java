@@ -13,7 +13,7 @@ import java.sql.SQLException;
 public class EditorUpdate {
 
     // SQL queries
-    private String SQL_UPDATE_EDITOR = "UPDATE Editor SET name=?, password=?, description=? WHERE (email = ?);";
+    private String SQL_UPDATE_EDITOR = "UPDATE `Editor` SET `name`=?,`password`=?,`description`=?,`imgPath`=? WHERE (`email` = ?);";
 
     /**
      * Update a <Editor> information
@@ -42,6 +42,7 @@ public class EditorUpdate {
         ps.setString(1, editor.getName());
         ps.setString(2, editor.getPassword());
         ps.setString(3, editor.getDescription());
-        ps.setString(4, editor.getEmail());
+        ps.setString(4, editor.getImgPath());
+        ps.setString(5, editor.getEmail());
     }
 }

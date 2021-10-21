@@ -7,6 +7,7 @@ export class User {
     public password: string,
     public type: string = 'UNAUTHORIZED',
     public description?: string,
-    public name: string = 'UNKNOWN'
+    public name: string = 'UNKNOWN',
+    public imgPath: string = ''
   ) {}
 }

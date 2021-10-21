@@ -61,4 +61,8 @@ public class MagazinePostModel {
         }
         return posts;
     }
+
+    public String pulishAPost(MagazinePost post) {
+        return new MagazinePostInsert().insert(post) != 0 ? "NO_ERROR" : "ERROR_INSERT";
+    }
 }

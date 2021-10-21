@@ -58,6 +58,8 @@
               id="profilePic"
               placeholder="sube una foto de perfil"
               aria-describedby="profilePicHelp"
+              accept="image/png, image/jpeg"
+              (change)="setFileToUpload($event)"
             />
             <small id="profilePicHelp" class="form-text text-muted"
               >Una fotografia de perfil</small

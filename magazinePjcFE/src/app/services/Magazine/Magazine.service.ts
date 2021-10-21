@@ -62,14 +62,14 @@ export class MagazineService {
     );
   }
 
-  public uploadPost(_postMessage: MagazinePostMessage, _file: File) {
+  public uploadPost(_post: MagazinePost, _file: File): Observable<string> {
     const _formData = new FormData();
-    _formData.append('mag-post', JSON.stringify(_postMessage));
-    _formData.append('datafile', _file, _file.name);
-    return this._http.post<MagazinePostMessage>(
-      `${APIs.MAGAZINE_POST_CONTROLLER}`,
-      _formData
-    );
+    _formData.append('action', 'UPDATE_NEW_POST');
+    _formData.append('mag-post', JSON.stringify(_post));
+    _formData.append('filepart', _file, _file.name);
+    return this._http.post(`${APIs.MAGAZINE_POST_CONTROLLER}`, _formData, {
+      responseType: 'text',
+    });
   }
 
   public getPosts(

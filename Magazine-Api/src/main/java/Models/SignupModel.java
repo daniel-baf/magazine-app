@@ -9,7 +9,7 @@ import DB.Domain.Users.Reader;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;
 import BackendUtilities.Parser;
-import java.io.BufferedReader;
+import javax.servlet.http.Part;
 
 /**
  * This class validate and redirect user to respective page
@@ -21,27 +21,28 @@ public class SignupModel {
     /**
      * this method will create a new user, editor, admin or reader
      *
-     * @param buffReader
+     * @param user
+     * @param part
+     * @param body
      * @return
      */
-    public SignupMessage signUp(BufferedReader buffReader) {
+    public SignupMessage signUp(User user, Part part, String body) {
         // Utilities
         SignupMessage message = new SignupMessage();
         Parser parser = new Parser();
-        String body = parser.getBody(buffReader);
         // variables
         int operationResult = 0; // 0 = NO inserted
-        User user = (User) parser.toObject(body, User.class);
         user.setPassword(AES256cripter.encrypt(user.getPassword()));
         message.setMessage("NO_ERROR");
         // insert
         switch (user.getType()) {
             case "READER":
                 // TODO validate and continue method
-                operationResult = insertReader(parser, body, user);
+                operationResult = insertReader(parser, body, user, part);
                 break;
             case "EDITOR":
-                operationResult = insertEditor(parser, body, user);
+                System.out.println("insert editor");
+                operationResult = insertEditor(parser, body, user, part);
                 break;
             case "ADMIN":
                 break;
@@ -67,10 +68,10 @@ public class SignupModel {
      * @param user
      * @return
      */
-    private int insertEditor(Parser jsonParser, String body, User user) {
+    private int insertEditor(Parser jsonParser, String body, User user, Part part) {
         Editor editor = (Editor) jsonParser.toObject(body, Editor.class); // create editor
         editor.setPassword(user.getPassword());
-        int result = new EditorInsert().insert(editor);
+        int result = new EditorInsert().insert(editor, part);
         return result;
     }
 
@@ -82,7 +83,7 @@ public class SignupModel {
      * @param user
      * @return
      */
-    private int insertReader(Parser jsonParser, String body, User user) {
+    private int insertReader(Parser jsonParser, String body, User user, Part part) {
         Reader reader = (Reader) jsonParser.toObject(body, Reader.class);
         reader.setPassword(user.getPassword());
         int result = new ReaderInsert().insert(reader);

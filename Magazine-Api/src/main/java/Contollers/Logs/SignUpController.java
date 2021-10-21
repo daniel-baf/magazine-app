@@ -3,18 +3,27 @@ package Contollers.Logs;
 import APIMessages.SignupMessage;
 import Models.SignupModel;
 import BackendUtilities.Parser;
+import DB.Domain.Users.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author jefemayoneso
  */
 @WebServlet(name = "SignUpController", urlPatterns = {"/SignUpController"})
+@MultipartConfig(
+        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
+        maxFileSize = 1024 * 1024 * 10, // 10 MB
+        maxRequestSize = 1024 * 1024 * 15, // 15 MB
+        location = "/home/jefemayoneso/"
+)
 public class SignUpController extends HttpServlet {
 
     /**
@@ -32,9 +41,16 @@ public class SignUpController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
-            SignupMessage supm = new SignupModel().signUp(request.getReader());
+            System.out.println("post");
+            System.out.println(request.getParameter("user"));
+            User user = (User) parser.toObject(request.getParameter("user"), User.class);
+            System.out.println("got user" + user.toString());
+            Part filePart = request.getPart("profile-pic");
+            System.out.println("got part" + filePart);
+            SignupMessage supm = new SignupModel().signUp(user, filePart, request.getParameter("user"));
             response.getWriter().append(parser.toJSON(supm, supm.getClass()));
-        } catch (IOException e) {
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
             response.getWriter().append(parser.toJSON(new SignupMessage("Error al intentar Iniciar sesion en [UserActionsAbout] " + e.getMessage(), null), SignupMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

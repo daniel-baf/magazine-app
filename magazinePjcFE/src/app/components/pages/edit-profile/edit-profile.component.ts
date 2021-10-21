@@ -8,6 +8,8 @@ import { LoginService } from 'src/app/services/Logs/login.service';
 import { SignupService } from 'src/app/services/Logs/signup.service';
 import { RedirectService } from 'src/app/services/redirect.service';
 import { Routes } from 'src/app/vars/enums/ROUTES';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
+import { APIs } from 'src/app/vars/enums/API';
 
 @Component({
   selector: 'app-edit-profile',
@@ -15,28 +17,35 @@ import { Routes } from 'src/app/vars/enums/ROUTES';
   styleUrls: ['./edit-profile.component.css'],
 })
 export class EditProfileComponent implements OnInit {
-  _infoForm: FormGroup;
-  _user: User;
-  _errorMessage: string;
-  _alertMessage: string;
-  _successMessage: string;
-  _categories: string[];
-  _messageBackendObject: StringArrayMessage;
-  _showMessageAlert: boolean = false;
-  _showMessageNoCateg: boolean = false;
-  _showErrorMessage: boolean = false;
-  _showMessageSuccess: boolean = false;
+  public _infoForm: FormGroup;
+  public _user: User;
+  public _errorMessage: string;
+  public _alertMessage: string;
+  public _successMessage: string;
+  public _categories: string[];
+  public _showMessageAlert: boolean = false;
+  public _showMessageNoCateg: boolean = false;
+  public _showErrorMessage: boolean = false;
+  public _showMessageSuccess: boolean = false;
+  public _messageBackendObject: StringArrayMessage;
+  public _showUrlImg: string;
+  public _mapUrl: SafeResourceUrl;
 
   constructor(
     private _loginService: LoginService,
     private signupService: SignupService,
     private _localStorageService: LocalStorageService,
     private _categoryService: CategoriesService,
-    private _routerService: RedirectService
+    private _routerService: RedirectService,
+    private _sanitizer: DomSanitizer
   ) {
     this._user = JSON.parse(`${this._localStorageService.getData('user')}`);
     this.getCategories();
     this._infoForm = this.createForm();
+    this._showUrlImg = `${APIs.FILES_GIVER_CONTROLLER}?action=GET_PROF_PIC&user=${this._user.email}&type=${this._user.type}`;
+    this._mapUrl = this._sanitizer.bypassSecurityTrustResourceUrl(
+      this._showUrlImg
+    );
   }
 
   ngOnInit(): void {}
@@ -77,7 +86,7 @@ export class EditProfileComponent implements OnInit {
         Validators.required,
         Validators.email,
       ]),
-      _password: new FormControl(this._user.password, [Validators.required]),
+      _password: new FormControl('', [Validators.required]),
       _name: new FormControl(this._user.name, [Validators.required]),
       _description: new FormControl(this._user.description),
       _accountType: new FormControl(this._user.type, [Validators.required]),

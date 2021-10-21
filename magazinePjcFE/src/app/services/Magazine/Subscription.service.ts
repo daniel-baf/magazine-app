@@ -14,10 +14,6 @@ export class SubscriptionService {
   public registNewSub(
     _subscription: SubscriptionMag
   ): Observable<SubscriptionMessage> {
-    console.log('enviando');
-    console.log(_subscription);
-    console.log('----------------------------------');
-
     return this._http.post<SubscriptionMessage>(
       APIs.SUBSCRIPTION_CONTOLLER,
       _subscription

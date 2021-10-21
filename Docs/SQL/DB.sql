@@ -20,11 +20,13 @@ CREATE TABLE `Reader` (
   PRIMARY KEY (`email`));
 
 DROP TABLE IF EXISTS `Editor`;
+
 CREATE TABLE `Editor` (
   `email` VARCHAR(50) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `password` VARCHAR(40) NOT NULL,
   `description` LONGTEXT NULL,
+  `imgPath` VARCHAR(700) NULL DEFAULT NULL,
   PRIMARY KEY (`email`));
   
 DROP TABLE IF EXISTS `Advertiser`;

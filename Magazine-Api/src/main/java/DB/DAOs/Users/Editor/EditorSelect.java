@@ -11,7 +11,7 @@ import java.sql.SQLException;
  * @author jefemayoneso
  */
 public class EditorSelect {
-
+    
     private final String SQL_SELECT_EDITOR = "SELECT * FROM Editor WHERE email = ?";
 
     /**
@@ -41,6 +41,6 @@ public class EditorSelect {
      * @throws SQLException
      */
     private Editor getEditorFromRs(ResultSet rs) throws SQLException {
-        return new Editor(rs.getString("email"), rs.getString("password"), rs.getString("name"), rs.getString("description"));
+        return new Editor(rs.getString("email"), rs.getString("password"), rs.getString("name"), rs.getString("description"), rs.getString("imgPath"));
     }
 }

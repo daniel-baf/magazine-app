@@ -42,8 +42,17 @@ public class MagazinePostController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
-            MagazinePostMessage mpms = new MagazinePostModel().createNewPost(request);
-            response.getWriter().append(parser.toJSON(mpms, MagazinePostMessage.class));
+            MagazinePostModel model = new MagazinePostModel();
+            switch (request.getParameter("action")) {
+                case "UPDATE_NEW_POST":
+                    MagazinePost post = (MagazinePost) parser.toObject(request.getParameter("mag-post"), MagazinePost.class);
+                    post.setPdfPart(request.getPart("filepart"));
+                    post.setDate(parser.toLocalDate(post.getDateString()));
+                    response.getWriter().append(model.pulishAPost(post));
+                    break;
+                default:
+                    System.out.println("UNKNOTSAFDSA");
+            }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
             response.getWriter().append(parser.toJSON(new MagazinePostMessage("Error trying to make a Magazine action at [MagazineController]" + e.getMessage(), null), MagazinePostMessage.class));

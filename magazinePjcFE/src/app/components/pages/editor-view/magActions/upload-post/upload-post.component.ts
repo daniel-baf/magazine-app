@@ -36,6 +36,7 @@ export class UploadPostComponent implements OnInit {
     private _magService: MagazineService,
     private _storageService: LocalStorageService
   ) {
+    this._magazines = new Array<Magazine>();
     this._postForm = this.generatePostFormGroup();
     this._actualPage = 1;
     this._limit = 10;
@@ -76,10 +77,9 @@ export class UploadPostComponent implements OnInit {
     if (this._postForm.valid && this._fileToUpload != null) {
       // generate object
       this.getMagPostObject();
-      let _magMessage = new MagazinePostMessage('añ', this._postTmp);
-      this._magService.uploadPost(_magMessage, this._fileToUpload).subscribe(
-        (_success: MagazinePostMessage) => {
-          if (_success.message === 'NO_ERROR') {
+      this._magService.uploadPost(this._postTmp, this._fileToUpload).subscribe(
+        (_success: string) => {
+          if (_success === 'NO_ERROR') {
             this.showSuccess('Se ha subido el nuevo post');
           } else {
             this.showError('No se ha podido subir tu archivo');

@@ -7,6 +7,7 @@ import { SignupService } from 'src/app/services/Logs/signup.service';
 import { USERS_VARS } from 'src/app/vars/enums/USER_VARS';
 import { LoginComponent } from '../login/login.component';
 import { SignUpMessage, User } from 'src/app/modules/SignUpMessge.module';
+import { Routes } from 'src/app/vars/enums/ROUTES';
 
 @Component({
   selector: 'app-signup',
@@ -14,18 +15,18 @@ import { SignUpMessage, User } from 'src/app/modules/SignUpMessge.module';
   styleUrls: ['./signup.component.css'],
 })
 export class SignupComponent implements OnInit {
-  showMessageError = false;
-  _noDescriptionGiven = false;
-  _showBackendMessage = false;
-  _signUpForm: FormGroup;
-  _user: User;
-  _backendMessage: string =
+  public showMessageError = false;
+  public _noDescriptionGiven = false;
+  public _showBackendMessage = false;
+  public _signUpForm: FormGroup;
+  public _user: User;
+  public _backendMessage: string =
     'Ha ocurrido un error, verifica que tus datos sean correctos';
+  private _fileToUpload: File | null;
 
   constructor(
     private _signupService: SignupService,
     private _router: RedirectService,
-    private _loginService: LoginService,
     private _localStorageService: LocalStorageService
   ) {
     this._signUpForm = this.createFormGroup();
@@ -67,6 +68,13 @@ export class SignupComponent implements OnInit {
     );
   }
 
+  public setFileToUpload(_event: Event) {
+    const files = (_event.target as HTMLInputElement).files;
+    if (files != null) {
+      this._fileToUpload = files.item(0);
+    }
+  }
+
   private createUser(): boolean {
     // create user
     let _success = false;
@@ -76,21 +84,20 @@ export class SignupComponent implements OnInit {
       : USERS_VARS.READER;
 
     this._signupService
-      .signUpStep1(
+      .signUp(
         new User( // OBJECT json
           this._signUpForm.get('_email')?.value,
           this._signUpForm.get('_password')?.value,
           type,
           this._signUpForm.get('_description')?.value,
           this._signUpForm.get('_name')?.value
-        )
+        ),
+        this._fileToUpload
       )
       .subscribe(
         // return a message and User object
 
         (success: SignUpMessage) => {
-          console.log(success);
-
           if (success.message === 'ERROR_INSERT') {
             this._showBackendMessage = true;
             this._backendMessage =
@@ -100,9 +107,13 @@ export class SignupComponent implements OnInit {
             this._backendMessage = 'Email en uso';
           } else if (success.message === 'NO_ERROR') {
             // execute login
-            _success = true;
             this._user = success.user;
-            this.autologin();
+            this._localStorageService.setItem(this._user, 'user');
+            if (this._user.type == 'EDITOR') {
+              this._router.redirect(Routes.PAGES);
+            } else {
+              this._router.redirect(Routes.SELECT_CAT);
+            }
           }
         },
         (_error: Error) => {
@@ -112,16 +123,6 @@ export class SignupComponent implements OnInit {
       );
 
     return _success;
-  }
-
-  autologin() {
-    alert('done! now redirect');
-    // Redirect to choose categories
-    new LoginComponent(
-      this._router,
-      this._loginService,
-      this._localStorageService
-    ).continueLOgin(this._user.email, this._user.password);
   }
 
   // CREATE A FORM

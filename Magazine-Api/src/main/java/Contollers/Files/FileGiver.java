@@ -3,9 +3,10 @@ package Contollers.Files;
 import DB.DAOs.Magazine.Post.MagazinePostSelect;
 import DB.Domain.Magazine.MagazinePost;
 import BackendUtilities.Parser;
+import Models.ImgModel;
+import Models.PDFModel;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import javax.servlet.ServletException;
@@ -47,9 +48,14 @@ public class FileGiver extends HttpServlet {
             switch (request.getParameter("action")) {
                 case "SHOW_PDF":
                     MagazinePost post = new MagazinePostSelect().select(parser.toInteger(request.getParameter("id")));
-                    showPDF(response, post.getPdfNamePath());
+                    showFile(response, post.getPdfNamePath(), "application/pdf");
                 case "DOWNLOAD_PDF":
-                    downloadPDF(response, request.getParameter("id"));
+                    PDFModel modelPdf = new PDFModel(request.getParameter("id"));
+                    download(response, modelPdf.getInputStreamPdf(), modelPdf.getFileName());
+                    break;
+                case "GET_PROF_PIC":
+                    ImgModel modelImg = new ImgModel(request.getParameter("user"), request.getParameter("type"));
+                    showFile(response, modelImg.findPath(), "application/image");
                     break;
 //            case "SHOW_JASPER_TMP":
 //                showJasperAsHTML(response);
@@ -66,9 +72,9 @@ public class FileGiver extends HttpServlet {
      * @param response
      * @param id
      */
-    private void showPDF(HttpServletResponse response, String path) {
+    private void showFile(HttpServletResponse response, String path, String contentType) {
         try ( BufferedInputStream fileStream = new BufferedInputStream(new FileInputStream(path))) {
-            response.setContentType("application/pdf");
+            response.setContentType(contentType);
             int data = fileStream.read();
             while (data > -1) {
                 response.getOutputStream().write(data);
@@ -77,22 +83,6 @@ public class FileGiver extends HttpServlet {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-    }
-
-    /**
-     * This method generate a PDF file for download
-     *
-     * @param response
-     * @param id
-     * @throws FileNotFoundException
-     * @throws IOException
-     */
-    private void downloadPDF(HttpServletResponse response, String id) throws FileNotFoundException, IOException {
-        Parser parser = new Parser();
-        MagazinePost post = new MagazinePostSelect().select(parser.toInteger(id));
-        FileInputStream inputStream = new FileInputStream(post.getPdfNamePath());
-        String filename = post.getId() + "_" + post.getTitle() + "_" + post.getMagazine() + ".pdf";
-        download(response, inputStream, filename);
     }
 
     /**
@@ -105,7 +95,6 @@ public class FileGiver extends HttpServlet {
      */
     private void download(HttpServletResponse response, InputStream inputStream, String fileName) throws IOException {
         try ( BufferedInputStream fileStream = new BufferedInputStream(inputStream)) {
-            response.setContentType("text/plain;charset=UTF-8");
             response.setHeader("Content-disposition", "attachment; filename=" + fileName);
             int data = fileStream.read();
             while (data > -1) {
