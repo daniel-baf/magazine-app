@@ -2,7 +2,7 @@ package DB.DAOs.Magazine.Post;
 
 import DB.DBConnection;
 import DB.Domain.Magazine.MagazinePost;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

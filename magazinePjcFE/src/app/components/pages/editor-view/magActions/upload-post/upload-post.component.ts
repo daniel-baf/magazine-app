@@ -77,8 +77,6 @@ export class UploadPostComponent implements OnInit {
       // generate object
       this.getMagPostObject();
       let _magMessage = new MagazinePostMessage('añ', this._postTmp);
-      console.log(_magMessage);
-
       this._magService.uploadPost(_magMessage, this._fileToUpload).subscribe(
         (_success: MagazinePostMessage) => {
           if (_success.message === 'NO_ERROR') {

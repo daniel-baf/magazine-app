@@ -4,7 +4,7 @@ import APIMessages.SignupMessage;
 import APIMessages.StringArrayMessage;
 import DB.DAOs.Users.Reader.ReaderInsert;
 import Models.CategoriesModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -32,6 +32,7 @@ public class CategoriesSelectContoller extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             StringArrayMessage stringArrMessage = new CategoriesModel().executeModel(request.getParameter("action"), request.getParameter("email"));
@@ -55,6 +56,7 @@ public class CategoriesSelectContoller extends HttpServlet {
             throws ServletException, IOException {
         // validar que recibo
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             // response

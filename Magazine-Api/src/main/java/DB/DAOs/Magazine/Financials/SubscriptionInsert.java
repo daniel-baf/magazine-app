@@ -4,7 +4,7 @@ import DB.DAOs.Company.CompanyFeeDAO;
 import DB.DAOs.Magazine.MagazineSelect;
 import DB.Domain.Financial.Payment;
 import DB.Domain.Financial.Subscription;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -4,7 +4,7 @@ import APIMessages.SignupMessage;
 import DB.Domain.Ad.Ad;
 import DB.Domain.Ad.Advertiser;
 import Models.AdsModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -40,6 +40,7 @@ public class AdsController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             switch (request.getParameter("sub-action")) {
@@ -68,6 +69,7 @@ public class AdsController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             switch (request.getParameter("sub-action")) {

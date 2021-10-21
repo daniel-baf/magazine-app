@@ -4,7 +4,7 @@ import APIMessages.SignupMessage;
 import APIMessages.SubscriptionMessage;
 import DB.Domain.Financial.Subscription;
 import Models.SubscriptionModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -33,6 +33,7 @@ public class SubscriptionController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             SubscriptionMessage submsg = new SubscriptionModel().newSubscription(request);
@@ -56,6 +57,7 @@ public class SubscriptionController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             ArrayList<Subscription> subs = new SubscriptionModel().getSubscription(

@@ -3,7 +3,7 @@ package Contollers.Logs;
 import APIMessages.SignupMessage;
 import DB.Domain.Users.User;
 import Models.LoginCheckerModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +27,7 @@ public class UserChecker extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         try {
             SignupMessage message = new LoginCheckerModel().verifyUser(request.getReader());
             response.getWriter().append(new Parser().toJSON(message, message.getClass()));
@@ -47,6 +48,7 @@ public class UserChecker extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             // switch

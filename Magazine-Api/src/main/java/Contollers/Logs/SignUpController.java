@@ -2,7 +2,7 @@ package Contollers.Logs;
 
 import APIMessages.SignupMessage;
 import Models.SignupModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,6 +29,7 @@ public class SignUpController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             SignupMessage supm = new SignupModel().signUp(request.getReader());

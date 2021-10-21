@@ -2,7 +2,7 @@ package DB.DAOs.Magazine;
 
 import DB.DAOs.Magazine.Tags.TagsInsert;
 import DB.Domain.Magazine.Magazine;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

@@ -4,7 +4,7 @@ import APIMessages.MagazinePostMessage;
 import DB.DAOs.Magazine.Post.MagazinePostInsert;
 import DB.DAOs.Magazine.Post.MagazinePostSelect;
 import DB.Domain.Magazine.MagazinePost;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -26,19 +26,16 @@ public class MagazinePostModel {
      * @throws IOException
      * @throws ServletException
      */
-    public MagazinePostMessage updatePost(HttpServletRequest request) throws IOException, ServletException {
-        request.setCharacterEncoding("utf-8");
+    public MagazinePostMessage createNewPost(HttpServletRequest request) throws IOException, ServletException {
         Parser parser = new Parser();
         Part filePart = request.getPart("datafile");
-        System.out.println(request.getParameter("mag-post"));
         MagazinePostMessage message = (MagazinePostMessage) parser.toObject(request.getParameter("mag-post"), MagazinePostMessage.class);
 
         switch (message.getMessage()) {
             case "CREATE":
                 message.getPost().setPdfPart(filePart);
                 message.getPost().setDate(parser.toLocalDate(message.getPost().getDateString()));
-                String msg = new MagazinePostInsert().insert(message.getPost()) != 0 ? "NO_ERROR" : "ERROR_INSERT";
-                message.setMessage(msg);
+                message.setMessage(new MagazinePostInsert().insert(message.getPost()) != 0 ? "NO_ERROR" : "ERROR_INSERT");
                 break;
             default:
                 message.setMessage("UNKNOWN_ACTION");

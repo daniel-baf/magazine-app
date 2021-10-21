@@ -1,7 +1,7 @@
 package DB.DAOs.Magazine.Post;
 
 import DB.Domain.Magazine.MagazinePost;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

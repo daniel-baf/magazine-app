@@ -6,7 +6,7 @@ import DB.Domain.Magazine.Relations.Like;
 import DB.Domain.Magazine.TagsDAO;
 import Models.CommentModel;
 import Models.LikesModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -42,6 +42,7 @@ public class MagazineReactionsController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             switch (request.getParameter("action")) {
@@ -76,6 +77,7 @@ public class MagazineReactionsController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             switch (request.getParameter("action")) {

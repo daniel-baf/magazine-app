@@ -2,7 +2,7 @@ package DB.DAOs.Magazine.Relations;
 
 import DB.DBConnection;
 import DB.Domain.Ad.Ad;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 

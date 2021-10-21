@@ -1,6 +1,6 @@
 package DB.Domain.Financial;
 
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.time.LocalDate;
 
 /**

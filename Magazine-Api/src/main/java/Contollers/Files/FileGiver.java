@@ -2,7 +2,7 @@ package Contollers.Files;
 
 import DB.DAOs.Magazine.Post.MagazinePostSelect;
 import DB.Domain.Magazine.MagazinePost;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -42,7 +42,7 @@ public class FileGiver extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Parser parser = new Parser();
-        response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         try {
             switch (request.getParameter("action")) {
                 case "SHOW_PDF":

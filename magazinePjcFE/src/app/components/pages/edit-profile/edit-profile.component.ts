@@ -55,6 +55,8 @@ export class EditProfileComponent implements OnInit {
         (_success: SignUpMessage) => {
           if (_success.message === 'NO_ERROR') {
             this.showMessage('Se han aplicado los cambios');
+            this._user = _success.user;
+            this._localStorageService.setItem(this._user, 'user');
           } else {
             this.showALert('No se pudo procesar la peticion');
           }

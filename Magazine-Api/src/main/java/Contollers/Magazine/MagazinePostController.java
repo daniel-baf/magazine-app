@@ -3,7 +3,7 @@ package Contollers.Magazine;
 import APIMessages.MagazinePostMessage;
 import DB.Domain.Magazine.MagazinePost;
 import Models.MagazinePostModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -39,9 +39,10 @@ public class MagazinePostController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
-            MagazinePostMessage mpms = new MagazinePostModel().updatePost(request);
+            MagazinePostMessage mpms = new MagazinePostModel().createNewPost(request);
             response.getWriter().append(parser.toJSON(mpms, MagazinePostMessage.class));
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -62,6 +63,7 @@ public class MagazinePostController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             ArrayList<MagazinePost> posts = new MagazinePostModel().getPosts(request);

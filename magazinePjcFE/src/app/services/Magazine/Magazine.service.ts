@@ -108,7 +108,6 @@ export class MagazineService {
   }
 
   public leaveLike(_like: MagazineLike) {
-    console.log('dejandol lik');
     let _formData = new FormData();
     _formData.append('action', 'LEAVE_LIKE');
     _formData.append('like', JSON.stringify(_like));

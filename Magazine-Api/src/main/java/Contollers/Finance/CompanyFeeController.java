@@ -6,7 +6,7 @@
 package Contollers.Finance;
 
 import DB.DAOs.Company.CompanyFeeDAO;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -34,6 +34,7 @@ public class CompanyFeeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         ArrayList<Double> list = new ArrayList<>();
         switch (request.getParameter("action")) {
             case "ALL":

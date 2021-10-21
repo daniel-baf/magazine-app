@@ -4,7 +4,7 @@ import APIMessages.MagazineMessage;
 import APIMessages.SignupMessage;
 import DB.Domain.Magazine.Magazine;
 import Models.MagazineModel;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
@@ -32,6 +32,7 @@ public class MagazineContoller extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             MagazineMessage message = new MagazineModel().executeModel(request.getReader());
@@ -45,6 +46,7 @@ public class MagazineContoller extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
             ArrayList<Magazine> magazines = new MagazineModel().selectMagazines(request);

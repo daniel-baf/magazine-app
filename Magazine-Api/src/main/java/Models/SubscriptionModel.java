@@ -4,7 +4,7 @@ import APIMessages.SubscriptionMessage;
 import DB.DAOs.Magazine.Financials.SubscriptionInsert;
 import DB.DAOs.Magazine.Financials.SubscriptionSelect;
 import DB.Domain.Financial.Subscription;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;

@@ -1,13 +1,14 @@
 package Models;
 
 import APIMessages.SignupMessage;
+import BackendUtilities.AES256cripter;
 import DB.DAOs.Users.Editor.EditorInsert;
 import DB.DAOs.Users.Reader.ReaderInsert;
 import DB.Domain.Users.Editor;
 import DB.Domain.Users.Reader;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.BufferedReader;
 
 /**
@@ -31,6 +32,7 @@ public class SignupModel {
         // variables
         int operationResult = 0; // 0 = NO inserted
         User user = (User) parser.toObject(body, User.class);
+        user.setPassword(AES256cripter.encrypt(user.getPassword()));
         message.setMessage("NO_ERROR");
         // insert
         switch (user.getType()) {
@@ -58,19 +60,6 @@ public class SignupModel {
     }
 
     /**
-     * Configure a User to be send to FRONTEND
-     *
-     * @param email
-     * @param password
-     * @param name
-     * @param type
-     * @return
-     */
-    private User configureUser(String email, String password, String name, String type) {
-        return new User(email, password, name, type);
-    }
-
-    /**
      * Insert an Editor on DATABASE
      *
      * @param jsonParser
@@ -80,10 +69,8 @@ public class SignupModel {
      */
     private int insertEditor(Parser jsonParser, String body, User user) {
         Editor editor = (Editor) jsonParser.toObject(body, Editor.class); // create editor
+        editor.setPassword(user.getPassword());
         int result = new EditorInsert().insert(editor);
-        if (result > 0) {
-            user = configureUser(editor.getEmail(), editor.getPassword(), editor.getName(), "EDITOR");
-        }
         return result;
     }
 
@@ -97,10 +84,8 @@ public class SignupModel {
      */
     private int insertReader(Parser jsonParser, String body, User user) {
         Reader reader = (Reader) jsonParser.toObject(body, Reader.class);
+        reader.setPassword(user.getPassword());
         int result = new ReaderInsert().insert(reader);
-        if (result > 0) {
-            user = configureUser(reader.getEmail(), reader.getPassword(), reader.getName(), "READER");
-        }
         return result;
     }
 }

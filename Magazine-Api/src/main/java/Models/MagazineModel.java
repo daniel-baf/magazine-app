@@ -6,7 +6,7 @@ import DB.DAOs.Magazine.MagazineSelect;
 import DB.DAOs.Magazine.MagazineUpdate;
 import DB.Domain.Magazine.Magazine;
 import ENUMS.DAOResults;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.BufferedReader;
 import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;

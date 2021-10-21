@@ -1,10 +1,11 @@
 package Models;
 
 import APIMessages.SignupMessage;
+import BackendUtilities.AES256cripter;
 import DB.DAOs.Users.UserCommonDAO;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.BufferedReader;
 
 /**
@@ -27,6 +28,8 @@ public class LoginCheckerModel {
         // variables
         SignupMessage message = new SignupMessage();
         User user = (User) new Parser().toObject(parser.getBody(br), User.class);
+        // encrypt password
+        user.setPassword(AES256cripter.encrypt(user.getPassword()));
         User userDB = searchUser(user.getEmail());
         // set types
         String status = userDB != null && match(user, userDB) ? DAOResults.NO_ERROR.getMessage() : DAOResults.UNAUTHORIZED.getMessage();

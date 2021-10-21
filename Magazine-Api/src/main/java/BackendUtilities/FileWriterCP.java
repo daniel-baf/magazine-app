@@ -1,4 +1,4 @@
-package Parsers;
+package BackendUtilities;
 
 import java.io.BufferedReader;
 import java.io.InputStream;

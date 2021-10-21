@@ -9,7 +9,7 @@ import DB.Domain.Users.Editor;
 import DB.Domain.Users.Reader;
 import DB.Domain.Users.User;
 import ENUMS.DAOResults;
-import Parsers.Parser;
+import BackendUtilities.Parser;
 import java.io.BufferedReader;
 
 /**
@@ -35,7 +35,7 @@ public class UserModel {
         switch (user.getType()) {
             case "READER":
                 Reader reader = (Reader) parser.toObject(body, Reader.class);
-                result = new ReaderUpdate().update(reader);
+                System.out.println(reader.getName() + " " + reader.getPassword());
                 break;
             case "EDITOR":
                 Editor editor = (Editor) parser.toObject(body, Editor.class);

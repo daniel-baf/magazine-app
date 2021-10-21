@@ -28,7 +28,7 @@
         >
           <strong>{{ _backendMessage }} </strong>
         </div>
-        <h4>Registro ñ</h4>
+        <h4>Registro</h4>
         <form
           class="form"
           [formGroup]="_signUpForm"
@@ -47,6 +47,20 @@
             />
             <small id="helpIdFullname" class="form-text text-muted"
               >Su nombre personal</small
+            >
+          </div>
+          <div class="form-group">
+            <label for="profilePic">Foto perfil</label>
+            <input
+              type="file"
+              class="form-control-file"
+              name="profilePic"
+              id="profilePic"
+              placeholder="sube una foto de perfil"
+              aria-describedby="profilePicHelp"
+            />
+            <small id="profilePicHelp" class="form-text text-muted"
+              >Una fotografia de perfil</small
             >
           </div>
           <div class="form-group">
@@ -88,7 +102,10 @@
               Quiero ser editor
             </label>
           </div>
-          <div class="form-group">
+          <div
+            class="form-group"
+            *ngIf="_signUpForm.controls['_isEditor'].value == true"
+          >
             <label for="description">Descripciòn</label>
             <textarea
               class="form-control no-resize"
@@ -100,7 +117,7 @@
               formControlName="_description"
             ></textarea>
           </div>
-          <button type="submit" class="btn btn-block btn-dark">
+          <button type="submit" class="btn btn-block btn-dark mt-4">
             Continuar registro
           </button>
         </form>
