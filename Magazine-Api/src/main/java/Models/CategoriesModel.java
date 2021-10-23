@@ -1,6 +1,6 @@
 package Models;
 
-import APIMessages.StringArrayMessage;
+import ApiMessages.StringArrayMessage;
 import DB.Domain.Magazine.CategoryDAO;
 
 /**

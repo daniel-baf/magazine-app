@@ -1,7 +1,7 @@
 package Contollers.Magazine;
 
-import APIMessages.MagazineMessage;
-import APIMessages.SignupMessage;
+import ApiMessages.MagazineMessage;
+import ApiMessages.SignupMessage;
 import DB.Domain.Magazine.Magazine;
 import Models.MagazineModel;
 import BackendUtilities.Parser;

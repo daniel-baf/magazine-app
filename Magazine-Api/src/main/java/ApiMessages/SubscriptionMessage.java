@@ -1,4 +1,4 @@
-package APIMessages;
+package ApiMessages;
 
 import DB.Domain.Financial.Subscription;
 

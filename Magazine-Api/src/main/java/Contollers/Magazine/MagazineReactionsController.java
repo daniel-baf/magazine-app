@@ -1,6 +1,6 @@
 package Contollers.Magazine;
 
-import APIMessages.SignupMessage;
+import ApiMessages.SignupMessage;
 import DB.Domain.Magazine.Comment;
 import DB.Domain.Magazine.Like;
 import DB.Domain.Magazine.TagsDAO;

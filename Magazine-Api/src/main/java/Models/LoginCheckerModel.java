@@ -1,6 +1,6 @@
 package Models;
 
-import APIMessages.SignupMessage;
+import ApiMessages.SignupMessage;
 import BackendUtilities.AES256cripter;
 import DB.DAOs.Users.UserCommonDAO;
 import DB.Domain.Users.User;

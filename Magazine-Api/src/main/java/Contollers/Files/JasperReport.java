@@ -5,8 +5,12 @@ import BackendUtilities.VarsChecker;
 import DB.GeneralPaths;
 import BackendUtilities.JasperService;
 import DB.DAOs.Magazine.MagazineSelect;
+import DB.Domain.Magazine.Magazine;
+import DB.Domain.Magazine.MaganizeSubscriptionReport;
+import Models.MagazineModel;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -49,45 +53,74 @@ public class JasperReport extends HttpServlet {
         try {
             switch (request.getParameter("type")) {
                 case "EDITOR":
-                    respondWithEditorRep(request, response, validDates, date1, date2);
+                    printEditorReport(request, response, validDates, date1, date2);
+                    break;
+                case "ADMIN":
+                    printAdminReport(request, response, validDates, date1, date2);
                     break;
                 default:
                     System.out.println("UNKNOWN action at JasperReport class");
             }
-        } catch (Exception ex) {
+        } catch (IOException | JRException ex) {
             System.out.println("Error taking jasper " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 
-    private void respondWithEditorRep(HttpServletRequest request, HttpServletResponse response, boolean validDates, Date date1, Date date2) throws IOException, JRException {
+    /**
+     * Print different jasper reports for Editors
+     *
+     * @param request
+     * @param response
+     * @param validDates
+     * @param date1
+     * @param date2
+     * @throws IOException
+     * @throws JRException
+     */
+    private void printEditorReport(HttpServletRequest request, HttpServletResponse response, boolean validDates, Date date1, Date date2) throws IOException, JRException {
         JasperService jm = new JasperService();
-        String subPath = GeneralPaths.JASPER_EDITOR_SUB_PATH.getMessage();
-        try {
-            switch (request.getParameter("action")) {
-                case "comments-mag":
-                    String subPathMagComments = validDates ? "CommentsSubRep.jasper": "CommentsSubRepNoParms.jasper";
-                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("comments-mag", validDates),
-                            jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, subPath + subPathMagComments));
-                    break;
-                case "subs-mag":
-                    String subPathMagSubs = validDates ? "SubscriptionSubRep.jasper": "SubscriptionSubRepNoParms.jasper";
-                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("subs-mag", validDates),
-                            jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, subPath + subPathMagSubs));
-                    break;
-                case "most-liked":
-                    String mag = new MagazineSelect().selectMostLikedByUser(request.getParameter("owner"), date1, date2, validDates);
-                    Map<String, Object> mp = jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, "");
-                    mp.put("magazine", mag);
-                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("most-liked", validDates), mp);
-                    break;
-                case "earnings":
-                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("earnings", validDates),
-                            jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, ""));
-                    break;
+        String subPath = GeneralPaths.JASPER_EDITOR_SUB_PATH_RELATIVE.getMessage();
+        String owner = request.getParameter("owner");
 
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
+        switch (request.getParameter("action")) {
+            case "comments-mag":
+                String subPathMagComments = validDates ? "CommentsSubRep.jasper" : "CommentsSubRepNoParms.jasper";
+                jm.printReport(response.getOutputStream(), jm.getMasterReportPathEditor("comments-mag", validDates),
+                        jm.getBasicKeyMapForJasper(date1, date2, owner, validDates, subPath + subPathMagComments));
+                break;
+            case "subs-mag":
+                String subPathMagSubs = validDates ? "SubscriptionSubRep.jasper" : "SubscriptionSubRepNoParms.jasper";
+                jm.printReport(response.getOutputStream(), jm.getMasterReportPathEditor("subs-mag", validDates),
+                        jm.getBasicKeyMapForJasper(date1, date2, owner, validDates, subPath + subPathMagSubs));
+                break;
+            case "most-liked":
+                String mag = new MagazineSelect().selectMostLikedByUser(owner, date1, date2, validDates);
+                Map<String, Object> mp = jm.getBasicKeyMapForJasper(date1, date2, request.getParameter("owner"), validDates, "");
+                mp.put("magazine", mag);
+                jm.printReport(response.getOutputStream(), jm.getMasterReportPathEditor("most-liked", validDates), mp);
+                break;
+            case "earnings":
+                jm.printReport(response.getOutputStream(), jm.getMasterReportPathEditor("earnings", validDates),
+                        jm.getBasicKeyMapForJasper(date1, date2, owner, validDates, ""));
+                break;
+
+        }
+    }
+
+    private void printAdminReport(HttpServletRequest request, HttpServletResponse response, boolean validDates, Date date1, Date date2) throws IOException, JRException {
+        JasperService jm = new JasperService();
+        String subPath = GeneralPaths.JASPER_ADMIN_SUB_PATH_RELATIVE.getMessage();
+
+        switch (request.getParameter("action")) {
+            case "earns-advers":
+                jm.printReport(response.getOutputStream(), jm.getMasterReportPathAdmin("earns-advers", validDates),
+                        jm.getBasicKeyMapForJasper(date1, date2, "", validDates, ""));
+                break;
+            case "most-subscribed":
+                ArrayList<MaganizeSubscriptionReport> mags = new MagazineSelect().selectMostSubscribedMags(validDates, date1, date2);
+                jm.printReportWithComplexBeans(mags, jm.getMasterReportPathAdmin("most-subscribed", validDates), null, response.getOutputStream());
+                break;
         }
     }
 

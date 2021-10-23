@@ -11,8 +11,10 @@ public enum GeneralPaths {
     FILES_IMG_PATH_AD(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/img/ad/"),
     FILES_IMG_PATH_PROF_EDITOR(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/"),
     FILES_IMG_PATH_PROF_READER(-3, "/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/"),
-    JASPER_EDITOR_PATH(-3, "/home/jefemayoneso/Documents/Angular/projects/magazine-app/Magazine-Api/src/main/resources/JasperReports/editorReports/"),
-    JASPER_EDITOR_SUB_PATH(-3,"/home/jefemayoneso/Documents/Angular/projects/magazine-app/Magazine-Api/src/main/resources/JasperReports/editorReports/subReport/");
+    JASPER_EDITOR_MAIN_PATH_RELATIVE(-3, "com/jefemayoneso/MagazineApi/reports/editorReports/"),
+    JASPER_EDITOR_SUB_PATH_RELATIVE(-3, "com/jefemayoneso/MagazineApi/reports/editorReports/subReport/"),
+    JASPER_ADMIN_MAIN_PATH_RELATIVE(-3, "com/jefemayoneso/MagazineApi/reports/adminReports/"),
+    JASPER_ADMIN_SUB_PATH_RELATIVE(-3, "com/jefemayoneso/MagazineApi/reports/adminReports/subReport/");
     // METHODS
     private int code;
     private String message;

@@ -1,6 +1,6 @@
 package Models;
 
-import APIMessages.MagazineMessage;
+import ApiMessages.MagazineMessage;
 import DB.DAOs.Magazine.MagazineInsert;
 import DB.DAOs.Magazine.MagazineSelect;
 import DB.DAOs.Magazine.MagazineUpdate;

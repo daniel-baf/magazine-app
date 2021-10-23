@@ -1,6 +1,6 @@
 package Contollers.User;
 
-import APIMessages.SignupMessage;
+import ApiMessages.SignupMessage;
 import Models.SignupModel;
 import BackendUtilities.Parser;
 import DB.Domain.Users.User;

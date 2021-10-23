@@ -1,7 +1,7 @@
 package Contollers.User;
 
-import APIMessages.SignupMessage;
-import APIMessages.StringArrayMessage;
+import ApiMessages.SignupMessage;
+import ApiMessages.StringArrayMessage;
 import DB.DAOs.Users.ReaderInsert;
 import Models.CategoriesModel;
 import BackendUtilities.Parser;

@@ -1,7 +1,7 @@
 package Contollers.Finance;
 
-import APIMessages.SignupMessage;
-import APIMessages.SubscriptionMessage;
+import ApiMessages.SignupMessage;
+import ApiMessages.SubscriptionMessage;
 import DB.Domain.Financial.Subscription;
 import Models.SubscriptionModel;
 import BackendUtilities.Parser;

@@ -1,6 +1,6 @@
 package Models;
 
-import APIMessages.SubscriptionMessage;
+import ApiMessages.SubscriptionMessage;
 import DB.DAOs.Magazine.Financials.SubscriptionInsert;
 import DB.DAOs.Magazine.Financials.SubscriptionSelect;
 import DB.Domain.Financial.Subscription;

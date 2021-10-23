@@ -3,6 +3,7 @@ package DB.DAOs.Magazine.Financials;
 import DB.DBConnection;
 import DB.Domain.Financial.Subscription;
 import BackendUtilities.Parser;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import java.util.ArrayList;
 public class SubscriptionSelect {
 
     private final String SQL_SELECT_ACTIVE_SUB = "SELECT * FROM Subscription WHERE reader = ? AND expiration_date >= NOW() LIMIT ? OFFSET ?";
+    private final String SQL_SELECT_SUBS_FOR_MAG = "SELECT * FROM Subscription WHERE magazine = ? ";
 
     /**
      * This method gets all active subscription for a reader from DB
@@ -41,6 +43,13 @@ public class SubscriptionSelect {
         return subs;
     }
 
+    /**
+     * Sharesd method to get a Sub from a resultset
+     *
+     * @param rs
+     * @return
+     * @throws SQLException
+     */
     private Subscription getSubFromRs(ResultSet rs) throws SQLException {
         Parser parser = new Parser();
         return new Subscription(rs.getInt("id"), rs.getInt("months"),
@@ -48,6 +57,36 @@ public class SubscriptionSelect {
                 parser.toLocalDate(rs.getDate("acquisition_date")),
                 rs.getString("magazine"),
                 rs.getString("reader"));
+    }
+
+    /**
+     * Return a list of subscriptions that belongs to a magazine
+     *
+     * @param betweenDates
+     * @param date1
+     * @param date2
+     * @param magazine
+     * @return
+     */
+    public ArrayList<Subscription> select(boolean betweenDates, Date date1, Date date2, String magazine) {
+        ArrayList<Subscription> subs = new ArrayList<>();
+        String SQL_TMP = betweenDates ? SQL_SELECT_SUBS_FOR_MAG + " WHERE acquisition_date BETWEEN ? AND ? " : SQL_SELECT_SUBS_FOR_MAG;
+        SQL_TMP += " ORDER BY acquisition_date DESC";
+        // SQL
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_TMP)) {
+            ps.setString(1, magazine);
+            if (betweenDates) {
+                ps.setDate(2, date1);
+                ps.setDate(3, date2);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                subs.add(getSubFromRs(rs));
+            }
+        } catch (Exception e) {
+            System.out.println("Cannot get magazine sub at SubsSelect " + e.getMessage());
+        }
+        return subs;
     }
 
 }

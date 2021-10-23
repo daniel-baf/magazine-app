@@ -17,14 +17,29 @@ export class RequestReportComponent implements OnInit {
   public _action: string = '';
   public _errorMessage: string = '';
   public _showError: boolean = false;
+  public _user: User;
+
   constructor(
     private _localStorage: LocalStorageService,
     private _router: Router
-  ) {}
+  ) {
+    this._user = JSON.parse(`${this._localStorage.getData('user')}`);
+  }
 
   ngOnInit(): void {}
 
   public requestReport() {
+    if (this.isValid()) {
+      this._router.navigate([
+        Routes.READ_REPORT,
+        this._action,
+        this._dateEnd,
+        this._dateStart,
+      ]);
+    }
+  }
+
+  public requestReportAdmin() {
     if (this.isValid()) {
       this._router.navigate([
         Routes.READ_REPORT,

@@ -1,6 +1,6 @@
 package Contollers.User;
 
-import APIMessages.SignupMessage;
+import ApiMessages.SignupMessage;
 import Models.UserModel;
 import BackendUtilities.Parser;
 import java.io.IOException;

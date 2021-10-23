@@ -28,6 +28,7 @@ export class AdminViewComponent implements OnInit {
       Routes.APPROVE_MAGAZINE,
       Routes.ADVERTISER_LIST,
       Routes.NEW_ADVERTISER,
+      Routes.REPORT_PANEL,
     ];
   }
 }

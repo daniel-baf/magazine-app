@@ -1,6 +1,6 @@
 package Contollers.Finance;
 
-import APIMessages.SignupMessage;
+import ApiMessages.SignupMessage;
 import DB.Domain.Financial.Ad;
 import DB.Domain.Financial.Advertiser;
 import Models.AdsModel;
