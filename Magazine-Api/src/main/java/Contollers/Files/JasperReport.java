@@ -62,28 +62,33 @@ public class JasperReport extends HttpServlet {
     private void respondWithEditorRep(HttpServletRequest request, HttpServletResponse response, boolean validDates, Date date1, Date date2) throws IOException, JRException {
         JasperService jm = new JasperService();
         String subPath = GeneralPaths.JASPER_EDITOR_SUB_PATH.getMessage();
-        switch (request.getParameter("action")) {
-            case "comments-mag":
-                jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("comments-mag", validDates),
-                        jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, subPath + "CommentsSubRep.jasper"));
-                break;
-            case "subs-mag":
-                jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("comments-mag", validDates),
-                        jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, subPath + "SubscriptionSubRep.jasper"));
-                break;
-            case "most-liked":
-                String mag = new MagazineSelect().selectMostLikedByUser(request.getParameter("owner"));
-                Map<String, Object> mp = jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, "");
-                mp.put("magazine", mag);
-                jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("most-liked", validDates), mp);
-                break;
-            case "earnings":
-                jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("earnings", validDates),
-                        jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, ""));
-                break;
+        try {
+            switch (request.getParameter("action")) {
+                case "comments-mag":
+                    String subPathMagComments = validDates ? "CommentsSubRep.jasper": "CommentsSubRepNoParms.jasper";
+                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("comments-mag", validDates),
+                            jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, subPath + subPathMagComments));
+                    break;
+                case "subs-mag":
+                    String subPathMagSubs = validDates ? "SubscriptionSubRep.jasper": "SubscriptionSubRepNoParms.jasper";
+                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("subs-mag", validDates),
+                            jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, subPath + subPathMagSubs));
+                    break;
+                case "most-liked":
+                    String mag = new MagazineSelect().selectMostLikedByUser(request.getParameter("owner"), date1, date2, validDates);
+                    Map<String, Object> mp = jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, "");
+                    mp.put("magazine", mag);
+                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("most-liked", validDates), mp);
+                    break;
+                case "earnings":
+                    jm.printReport(response.getOutputStream(), jm.getRespectiveEditorJasperPath("earnings", validDates),
+                            jm.getOwnerDatesMap(date1, date2, request.getParameter("owner"), validDates, ""));
+                    break;
 
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
     }
 
 }

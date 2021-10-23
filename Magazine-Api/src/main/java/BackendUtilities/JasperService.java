@@ -29,30 +29,25 @@ public class JasperService {
         String path1 = GeneralPaths.JASPER_EDITOR_PATH.getMessage();
         switch (repType) {
             case "comments-mag":
-                return validDates ? path1 + "MagsEditorComments.jasper" : path1 + "";
+                return validDates ? path1 + "MagsEditorComments.jasper" : path1 + "MagsEditorCommentsNoParms.jasper";
             case "subs-mag":
-                return validDates ? path1 + "SubscriptionSubRep.jasper" : path1 + "";
+                return validDates ? path1 + "MagsEditorSubscription.jasper" : path1 + "MagsEditorSubscriptionNoParms.jasper";
             case "most-liked":
-                return validDates ? path1 + "MagLikes.jasper" : path1 + "";
+                return validDates ? path1 + "MagLikes.jasper" : path1 + "MagLikesNoParms.jasper";
             case "earnings":
-                return validDates ? path1 + "EditorEarning.jasper" : path1 + "";
+                return validDates ? path1 + "EditorEarning.jasper" : path1 + "EditorEarningNoParms.jasper";
             default:
                 return null;
         }
     }
 
     public Map<String, Object> getOwnerDatesMap(Date dateStart, Date dateEnd, String owner, boolean validDates, String subDir) {
-        if (validDates) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("owner", owner);
-            map.put("date_start", dateStart);
-            map.put("date_end", dateEnd);
-            map.put("SUB_REP_DIR", subDir);
-            return map;
-        } else {
-            return null;
-        }
-
+        Map<String, Object> map = new HashMap<>();
+        map.put("owner", owner);
+        map.put("date_start", dateStart);
+        map.put("date_end", dateEnd);
+        map.put("SUB_REP_DIR", subDir);
+        return map;
     }
 
 }
