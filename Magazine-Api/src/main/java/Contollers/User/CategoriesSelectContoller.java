@@ -2,7 +2,7 @@ package Contollers.User;
 
 import APIMessages.SignupMessage;
 import APIMessages.StringArrayMessage;
-import DB.DAOs.Users.Reader.ReaderInsert;
+import DB.DAOs.Users.ReaderInsert;
 import Models.CategoriesModel;
 import BackendUtilities.Parser;
 import java.io.IOException;

@@ -64,6 +64,13 @@
   <div id="content" style="width: 100%">
     <app-nav-view-page></app-nav-view-page>
     <!-- We'll fill this with dummy content -->
-    <router-outlet></router-outlet>
+    <div class="wrapper">
+      <div style="width: 75%">
+        <router-outlet></router-outlet>
+      </div>
+      <div style="width: 20%">
+        <app-ad-aside></app-ad-aside>
+      </div>
+    </div>
   </div>
 </div>

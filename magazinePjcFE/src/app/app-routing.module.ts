@@ -5,12 +5,15 @@ import { LoginComponent } from './components/logPage/login/login.component';
 import { MainComponent } from './components/logPage/main/main.component';
 import { SelectCategoriesComponent } from './components/logPage/signup/select-categories/select-categories.component';
 import { SignupComponent } from './components/logPage/signup/signup.component';
+import { AdAsideComponent } from './components/pages/ad-componentes/ad-aside/ad-aside.component';
 import { AdvertiserListComponent } from './components/pages/admin-view/adds/advertiser-list/advertiser-list.component';
 import { NewAdvertiserComponent } from './components/pages/admin-view/adds/new-advertiser/new-advertiser.component';
 import { ApproveMagComponent } from './components/pages/admin-view/approve-mag/approve-mag.component';
 import { EditProfileComponent } from './components/pages/edit-profile/edit-profile.component';
 import { NewMagazineComponent } from './components/pages/editor-view/magActions/new-magazine/new-magazine.component';
 import { UploadPostComponent } from './components/pages/editor-view/magActions/upload-post/upload-post.component';
+import { ReportComponent } from './components/pages/reports/report/report.component';
+import { RequestReportComponent } from './components/pages/reports/request-report/request-report.component';
 import { PostListComponent } from './components/pages/magazine/post-list/post-list.component';
 import { ReadPostComponent } from './components/pages/magazine/post-list/read-post/read-post.component';
 import { PreviewMagazineComponent } from './components/pages/magazine/preview-magazine/preview-magazine.component';
@@ -79,9 +82,17 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'edit-profile',
-        component: EditProfileComponent,
+        path: 'report',
+        children: [
+          { path: 'get-report', component: RequestReportComponent },
+          {
+            path: 'view-report/:rep-type/:dateE/:dateS',
+            component: ReportComponent,
+          },
+        ],
       },
+      { path: 'edit-profile', component: EditProfileComponent },
+      { path: 'ad-aside', component: AdAsideComponent },
     ],
   },
   { path: '**', component: ErrorComponent },

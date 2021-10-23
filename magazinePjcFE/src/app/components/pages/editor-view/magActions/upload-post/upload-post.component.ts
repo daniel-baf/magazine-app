@@ -79,6 +79,8 @@ export class UploadPostComponent implements OnInit {
       this.getMagPostObject();
       this._magService.uploadPost(this._postTmp, this._fileToUpload).subscribe(
         (_success: string) => {
+          console.log(_success);
+          
           if (_success === 'NO_ERROR') {
             this.showSuccess('Se ha subido el nuevo post');
           } else {

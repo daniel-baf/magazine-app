@@ -1,8 +1,9 @@
 package Contollers.Files;
 
-import DB.DAOs.Magazine.Post.MagazinePostSelect;
+import DB.DAOs.Magazine.MagazinePostSelect;
 import DB.Domain.Magazine.MagazinePost;
 import BackendUtilities.Parser;
+import DB.GeneralPaths;
 import Models.ImgModel;
 import Models.PDFModel;
 import java.io.BufferedInputStream;
@@ -14,14 +15,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import net.sf.jasperreports.engine.DefaultJasperReportsContext;
-// JASPER
-import net.sf.jasperreports.engine.JasperPrint;
-import net.sf.jasperreports.engine.export.HtmlExporter;
-import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.engine.JasperFillManager;
 
 /**
  *
@@ -57,10 +50,8 @@ public class FileGiver extends HttpServlet {
                     ImgModel modelImg = new ImgModel(request.getParameter("user"), request.getParameter("type"));
                     showFile(response, modelImg.findPath(), "application/image");
                     break;
-//            case "SHOW_JASPER_TMP":
-//                showJasperAsHTML(response);
-//                // get Jasper
-//                break;
+                case "GET_AD_PIC":
+                    showFile(response, GeneralPaths.FILES_IMG_PATH_AD.getMessage() + request.getParameter("id"), "application/image");
             }
         } catch (Exception e) {
         }
@@ -81,7 +72,7 @@ public class FileGiver extends HttpServlet {
                 data = fileStream.read();
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error trying to show a file at [FileGiver] " + e.getMessage());
         }
     }
 
@@ -104,19 +95,19 @@ public class FileGiver extends HttpServlet {
         }
     }
 
-    private void showJasperAsHTML(HttpServletResponse response) {
-        String reportPath = "/home/jefemayoneso/Documents/Angular/projects/magazine-app/Magazine-Api/src/main/java/resources/Jasper/Simple_Blue.jasper";
-        try {
-            // get inputstream
-            response.setContentType("text/html");
-            InputStream inputStream = JRLoader.getFileInputStream(reportPath);
-            JasperPrint jPrint = JasperFillManager.fillReport(inputStream, null, DB.DBConnection.getConnection());
-            HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
-            htmlExporter.setExporterInput(new SimpleExporterInput(jPrint));
-            htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
-            htmlExporter.exportReport();
-        } catch (Exception e) {
-            System.out.println("Error JASPER " + e.getMessage());
-        }
-    }
+//    private void showJasperAsHTML(HttpServletResponse response) {
+//        String reportPath = "/home/jefemayoneso/Documents/Angular/projects/magazine-app/Magazine-Api/src/main/java/resources/Jasper/Simple_Blue.jasper";
+//        try {
+//            // get inputstream
+//            response.setContentType("text/html");
+//            InputStream inputStream = JRLoader.getFileInputStream(reportPath);
+//            JasperPrint jPrint = JasperFillManager.fillReport(inputStream, null, DB.DBConnection.getConnection());
+//            HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
+//            htmlExporter.setExporterInput(new SimpleExporterInput(jPrint));
+//            htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+//            htmlExporter.exportReport();
+//        } catch (Exception e) {
+//            System.out.println("Error JASPER " + e.getMessage());
+//        }
+//    }
 }

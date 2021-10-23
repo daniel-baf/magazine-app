@@ -1,8 +1,8 @@
 package Models;
 
 import APIMessages.MagazinePostMessage;
-import DB.DAOs.Magazine.Post.MagazinePostInsert;
-import DB.DAOs.Magazine.Post.MagazinePostSelect;
+import DB.DAOs.Magazine.MagazinePostInsert;
+import DB.DAOs.Magazine.MagazinePostSelect;
 import DB.Domain.Magazine.MagazinePost;
 import BackendUtilities.Parser;
 import java.io.IOException;

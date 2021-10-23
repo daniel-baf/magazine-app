@@ -2,12 +2,12 @@ package Models;
 
 import APIMessages.SignupMessage;
 import BackendUtilities.AES256cripter;
-import DB.DAOs.Users.Editor.EditorInsert;
-import DB.DAOs.Users.Reader.ReaderInsert;
+import DB.DAOs.Users.EditorInsert;
+import DB.DAOs.Users.ReaderInsert;
 import DB.Domain.Users.Editor;
 import DB.Domain.Users.Reader;
 import DB.Domain.Users.User;
-import ENUMS.DAOResults;
+import DB.GeneralPaths;
 import BackendUtilities.Parser;
 import javax.servlet.http.Part;
 
@@ -41,7 +41,6 @@ public class SignupModel {
                 operationResult = insertReader(parser, body, user, part);
                 break;
             case "EDITOR":
-                System.out.println("insert editor");
                 operationResult = insertEditor(parser, body, user, part);
                 break;
             case "ADMIN":
@@ -52,9 +51,9 @@ public class SignupModel {
 
         // SWITCH  operationReulst, do different things
         if (operationResult == -1) {
-            message.setMessage(DAOResults.EMAIL_IN_USE.getMessage());
+            message.setMessage(GeneralPaths.EMAIL_IN_USE.getMessage());
         } else if (operationResult == 0) {
-            message.setMessage(DAOResults.ERROR_ON_INSERT.getMessage());
+            message.setMessage(GeneralPaths.ERROR_ON_INSERT.getMessage());
         }
         message.setUser(user);
         return message;
@@ -86,7 +85,7 @@ public class SignupModel {
     private int insertReader(Parser jsonParser, String body, User user, Part part) {
         Reader reader = (Reader) jsonParser.toObject(body, Reader.class);
         reader.setPassword(user.getPassword());
-        int result = new ReaderInsert().insert(reader);
+        int result = new ReaderInsert().insert(reader, part);
         return result;
     }
 }

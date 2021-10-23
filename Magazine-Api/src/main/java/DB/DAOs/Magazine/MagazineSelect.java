@@ -2,6 +2,7 @@ package DB.DAOs.Magazine;
 
 import DB.Domain.Magazine.Magazine;
 import BackendUtilities.Parser;
+import DB.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,8 @@ public class MagazineSelect {
     private final String SQL_SELECT_ONE_MAG = "SELECT * FROM Magazine WHERE name=?";
     private final String SQL_SELECT_MAGS_FOR_USER = "SELECT * FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
             + "ON m.category=rc.category AND rc.reader=? AND m.approved='1' LIMIT ? OFFSET ?";
+    private final String SQL_SELECT_MOST_LIKED = "SELECT COUNT(l.magazine) AS `likes`, l.magazine, m.editor FROM `Like` AS l  INNER JOIN Magazine as m "
+            + "ON m.name = l.magazine WHERE m.editor = ? GROUP BY l.magazine ORDER BY `likes` DESC LIMIT 1";
 
     /**
      * Select all the information about 1 magazine by name
@@ -161,6 +164,20 @@ public class MagazineSelect {
                 rs.getString("category"),
                 new MagazineTagDAO().select(rs.getString("name"))
         );
+    }
+
+    public String selectMostLikedByUser(String user) {
+        System.out.println("buscando para " + user);
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_MOST_LIKED)) {
+            ps.setString(1, user);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("magazine");
+            }
+        } catch (Exception e) {
+            System.out.println("Cannot get most liked mag at [MagazineInsert] " + e.getMessage());
+        }
+        return null;
     }
 
 }

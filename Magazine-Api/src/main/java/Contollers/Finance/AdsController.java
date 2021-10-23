@@ -1,8 +1,8 @@
 package Contollers.Finance;
 
 import APIMessages.SignupMessage;
-import DB.Domain.Ad.Ad;
-import DB.Domain.Ad.Advertiser;
+import DB.Domain.Financial.Ad;
+import DB.Domain.Financial.Advertiser;
 import Models.AdsModel;
 import BackendUtilities.Parser;
 import java.io.IOException;
@@ -45,8 +45,17 @@ public class AdsController extends HttpServlet {
         try {
             switch (request.getParameter("sub-action")) {
                 case "ADVERTISERS":
-                    ArrayList<String> advertiser = new AdsModel().getAdvertiser(parser.toInteger(request.getParameter("limit")), parser.toInteger(request.getParameter("offset")), request.getParameter("action"));
+                    ArrayList<String> advertiser = new AdsModel().getAdvertiser(
+                            parser.toInteger(request.getParameter("limit")),
+                            parser.toInteger(request.getParameter("offset")),
+                            request.getParameter("action"));
                     response.getWriter().append(parser.toJSON(advertiser, advertiser.getClass()));
+                    break;
+                case "get-ad":
+                    response.getWriter().append(parser.toJSON(new AdsModel().getRandomAd(
+                            parser.toInteger(
+                                    request.getParameter("ad-type")),
+                            request.getParameter("user")), Ad.class));
                     break;
             }
 
@@ -85,7 +94,7 @@ public class AdsController extends HttpServlet {
                     response.getWriter().append(new AdsModel().createNewAdd(ad, request.getPart("file")));
                     break;
                 default:
-                    System.out.println("UNKNOWN atcion at [AddsController]");
+                    System.out.println("UNKNOWN action at [AddsController]");
             }
         } catch (Exception e) {
             e.printStackTrace();

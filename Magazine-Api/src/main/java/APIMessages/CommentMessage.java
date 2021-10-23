@@ -1,6 +1,6 @@
 package APIMessages;
 
-import DB.Domain.Magazine.Relations.Comment;
+import DB.Domain.Magazine.Comment;
 
 /**
  *

@@ -29,6 +29,9 @@ import { PostListComponent } from './components/pages/magazine/post-list/post-li
 import { ReadPostComponent } from './components/pages/magazine/post-list/read-post/read-post.component';
 import { NewAdvertiserComponent } from './components/pages/admin-view/adds/new-advertiser/new-advertiser.component';
 import { AdvertiserListComponent } from './components/pages/admin-view/adds/advertiser-list/advertiser-list.component';
+import { AdAsideComponent } from './components/pages/ad-componentes/ad-aside/ad-aside.component';
+import { ReportComponent } from './components/pages/reports/report/report.component';
+import { RequestReportComponent } from './components/pages/reports/request-report/request-report.component';
 
 @NgModule({
   declarations: [
@@ -56,6 +59,9 @@ import { AdvertiserListComponent } from './components/pages/admin-view/adds/adve
     ReadPostComponent,
     NewAdvertiserComponent,
     AdvertiserListComponent,
+    AdAsideComponent,
+    ReportComponent,
+    RequestReportComponent,
   ],
   imports: [
     BrowserModule,

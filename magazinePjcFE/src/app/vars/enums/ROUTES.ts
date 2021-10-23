@@ -21,4 +21,7 @@ export enum Routes {
   // EDITOR
   NEW_MAGAZINE = '/pages/editor-view/mag/new-mag',
   UPLOAD_POST = '/pages/editor-view/mag/upload-post',
+  // report
+  REPORT_PANEL = '/pages/report/get-report',
+  READ_REPORT = '/pages/report/view-report',
 }

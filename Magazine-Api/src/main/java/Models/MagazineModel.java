@@ -5,7 +5,7 @@ import DB.DAOs.Magazine.MagazineInsert;
 import DB.DAOs.Magazine.MagazineSelect;
 import DB.DAOs.Magazine.MagazineUpdate;
 import DB.Domain.Magazine.Magazine;
-import ENUMS.DAOResults;
+import DB.GeneralPaths;
 import BackendUtilities.Parser;
 import java.io.BufferedReader;
 import java.util.ArrayList;
@@ -43,7 +43,7 @@ public class MagazineModel {
             default:
         }
         // set response message
-        String messString = result == DAOResults.ERROR_ON_INSERT.getCode() ? "ERROR_INSERT" : "NO_ERROR";
+        String messString = result == GeneralPaths.ERROR_ON_INSERT.getCode() ? "ERROR_INSERT" : "NO_ERROR";
         message.setMessage(messString);
         return message;
     }

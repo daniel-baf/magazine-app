@@ -1,7 +1,7 @@
 package Models;
 
 import BackendUtilities.Parser;
-import DB.DAOs.Magazine.Post.MagazinePostSelect;
+import DB.DAOs.Magazine.MagazinePostSelect;
 import DB.Domain.Magazine.MagazinePost;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

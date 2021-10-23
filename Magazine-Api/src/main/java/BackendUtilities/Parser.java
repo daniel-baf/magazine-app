@@ -87,6 +87,14 @@ public class Parser {
         }
     }
 
+    public Date toDate(String date) {
+        try {
+            return Date.valueOf(date);
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     /**
      * This method transform any String to LocalDate
      *

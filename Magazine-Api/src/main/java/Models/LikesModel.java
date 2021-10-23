@@ -1,8 +1,8 @@
 package Models;
 
-import DB.DAOs.Magazine.Relations.LikeInsert;
-import DB.DAOs.Magazine.Relations.LikeSelect;
-import DB.Domain.Magazine.Relations.Like;
+import DB.DAOs.Magazine.Reactions.LikeInsert;
+import DB.DAOs.Magazine.Reactions.LikeSelect;
+import DB.Domain.Magazine.Like;
 
 /**
  *

@@ -1,8 +1,8 @@
 package Contollers.Magazine;
 
 import APIMessages.SignupMessage;
-import DB.Domain.Magazine.Relations.Comment;
-import DB.Domain.Magazine.Relations.Like;
+import DB.Domain.Magazine.Comment;
+import DB.Domain.Magazine.Like;
 import DB.Domain.Magazine.TagsDAO;
 import Models.CommentModel;
 import Models.LikesModel;
@@ -21,12 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author jefemayoneso
  */
 @WebServlet(name = "MagazineReactionsController", urlPatterns = {"/MagazineReactionsController"})
-@MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-        maxFileSize = 1024 * 1024 * 10, // 10 MB
-        maxRequestSize = 1024 * 1024 * 15, // 15 MB
-        location = "/home/jefemayoneso/"
-)
+@MultipartConfig()
 public class MagazineReactionsController extends HttpServlet {
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -92,7 +87,7 @@ public class MagazineReactionsController extends HttpServlet {
                     response.getWriter().append(new LikesModel().leaveLike(like));
                     break;
                 default:
-                    System.out.println("Error while getting commnets");
+                    System.out.println("UNKNOWN action at [MagazineReactionsController]");
             }
         } catch (Exception e) {
             response.getWriter().append(parser.toJSON(new SignupMessage("Error trying to get reactions at [MagazineREacctionController]" + e.getMessage(), null), SignupMessage.class));

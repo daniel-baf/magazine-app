@@ -7,12 +7,14 @@ import { Routes } from 'src/app/vars/enums/ROUTES';
   styleUrls: ['./editor-aside.component.css'],
 })
 export class EditorAsideComponent implements OnInit {
-  _newMagLink: string;
-  _uploadPostUrl: string;
+  public _newMagLink: string;
+  public _uploadPostUrl: string;
+  public _reportsPanel: string;
 
   constructor() {
     this._newMagLink = Routes.NEW_MAGAZINE;
     this._uploadPostUrl = Routes.UPLOAD_POST;
+    this._reportsPanel = Routes.REPORT_PANEL;
   }
 
   ngOnInit(): void {}

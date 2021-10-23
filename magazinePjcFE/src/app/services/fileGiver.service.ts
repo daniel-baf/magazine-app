@@ -6,13 +6,22 @@ import { APIs } from '../vars/enums/API';
 @Injectable({
   providedIn: 'root',
 })
-export class FileGiverService {
-  constructor(private _http: HttpClient) {}
+export class JasperService {
+  constructor(private _http: HttpClient){}
 
-  public getPdf(_id: number) {
-    const url = `${APIs.FILES_GIVER_CONTROLLER}?action=SHOW_PDF&id=${_id}`;
-    this._http.get(url).subscribe((_success: any) => {
-      console.log(_success);
-    });
+  public getReportEditor(
+    _editorRep: string,
+    _startDate: string,
+    _endDate: string,
+    _owner: string
+  ) {
+    let _formData = new FormData();
+    _formData.append('type', 'EDITOR');
+    _formData.append('date-start', _startDate);
+    _formData.append('date-end', _endDate);
+    _formData.append('action', _editorRep);
+    _formData.append('action', _owner);
+
+    return this._http.post(`${APIs.JASPER_REPORT_CONTROLLER}`, _formData);
   }
 }

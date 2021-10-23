@@ -17,6 +17,7 @@ CREATE TABLE `Reader` (
   `email` VARCHAR(50) NOT NULL,
   `name` VARCHAR(50) NOT NULL,
   `password` VARCHAR(40) NOT NULL,
+  `imgPath` VARCHAR(700) NULL DEFAULT NULL,
   PRIMARY KEY (`email`));
 
 DROP TABLE IF EXISTS `Editor`;
@@ -269,11 +270,17 @@ CREATE TABLE `Ad_Tag` (
 DROP TABLE IF EXISTS `Payment`;
 CREATE TABLE `Payment` (
   `subscription` INT,
-  `editor_fee` DECIMAL,
-  `company_fee` DECIMAL,
+  `editor_fee` DECIMAL(10,2),
+  `company_fee` DECIMAL(10,2),
   PRIMARY KEY (`subscription`),
   CONSTRAINT `fk_subscription_payment`
 	FOREIGN KEY(`subscription`)
     REFERENCES `Magazine_Web`.`Subscription` (`id`)
     ON DELETE RESTRICT
     ON UPDATE CASCADE);
+    
+-- SQL USER
+-- DROP USER IF EXISTS 'ipc2'@'localhost';
+-- CREATE USER 'ipc2'@'localhost' IDENTIFIED BY 'ipc2+contraPjct0s';
+-- GRANT ALL PRIVILEGES ON `Magazine_Web`.* TO 'ipc2'@'localhost';
+-- FLUSH PRIVILEGES;

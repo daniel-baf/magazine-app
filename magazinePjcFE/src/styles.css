@@ -40,3 +40,7 @@ h6 {
   right: 10px;
   visibility: visible;
 }
+
+.super-container {
+  width: 90%;
+}

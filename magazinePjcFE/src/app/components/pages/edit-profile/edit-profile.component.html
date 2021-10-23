@@ -20,7 +20,7 @@
   <!-- START FORM -->
   <div class="row mb-4 d-flex justify-content-center">
     <!-- CONTENT -->
-    <div class="col-md-5">
+    <div *ngIf="this._user.type != 'ADMIN'" class="col-md-5">
       <div>
         <h5>Foto de perfil</h5>
         <img

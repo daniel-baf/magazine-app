@@ -4,7 +4,7 @@ import APIMessages.SignupMessage;
 import BackendUtilities.AES256cripter;
 import DB.DAOs.Users.UserCommonDAO;
 import DB.Domain.Users.User;
-import ENUMS.DAOResults;
+import DB.GeneralPaths;
 import BackendUtilities.Parser;
 import java.io.BufferedReader;
 
@@ -32,7 +32,7 @@ public class LoginCheckerModel {
         user.setPassword(AES256cripter.encrypt(user.getPassword()));
         User userDB = searchUser(user.getEmail());
         // set types
-        String status = userDB != null && match(user, userDB) ? DAOResults.NO_ERROR.getMessage() : DAOResults.UNAUTHORIZED.getMessage();
+        String status = userDB != null && match(user, userDB) ? GeneralPaths.NO_ERROR.getMessage() : GeneralPaths.UNAUTHORIZED.getMessage();
         user.setType(userDB.getType());
         message.setMessage(status);
         message.setUser(user);

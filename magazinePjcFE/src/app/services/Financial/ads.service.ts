@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Ad } from 'src/app/modules/AdsMessages.module';
+import { User } from 'src/app/modules/SignUpMessge.module';
 import { APIs } from 'src/app/vars/enums/API';
 
 @Injectable({
@@ -38,5 +39,12 @@ export class AddsService {
     return this._http.post(`${APIs.ADS_CONTROLLER}`, _form, {
       responseType: 'text',
     });
+  }
+
+  public getRandomAd(_user: User, _adType: number): Observable<Ad> {
+    // _adType -> 1 = text, 2 => img and text 3 -> video
+    return this._http.get<Ad>(
+      `${APIs.ADS_CONTROLLER}?sub-action=get-ad&ad-type=${_adType}&user=${_user.email}`
+    );
   }
 }

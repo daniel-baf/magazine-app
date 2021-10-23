@@ -1,0 +1,66 @@
+<div class="row mt-5 d-flex justify-content-center">
+  <div class="col-xl-6">
+    <h1>Reportes</h1>
+    <form class="form mt-2" (ngSubmit)="requestReport()">
+      <div class="form-group">
+        <label for="start-date">Fecha de inicio</label>
+        <input
+          type="date"
+          class="form-control"
+          name="start-date"
+          id="start-date"
+          aria-describedby="dateStartHelp"
+          placeholder="La fecha de inicio del reporte"
+          required
+          [(ngModel)]="_dateStart"
+        />
+        <small id="dateStartHelp" class="form-text text-muted"
+          >Puedes no seleccionar una fecha para que el reporte sea de toda la
+          vida</small
+        >
+      </div>
+
+      <div class="form-group">
+        <label for="end-date">Fecha de fin</label>
+        <input
+          type="date"
+          class="form-control"
+          name="end-date"
+          id="end-date"
+          aria-describedby="end-date-help"
+          placeholder="La fecha en la que termina el periodo del reporte"
+          required
+          [(ngModel)]="_dateEnd"
+        />
+        <small id="end-date-help" class="form-text text-muted"
+          >Puedes no seleccionar una fecha para que el reporte sea de toda la
+          vida</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="report-type">Tipo de reporte</label>
+        <select
+          class="custom-select"
+          name="report-type"
+          id="report-type"
+          required
+          [(ngModel)]="_action"
+        >
+          <option value="" selected disabled>SELECCIONAR</option>
+          <option value="comments-mag">Comentarios en revistas</option>
+          <option value="subs-mag">Suscripciones a revistas</option>
+          <option value="most-liked">Revista mas gustada</option>
+          <option value="earnings">Ganancias</option>
+        </select>
+      </div>
+
+      <button type="submit" class="btn btn-outline-dark btn-block btn-lg">
+        Solicitar
+      </button>
+    </form>
+
+    <div *ngIf="_showError" class="alert alert-danger mt-4" role="alert">
+      <strong>No se ha podido procesar la solicitud</strong> {{ _errorMessage }}
+    </div>
+  </div>
+</div>

@@ -21,6 +21,8 @@ public class SubscriptionSelect {
      * This method gets all active subscription for a reader from DB
      *
      * @param reader
+     * @param limit
+     * @param offset
      * @return
      */
     public ArrayList<Subscription> select(String reader, int limit, int offset) {

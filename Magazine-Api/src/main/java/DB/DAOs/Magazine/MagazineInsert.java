@@ -1,6 +1,5 @@
 package DB.DAOs.Magazine;
 
-import DB.DAOs.Magazine.Tags.TagsInsert;
 import DB.Domain.Magazine.Magazine;
 import BackendUtilities.Parser;
 import java.sql.PreparedStatement;
@@ -51,7 +50,7 @@ public class MagazineInsert {
         int allowLieks = magazine.isAllowLikes() ? 1 : 0;
         int approved = magazine.isApproved() ? 1 : 0;
         // configure preparedstatement
-        ps.setString(1, magazine.getName().toLowerCase());
+        ps.setString(1, magazine.getName());
         ps.setDouble(2, magazine.getMensuality());
         ps.setDouble(3, magazine.getCompanyFee());
         ps.setDouble(4, magazine.getCostPerDay());

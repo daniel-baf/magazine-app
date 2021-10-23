@@ -51,10 +51,10 @@ public class MagazinePostController extends HttpServlet {
                     response.getWriter().append(model.pulishAPost(post));
                     break;
                 default:
-                    System.out.println("UNKNOTSAFDSA");
+                    System.out.println("UNKNOWN action at [MagazinePostController]");
             }
         } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
+            System.out.println("Error while making an action at [MagazinePostController] " + e.getMessage());
             response.getWriter().append(parser.toJSON(new MagazinePostMessage("Error trying to make a Magazine action at [MagazineController]" + e.getMessage(), null), MagazinePostMessage.class));
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         }

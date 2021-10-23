@@ -15,6 +15,7 @@ export enum APIs {
   MAGAZINE_REACTIONS_CONTROLLER = 'http://localhost:8080/Magazine-Api/MagazineReactionsController',
   // FILES
   FILES_GIVER_CONTROLLER = 'http://localhost:8080/Magazine-Api/FileGiver',
+  JASPER_REPORT_CONTROLLER = 'http://localhost:8080/Magazine-Api/JasperReport',
   // ADMIN
   ADS_CONTROLLER = 'http://localhost:8080/Magazine-Api/AdsController',
 }

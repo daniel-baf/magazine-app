@@ -1,7 +1,7 @@
 package DB.DAOs.Magazine;
 
 import DB.DBConnection;
-import ENUMS.DAOResults;
+import DB.GeneralPaths;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class MagazineTagDAO {
             return ps.executeUpdate();
         } catch (Exception e) {
             System.out.println("Erryr trying to insert Magazine Tag at [MagazineTagInsert] " + e.getMessage());
-            return DAOResults.ERROR_ON_INSERT.getCode();
+            return GeneralPaths.ERROR_ON_INSERT.getCode();
         }
     }
 
@@ -49,7 +49,7 @@ public class MagazineTagDAO {
             return results;
         } catch (Exception e) {
             System.out.println("Error trying to insert Magazine Tags at [MagazineTagInsert] " + e.getMessage());
-            return DAOResults.ERROR_ON_INSERT.getCode();
+            return GeneralPaths.ERROR_ON_INSERT.getCode();
         }
     }
 
@@ -68,7 +68,7 @@ public class MagazineTagDAO {
                 tags.add(rs.getString("tag"));
             }
         } catch (Exception e) {
-            System.out.println("Error trying to get  Tagssfor magazine at [MagazineTagDAO] " + e.getMessage());
+            System.out.println("Error trying to get  Tagsfor magazine at [MagazineTagDAO] " + e.getMessage());
         }
         return tags;
     }

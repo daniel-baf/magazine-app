@@ -40,15 +40,16 @@ export class EditProfileComponent implements OnInit {
     private _sanitizer: DomSanitizer
   ) {
     this._user = JSON.parse(`${this._localStorageService.getData('user')}`);
-    this.getCategories();
     this._infoForm = this.createForm();
+    this.getCategories();
+  }
+
+  ngOnInit(): void {
     this._showUrlImg = `${APIs.FILES_GIVER_CONTROLLER}?action=GET_PROF_PIC&user=${this._user.email}&type=${this._user.type}`;
     this._mapUrl = this._sanitizer.bypassSecurityTrustResourceUrl(
       this._showUrlImg
     );
   }
-
-  ngOnInit(): void {}
 
   // FORM AC TIONS
 
@@ -57,7 +58,6 @@ export class EditProfileComponent implements OnInit {
   }
 
   saveProfileChanges() {
-    this._showErrorMessage = false;
     this.updateUserWithFormData();
     if (this._infoForm.valid) {
       this.signupService.updateUser(this._user).subscribe(
