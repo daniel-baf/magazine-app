@@ -40,6 +40,11 @@ public class MagazineModel {
             case "UPDATE":
                 message.getMagazine().setApproved(true);
                 result = new MagazineUpdate().update(message.getMagazine());
+            case "UPDATE_MAG_VALUES":
+                System.out.println("Val de public en controlador");
+                System.out.println(message.getMagazine().isApproved());
+                result = new MagazineUpdate().updateWitTags(message.getMagazine());
+                break;
             default:
         }
         // set response message

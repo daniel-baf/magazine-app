@@ -1,7 +1,7 @@
 package Models;
 
 import ApiMessages.StringArrayMessage;
-import DB.Domain.Magazine.CategoryDAO;
+import DB.DAOs.Magazine.CategoryDAO;
 
 /**
  *

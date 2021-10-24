@@ -23,4 +23,10 @@ export class LoginService {
       `${APIs.CHECK_USER}?email=${_email}&action=BASIC_INFO`
     );
   }
+
+  getEditorPublic(_email: string): Observable<User> {
+    return this._http.get<User>(
+      `${APIs.CHECK_USER}?email=${_email}&action=BASIC_INFO`
+    );
+  }
 }

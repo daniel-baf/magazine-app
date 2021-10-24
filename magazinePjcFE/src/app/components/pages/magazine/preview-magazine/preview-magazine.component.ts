@@ -8,6 +8,7 @@ import {
 } from 'src/app/modules/MagazineMessage.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
+import { Routes } from 'src/app/vars/enums/ROUTES';
 
 @Component({
   selector: 'app-preview-magazine',
@@ -26,6 +27,7 @@ export class PreviewMagazineComponent implements OnInit {
   public _likesCounter: number;
   public _showAlertMsg: boolean = false;
   public _showSUccessMsg: boolean = false;
+  public _editorProfile: string = Routes.EDITOR_PUBLIC_PROFILE;
   // INIFINITE SCROLL
   public _actualPage: number;
   public _offset: number;

@@ -23,7 +23,8 @@ export class Magazine {
     public category: string,
     public editor: string,
     public approved: boolean,
-    public tags: string[]
+    public tags: string[],
+    public unlisted: boolean = false
   ) {}
 }
 

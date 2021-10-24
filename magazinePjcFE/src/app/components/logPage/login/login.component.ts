@@ -1,6 +1,6 @@
-import { Component, Injectable, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+
 import { SignUpMessage } from 'src/app/modules/SignUpMessge.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { LoginService } from 'src/app/services/Logs/login.service';

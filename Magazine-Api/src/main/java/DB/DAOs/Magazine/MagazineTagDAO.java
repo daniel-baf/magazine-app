@@ -14,8 +14,9 @@ import java.util.ArrayList;
 public class MagazineTagDAO {
 
     // SQL queries
-    private String SQL_INERT_MAG_TAG = "INSERT INTO Magazine_Tag (magazine, tag) VALUES (?, ?)";
-    private String SQL_SELECT_TAGS_MAG = "SELECT * FROM Magazine_Tag WHERE magazine = ?";
+    private final String SQL_INERT_MAG_TAG = "INSERT INTO Magazine_Tag (magazine, tag) VALUES (?, ?)";
+    private final String SQL_SELECT_TAGS_MAG = "SELECT * FROM Magazine_Tag WHERE magazine = ?";
+    private final String SQL_DELET_MAG_TAGS = "DELETE FROM Magazine_Tag WHERE (magazine=?)";
 
     /**
      * Insert 1 magazine with 1 single tag
@@ -71,5 +72,20 @@ public class MagazineTagDAO {
             System.out.println("Error trying to get  Tagsfor magazine at [MagazineTagDAO] " + e.getMessage());
         }
         return tags;
+    }
+
+    /**
+     * Delete all the tags that belongs to a magazine
+     *
+     * @param magazine
+     * @return
+     */
+    public int delete(String magazine) {
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_DELET_MAG_TAGS)) {
+            ps.setString(1, magazine);
+            return ps.executeUpdate();
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }

@@ -31,7 +31,11 @@
               </div>
               <div class="col-md-6">
                 <p>
-                  Publicada por: {{ _activeMag.editor }} el
+                  Publicada por:
+                  <a [routerLink]="[_editorProfile, _activeMag.editor]">
+                    {{ _activeMag.editor }}
+                  </a>
+                  el
                   {{ _activeMag.dateString }}
                 </p>
               </div>

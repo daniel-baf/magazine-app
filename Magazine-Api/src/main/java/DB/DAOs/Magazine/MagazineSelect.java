@@ -2,11 +2,6 @@ package DB.DAOs.Magazine;
 
 import DB.Domain.Magazine.Magazine;
 import BackendUtilities.Parser;
-import DB.DAOs.Magazine.Financials.SubscriptionSelect;
-import DB.DBConnection;
-import DB.Domain.Financial.Subscription;
-import DB.Domain.Magazine.MaganizeSubscriptionReport;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -24,13 +19,6 @@ public class MagazineSelect {
     private final String SQL_SELECT_ONE_MAG = "SELECT * FROM Magazine WHERE name=?";
     private final String SQL_SELECT_MAGS_FOR_USER = "SELECT * FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
             + "ON m.category=rc.category AND rc.reader=? AND m.approved='1' LIMIT ? OFFSET ?";
-    private final String SQL_SELECT_MOST_LIKED_BTWN = "SELECT COUNT(l.magazine) AS `likes`, l.magazine, m.editor FROM `Like` AS l  "
-            + "INNER JOIN Magazine as m ON m.name = l.magazine AND m.editor = ? WHERE `date` BETWEEN ? AND > GROUP BY l.magazine "
-            + "ORDER BY `likes` DESC LIMIT 1";
-    private String SQL_SELECT_MOST_LIKED = "SELECT COUNT(l.magazine) AS `likes`, l.magazine, m.editor FROM `Like` AS l INNER JOIN Magazine as m "
-            + "ON m.name = l.magazine AND m.editor = ? GROUP BY l.magazine  ORDER BY `likes` DESC LIMIT 1";
-    private String SQL_SELECT_MOST_SUBS_MAGS = "SELECT COUNT(l.magazine) AS `subs`, m.*, m.editor FROM `Subscription` AS l INNER JOIN Magazine as m "
-            + "ON m.name = l.magazine GROUP BY l.magazine  ORDER BY `subs` DESC LIMIT 5;";
 
     /**
      * Select all the information about 1 magazine by name
@@ -157,11 +145,14 @@ public class MagazineSelect {
      * @return
      * @throws SQLException
      */
-    private Magazine getMagazineFromRS(ResultSet rs) throws SQLException {
-        boolean allowLikes = rs.getInt("allow_likes") != 0;
-        boolean allowComment = rs.getInt("allow_comment") != 0;
+    public Magazine getMagazineFromRS(ResultSet rs) throws SQLException {
+        boolean allowLikes = rs.getInt("allow_likes") == 1;
+        boolean allowComment = rs.getInt("allow_comment") == 1;
+        boolean unlisted = rs.getInt("approved") == 3;
+        boolean approved = rs.getInt("approved") == 1;
 
-        return new Magazine(rs.getString("name"),
+        return new Magazine(
+                rs.getString("name"),
                 rs.getDouble("subscription_fee"),
                 rs.getDouble("company_fee"),
                 rs.getDouble("cost_per_day"),
@@ -171,59 +162,7 @@ public class MagazineSelect {
                 allowComment,
                 rs.getString("editor"),
                 rs.getString("category"),
-                new MagazineTagDAO().select(rs.getString("name"))
+                new MagazineTagDAO().select(rs.getString("name")), approved, unlisted
         );
     }
-
-    /**
-     * Return the name of the magazine with most likes wich belong to a user
-     *
-     * @param user
-     * @param startDate
-     * @param endDate
-     * @param validDates
-     * @return
-     */
-    public String selectMostLikedByUser(String user, Date startDate, Date endDate, boolean validDates) {
-        String SQL_TMP = validDates ? SQL_SELECT_MOST_LIKED_BTWN : SQL_SELECT_MOST_LIKED;
-        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_TMP)) {
-            ps.setString(1, user);
-            if (validDates) {
-                ps.setDate(2, startDate);
-                ps.setDate(3, endDate);
-            }
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                return rs.getString("magazine");
-            }
-        } catch (Exception e) {
-            System.out.println("Cannot get most liked mag at [MagazineInsert] " + e.getMessage());
-        }
-        return null;
-    }
-
-    /**
-     * Return a list of magazines with each subscription
-     *
-     * @param betweenDates
-     * @param date2
-     * @param date1
-     * @return
-     */
-    public ArrayList<MaganizeSubscriptionReport> selectMostSubscribedMags(boolean betweenDates, Date date1, Date date2) {
-        ArrayList<MaganizeSubscriptionReport> mags = new ArrayList<>();
-        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_MOST_SUBS_MAGS)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                // get subs
-                Magazine mag = getMagazineFromRS(rs);
-                ArrayList<Subscription> subs = new SubscriptionSelect().select(betweenDates, date1, date2, mag.getName());
-                mags.add(new MaganizeSubscriptionReport(mag, subs));
-            }
-        } catch (Exception e) {
-            System.out.println("Error looking for 5 most liked mags " + e.getMessage());
-        }
-        return mags;
-    }
-
 }

@@ -32,6 +32,8 @@ import { AdvertiserListComponent } from './components/pages/admin-view/adds/adve
 import { AdAsideComponent } from './components/pages/ad-componentes/ad-aside/ad-aside.component';
 import { ReportComponent } from './components/pages/reports/report/report.component';
 import { RequestReportComponent } from './components/pages/reports/request-report/request-report.component';
+import { PublicEditorProfileComponent } from './components/pages/magazine/public-editor-profile/public-editor-profile.component';
+import { EditMagComponent } from './components/pages/editor-view/magActions/edit-mag/edit-mag.component';
 
 @NgModule({
   declarations: [
@@ -62,6 +64,8 @@ import { RequestReportComponent } from './components/pages/reports/request-repor
     AdAsideComponent,
     ReportComponent,
     RequestReportComponent,
+    PublicEditorProfileComponent,
+    EditMagComponent,
   ],
   imports: [
     BrowserModule,

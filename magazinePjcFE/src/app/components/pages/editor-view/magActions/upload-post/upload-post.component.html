@@ -12,7 +12,7 @@
         <th scope="col">#</th>
         <th scope="col">Revista</th>
         <th scope="col">Fecha creación</th>
-        <th scope="col" style="width: 15%">Acciones</th>
+        <th scope="col" style="width: 20%">Acciones</th>
       </tr>
     </thead>
     <tbody>
@@ -29,16 +29,30 @@
         <td scope="row">{{ _mag.name }}</td>
         <td>{{ _mag.dateString | date }}</td>
         <td>
-          <!-- Button trigger modal -->
-          <button
-            type="button"
-            class="btn btn-primary"
-            data-toggle="modal"
-            data-target="#modelId"
-            (click)="setMag(_mag)"
-          >
-            Subir post
-          </button>
+          <div class="d-flex justify-content-between">
+            <div>
+              <a
+                name="edit-mag"
+                id="edit-mag"
+                class="btn btn-secondary"
+                [routerLink]="[_editMagUrl, _mag.name]"
+                role="button"
+                >Editar</a
+              >
+            </div>
+            <div>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-primary"
+                data-toggle="modal"
+                data-target="#modelId"
+                (click)="setMag(_mag)"
+              >
+                Subir post
+              </button>
+            </div>
+          </div>
         </td>
       </tr>
     </tbody>

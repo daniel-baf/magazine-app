@@ -8,6 +8,7 @@ import {
 import { User } from 'src/app/modules/SignUpMessge.module';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
+import { Routes } from 'src/app/vars/enums/ROUTES';
 
 @Component({
   selector: 'app-upload-post',
@@ -15,22 +16,23 @@ import { MagazineService } from 'src/app/services/Magazine/Magazine.service';
   styleUrls: ['./upload-post.component.css'],
 })
 export class UploadPostComponent implements OnInit {
-  public _postForm: FormGroup;
   public _limit: number;
   public _offset: number;
   public _actualPage: number;
-  public _finishPage: number = 10;
+  public _finishPage: number = 100;
   public _showScrollHeight: number = 400;
   public _hideScrollHeight: number = 200;
   public _errorMsg: string;
   public _successMsg: string;
+  public _editMagUrl: string = Routes.EDIT_MAG_PREF;
   public _showErrorMsg: boolean = false;
   public _showSuccessMsg: boolean = false;
   public _showGoUpButton: boolean;
   private _fileToUpload: File | null = null;
-  public _magazines: Array<Magazine>;
-  private _postTmp: MagazinePost;
   private _user: User;
+  public _postForm: FormGroup;
+  private _postTmp: MagazinePost;
+  public _magazines: Array<Magazine>;
 
   constructor(
     private _magService: MagazineService,
@@ -80,7 +82,7 @@ export class UploadPostComponent implements OnInit {
       this._magService.uploadPost(this._postTmp, this._fileToUpload).subscribe(
         (_success: string) => {
           console.log(_success);
-          
+
           if (_success === 'NO_ERROR') {
             this.showSuccess('Se ha subido el nuevo post');
           } else {

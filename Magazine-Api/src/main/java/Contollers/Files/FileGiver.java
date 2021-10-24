@@ -94,20 +94,4 @@ public class FileGiver extends HttpServlet {
             }
         }
     }
-
-//    private void showJasperAsHTML(HttpServletResponse response) {
-//        String reportPath = "/home/jefemayoneso/Documents/Angular/projects/magazine-app/Magazine-Api/src/main/java/resources/Jasper/Simple_Blue.jasper";
-//        try {
-//            // get inputstream
-//            response.setContentType("text/html");
-//            InputStream inputStream = JRLoader.getFileInputStream(reportPath);
-//            JasperPrint jPrint = JasperFillManager.fillReport(inputStream, null, DB.DBConnection.getConnection());
-//            HtmlExporter htmlExporter = new HtmlExporter(DefaultJasperReportsContext.getInstance());
-//            htmlExporter.setExporterInput(new SimpleExporterInput(jPrint));
-//            htmlExporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
-//            htmlExporter.exportReport();
-//        } catch (Exception e) {
-//            System.out.println("Error JASPER " + e.getMessage());
-//        }
-//    }
 }

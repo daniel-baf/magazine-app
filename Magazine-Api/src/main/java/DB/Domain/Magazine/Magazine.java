@@ -22,13 +22,39 @@ public class Magazine {
     private boolean allowLikes;
     private boolean allowComment;
     private boolean approved;
+    private boolean unlisted;
+
+    public boolean isUnlisted() {
+        return unlisted;
+    }
+
+    public void setUnlisted(boolean unlisted) {
+        this.unlisted = unlisted;
+    }
+
+    public Magazine(String name, String editor, String description, String category, String dateString, ArrayList<String> tags, Double mensuality, Double companyFee, Double costPerDay, LocalDate date, boolean allowLikes, boolean allowComment, boolean approved, boolean unlisted) {
+        this.name = name;
+        this.editor = editor;
+        this.description = description;
+        this.category = category;
+        this.dateString = dateString;
+        this.tags = tags;
+        this.mensuality = mensuality;
+        this.companyFee = companyFee;
+        this.costPerDay = costPerDay;
+        this.date = date;
+        this.allowLikes = allowLikes;
+        this.allowComment = allowComment;
+        this.approved = approved;
+        this.unlisted = unlisted;
+    }
 
     public Magazine() {
     }
 
     public Magazine(String name, Double mensuality, Double companyFee, Double costPerDay,
             LocalDate date, String description, boolean allowLikes, boolean allowComment, String editor,
-            String catgory, ArrayList<String> tags) {
+            String catgory, ArrayList<String> tags, boolean approved, boolean unlisted) {
         this.name = name;
         this.mensuality = mensuality;
         this.companyFee = companyFee;
@@ -41,6 +67,7 @@ public class Magazine {
         this.tags = tags;
         this.category = catgory;
         this.dateString = date.toString();
+        this.approved = approved;
     }
 
     /**

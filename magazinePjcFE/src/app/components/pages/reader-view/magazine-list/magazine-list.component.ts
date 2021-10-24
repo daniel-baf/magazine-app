@@ -22,7 +22,7 @@ export class MagazineListComponent implements OnInit {
   public _actualPage: number;
   public _offset: number;
   public _limit: number;
-  public _finishPage: number = 5;
+  public _finishPage: number = 100;
   public _showScrollHeight: number = 400;
   public _hideScrollHeight: number = 200;
   public _magToBuy: Magazine;

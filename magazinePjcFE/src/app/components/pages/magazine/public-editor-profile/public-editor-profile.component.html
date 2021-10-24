@@ -1,0 +1,20 @@
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-xl-4">
+      <img
+        [src]="_urlPicProfile"
+        class="
+          img-thumbnail
+          ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}
+        "
+        alt="img profile editor"
+      />
+    </div>
+    <div class="col-xl-8">
+      <h4>Perfil de editor</h4>
+      <p>Usuario: {{ _user.name }}</p>
+      <p>Email de contacto: {{ _user.email }}</p>
+      <p>Descripcion: {{ _user.description }}</p>
+    </div>
+  </div>
+</div>

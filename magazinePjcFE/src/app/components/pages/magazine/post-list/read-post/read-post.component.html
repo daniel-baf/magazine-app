@@ -1,6 +1,10 @@
 <div class="container mt-5 mb-5 p-4">
   <div>
-    <h4>{{ _post.title }}</h4>
+    <h4>
+      <a [routerLink]="[_magPreviewLink, _post.magazine]">
+        {{ _post.title }}
+      </a>
+    </h4>
   </div>
 
   <div class="mt-3">

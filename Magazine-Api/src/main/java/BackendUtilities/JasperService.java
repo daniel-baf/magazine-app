@@ -1,6 +1,7 @@
 package BackendUtilities;
 
-import DB.Domain.Magazine.MaganizeSubscriptionReport;
+import DB.Domain.forJasperReports.MaganizeSubscriptionReport;
+import DB.Domain.forJasperReports.MagazineCommentsReport;
 import DB.GeneralPaths;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -8,7 +9,6 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import net.sf.jasperreports.engine.JRDataSource;
 import net.sf.jasperreports.engine.JRException;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
@@ -30,6 +30,8 @@ public class JasperService {
      * @throws JRException
      */
     public void printReport(OutputStream output, String jasperPath, Map<String, Object> mapParameters) throws JRException {
+        System.out.println(jasperPath);
+        System.out.println(mapParameters);
         InputStream jasperCompiled = getClass().getClassLoader().getResourceAsStream(jasperPath);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperCompiled, mapParameters, DB.DBConnection.getConnection());
         JasperExportManager.exportReportToPdfStream(jasperPrint, output);
@@ -47,8 +49,15 @@ public class JasperService {
      */
     public void printReportWithComplexBeans(ArrayList<MaganizeSubscriptionReport> list, String jasperPath, Map<String, Object> mapParameters, OutputStream output) throws JRException {
         InputStream jasperCompiled = getClass().getClassLoader().getResourceAsStream(jasperPath);
-        JRDataSource source = new JRBeanCollectionDataSource(list);
-        JasperPrint printer = JasperFillManager.fillReport(jasperCompiled, null, source);
+//        JRDataSource source = new JRBeanCollectionDataSource(list);
+        JasperPrint printer = JasperFillManager.fillReport(jasperCompiled, mapParameters, new JRBeanCollectionDataSource(list));
+        JasperExportManager.exportReportToPdfStream(printer, output);
+    }
+
+    public void printReportWithComplexBeans1(ArrayList<MagazineCommentsReport> list, String jasperPath, Map<String, Object> mapParameters, OutputStream output) throws JRException {
+        InputStream jasperCompiled = getClass().getClassLoader().getResourceAsStream(jasperPath);
+//        JRDataSource source = new JRBeanCollectionDataSource(list);
+        JasperPrint printer = JasperFillManager.fillReport(jasperCompiled, mapParameters, new JRBeanCollectionDataSource(list));
         JasperExportManager.exportReportToPdfStream(printer, output);
     }
 
@@ -88,7 +97,11 @@ public class JasperService {
             case "earns-advers":
                 return validDates ? path1 + "EarningsAds.jasper" : path1 + "EarningsAdsNoParms.jasper";
             case "most-subscribed":
-                return path1 + "TopMagsSubscribed.jasper";
+                return path1 + "TopMags.jasper";
+            case "most-commented":
+                return path1 + "MagsMostComments.jasper";
+            case "earns-mags":
+                return validDates ? path1 + "MagEarning.jasper" : path1 + "MagEarningsNoParms.jasper";
             default:
                 return null;
         }

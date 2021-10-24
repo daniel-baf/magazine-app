@@ -9,6 +9,7 @@ export enum Routes {
   PREVIEW_MAGAZINE = '/pages/magazine/preview',
   MAGAZINE_POST_LIST = '/pages/magazine/post-list',
   SEE_MAG_POST = '/pages/magazine/read-post',
+  EDITOR_PUBLIC_PROFILE = '/pages/magazine/public-profile',
   // READER VIEW
   SELECT_CAT = '/pages/editor-view/select-categories',
   MAGAZINE_LIST = '/pages/reader-view/mgrdoptn/mag-list',
@@ -21,6 +22,7 @@ export enum Routes {
   // EDITOR
   NEW_MAGAZINE = '/pages/editor-view/mag/new-mag',
   UPLOAD_POST = '/pages/editor-view/mag/upload-post',
+  EDIT_MAG_PREF = '/pages/editor-view/mag/edit-mag',
   // report
   REPORT_PANEL = '/pages/report/get-report',
   READ_REPORT = '/pages/report/view-report',

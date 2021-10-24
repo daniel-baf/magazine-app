@@ -4,10 +4,11 @@ import BackendUtilities.Parser;
 import BackendUtilities.VarsChecker;
 import DB.GeneralPaths;
 import BackendUtilities.JasperService;
-import DB.DAOs.Magazine.MagazineSelect;
-import DB.Domain.Magazine.Magazine;
-import DB.Domain.Magazine.MaganizeSubscriptionReport;
-import Models.MagazineModel;
+import DB.DAOs.Magazine.Financials.SubscriptionSelect;
+import DB.DAOs.Magazine.Reactions.CommentSelect;
+import DB.DAOs.Magazine.Reactions.LikeSelect;
+import DB.Domain.forJasperReports.MaganizeSubscriptionReport;
+import DB.Domain.forJasperReports.MagazineCommentsReport;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -95,7 +96,7 @@ public class JasperReport extends HttpServlet {
                         jm.getBasicKeyMapForJasper(date1, date2, owner, validDates, subPath + subPathMagSubs));
                 break;
             case "most-liked":
-                String mag = new MagazineSelect().selectMostLikedByUser(owner, date1, date2, validDates);
+                String mag = new LikeSelect().selectMostLikedByUser(owner, date1, date2, validDates);
                 Map<String, Object> mp = jm.getBasicKeyMapForJasper(date1, date2, request.getParameter("owner"), validDates, "");
                 mp.put("magazine", mag);
                 jm.printReport(response.getOutputStream(), jm.getMasterReportPathEditor("most-liked", validDates), mp);
@@ -118,8 +119,20 @@ public class JasperReport extends HttpServlet {
                         jm.getBasicKeyMapForJasper(date1, date2, "", validDates, ""));
                 break;
             case "most-subscribed":
-                ArrayList<MaganizeSubscriptionReport> mags = new MagazineSelect().selectMostSubscribedMags(validDates, date1, date2);
-                jm.printReportWithComplexBeans(mags, jm.getMasterReportPathAdmin("most-subscribed", validDates), null, response.getOutputStream());
+                ArrayList<MaganizeSubscriptionReport> mags = new SubscriptionSelect().selectMostSubscribedMags(validDates, date1, date2);
+                jm.printReportWithComplexBeans(mags, jm.getMasterReportPathAdmin("most-subscribed", validDates), jm.getBasicKeyMapForJasper(null, null,
+                        "", validDates, subPath + "TopMagsDetails.jasper"), response.getOutputStream());
+                break;
+            case "most-commented": //
+                ArrayList<MagazineCommentsReport> magsComments = new CommentSelect().getMagazineMostCommentedes(date1, date2, validDates);
+                jm.printReportWithComplexBeans1(magsComments, jm.getMasterReportPathAdmin("most-commented", validDates), jm.getBasicKeyMapForJasper(null, null,
+                        "", validDates, subPath + "MasCommentDetails.jasper"), response.getOutputStream());
+            case "earns-mags":
+                String subRepTmp = validDates ? "MagEarningsSubDetail.jasper" : "MagEarningsSubDetailNoParms.jasper";
+                jm.printReport(response.getOutputStream(), jm.getMasterReportPathAdmin("earns-mags", validDates),
+                        jm.getBasicKeyMapForJasper(date1, date2, "", validDates, subPath + subRepTmp));
+                break;
+            default:
                 break;
         }
     }

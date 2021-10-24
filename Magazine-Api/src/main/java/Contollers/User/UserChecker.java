@@ -57,6 +57,10 @@ public class UserChecker extends HttpServlet {
                     User user = (User) new LoginCheckerModel().searchUser(request.getParameter("email"));
                     response.getWriter().append(parser.toJSON(user, user.getClass()));
                     break;
+                case "EDITOR_PROFILE":
+                    User noPrivateInfoUser = (User) new LoginCheckerModel().findPublicInfo(request.getParameter("email"));
+                    response.getWriter().append(parser.toJSON(noPrivateInfoUser, noPrivateInfoUser.getClass()));
+                    break;
                 default:
                     response.getWriter().append(null);
             }

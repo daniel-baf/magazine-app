@@ -20,6 +20,8 @@ import { PreviewMagazineComponent } from './components/pages/magazine/preview-ma
 import { PagesComponent } from './components/pages/pages.component';
 import { ReadMagComponent } from './components/pages/reader-view/mag-reader-options/read-mag/read-mag.component';
 import { MagazineListComponent } from './components/pages/reader-view/magazine-list/magazine-list.component';
+import { PublicEditorProfileComponent } from './components/pages/magazine/public-editor-profile/public-editor-profile.component';
+import { EditMagComponent } from './components/pages/editor-view/magActions/edit-mag/edit-mag.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
@@ -49,6 +51,7 @@ const routes: Routes = [
             children: [
               { path: 'new-mag', component: NewMagazineComponent },
               { path: 'upload-post', component: UploadPostComponent },
+              { path: 'edit-mag/:id', component: EditMagComponent },
             ],
           },
           { path: 'select-categories', component: SelectCategoriesComponent },
@@ -79,6 +82,10 @@ const routes: Routes = [
           { path: 'preview/:name', component: PreviewMagazineComponent },
           { path: 'post-list/:magazine', component: PostListComponent },
           { path: 'read-post/:id', component: ReadPostComponent },
+          {
+            path: 'public-profile/:user',
+            component: PublicEditorProfileComponent,
+          },
         ],
       },
       {

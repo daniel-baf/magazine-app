@@ -127,4 +127,13 @@ export class MagazineService {
       `${APIs.MAGAZINE_REACTIONS_CONTROLLER}?action=GET_TAGS`
     );
   }
+
+  public updateMagazineInfo(
+    _mesage: MagazineMessage
+  ): Observable<MagazineMessage> {
+    return this._http.post<MagazineMessage>(
+      `${APIs.MAGAZINE_CONTOLLER}`,
+      _mesage
+    );
+  }
 }

@@ -6,6 +6,7 @@ import DB.DAOs.Users.UserCommonDAO;
 import DB.Domain.Users.User;
 import DB.GeneralPaths;
 import BackendUtilities.Parser;
+import DB.DAOs.Users.EditorSelect;
 import java.io.BufferedReader;
 
 /**
@@ -60,5 +61,12 @@ public class LoginCheckerModel {
      */
     public User searchUser(String email) {
         return new UserCommonDAO().emailRegisted(email);
+    }
+
+    public User findPublicInfo(String email) {
+        User tmp = new EditorSelect().select(email);
+        tmp.setPassword(null);
+        tmp.setType(null);
+        return tmp;
     }
 }
