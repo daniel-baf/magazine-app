@@ -2,8 +2,8 @@ package Models;
 
 import DB.DAOs.Magazine.Financials.AdvertiserInsert;
 import DB.DAOs.Magazine.Financials.AdvertiserSelect;
-import DB.DAOs.Magazine.Reactions.AdInsert;
-import DB.DAOs.Magazine.Reactions.AdSelect;
+import DB.DAOs.Magazine.Financials.AdInsert;
+import DB.DAOs.Magazine.Financials.AdSelect;
 import DB.Domain.Financial.Ad;
 import DB.Domain.Financial.Advertiser;
 import java.util.ArrayList;

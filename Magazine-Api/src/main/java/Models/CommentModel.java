@@ -1,7 +1,7 @@
 package Models;
 
-import DB.DAOs.Magazine.Reactions.CommentInsert;
-import DB.DAOs.Magazine.Reactions.CommentSelect;
+import DB.DAOs.Magazine.Financials.CommentInsert;
+import DB.DAOs.Magazine.Financials.CommentSelect;
 import DB.Domain.Magazine.Comment;
 import java.util.ArrayList;
 

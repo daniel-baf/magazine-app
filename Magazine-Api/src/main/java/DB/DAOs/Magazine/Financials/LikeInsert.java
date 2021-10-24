@@ -1,4 +1,4 @@
-package DB.DAOs.Magazine.Reactions;
+package DB.DAOs.Magazine.Financials;
 
 import DB.DBConnection;
 import DB.Domain.Magazine.Like;

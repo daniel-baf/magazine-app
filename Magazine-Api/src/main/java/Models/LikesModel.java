@@ -1,7 +1,7 @@
 package Models;
 
-import DB.DAOs.Magazine.Reactions.LikeInsert;
-import DB.DAOs.Magazine.Reactions.LikeSelect;
+import DB.DAOs.Magazine.Financials.LikeInsert;
+import DB.DAOs.Magazine.Financials.LikeSelect;
 import DB.Domain.Magazine.Like;
 
 /**

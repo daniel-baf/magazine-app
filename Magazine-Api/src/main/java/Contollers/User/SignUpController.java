@@ -19,10 +19,9 @@ import javax.servlet.http.Part;
  */
 @WebServlet(name = "SignUpController", urlPatterns = {"/SignUpController"})
 @MultipartConfig(
-        fileSizeThreshold = 1024 * 1024 * 1, // 1 MB
-        maxFileSize = 1024 * 1024 * 10, // 10 MB
-        maxRequestSize = 1024 * 1024 * 15, // 15 MB
-        location = "/home/jefemayoneso/"
+        fileSizeThreshold = 1024 * 1024 * 1, // 1MB
+        maxFileSize = 1024 * 1024 * 10, // 10MB
+        maxRequestSize = 1024 * 1024 * 100 // 100MB
 )
 public class SignUpController extends HttpServlet {
 

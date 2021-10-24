@@ -5,7 +5,7 @@
  */
 package Contollers.Finance;
 
-import DB.DAOs.Company.CompanyFeeDAO;
+import DB.DAOs.Magazine.Financials.CompanyFeeDAO;
 import BackendUtilities.Parser;
 import java.io.IOException;
 import java.util.ArrayList;

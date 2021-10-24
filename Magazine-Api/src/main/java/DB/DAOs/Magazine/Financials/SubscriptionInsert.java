@@ -1,6 +1,5 @@
 package DB.DAOs.Magazine.Financials;
 
-import DB.DAOs.Company.CompanyFeeDAO;
 import DB.DAOs.Magazine.MagazineSelect;
 import DB.Domain.Financial.Payment;
 import DB.Domain.Financial.Subscription;

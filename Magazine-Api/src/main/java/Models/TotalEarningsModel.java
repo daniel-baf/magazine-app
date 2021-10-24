@@ -3,7 +3,7 @@ package Models;
 import BackendUtilities.Parser;
 import DB.DAOs.Magazine.Financials.SubscriptionSelect;
 import DB.DAOs.Magazine.MagazineSelect;
-import DB.DAOs.Magazine.Reactions.AdSelect;
+import DB.DAOs.Magazine.Financials.AdSelect;
 import DB.Domain.forJasperReports.EarningResult;
 import java.sql.Date;
 import java.text.SimpleDateFormat;

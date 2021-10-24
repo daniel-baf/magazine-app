@@ -1,4 +1,4 @@
-package DB.DAOs.Company;
+package DB.DAOs.Magazine.Financials;
 
 import DB.DBConnection;
 import java.sql.PreparedStatement;
