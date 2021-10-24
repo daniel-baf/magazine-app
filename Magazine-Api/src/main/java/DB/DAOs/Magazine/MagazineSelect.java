@@ -2,6 +2,7 @@ package DB.DAOs.Magazine;
 
 import DB.Domain.Magazine.Magazine;
 import BackendUtilities.Parser;
+import DB.DBConnection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ public class MagazineSelect {
     private final String SQL_SELECT_ONE_MAG = "SELECT * FROM Magazine WHERE name=?";
     private final String SQL_SELECT_MAGS_FOR_USER = "SELECT * FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
             + "ON m.category=rc.category AND rc.reader=? AND m.approved='1' LIMIT ? OFFSET ?";
+    private final String SQL_SELECT_COST_PER_DAY_TOTAL = "SELECT COUNT(cost_per_day) AS 'maintaince' FROM Magazine_Web.Magazine";
 
     /**
      * Select all the information about 1 magazine by name
@@ -164,5 +166,17 @@ public class MagazineSelect {
                 rs.getString("category"),
                 new MagazineTagDAO().select(rs.getString("name")), approved, unlisted
         );
+    }
+
+    public int getMaintanceTotal() {
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_COST_PER_DAY_TOTAL)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("maintaince");
+            }
+        } catch (Exception e) {
+            System.out.println("Cannot get the maintance ammount");
+        }
+        return 0;
     }
 }

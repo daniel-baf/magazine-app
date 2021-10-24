@@ -21,8 +21,12 @@ public class SubscriptionSelect {
 
     private final String SQL_SELECT_ACTIVE_SUB = "SELECT * FROM Subscription WHERE reader = ? AND expiration_date >= NOW() LIMIT ? OFFSET ?";
     private final String SQL_SELECT_SUBS_FOR_MAG = "SELECT * FROM Subscription WHERE magazine = ? ";
-    private String SQL_SELECT_MOST_SUBS_MAGS = "SELECT COUNT(l.magazine) AS `subs`, m.*, m.editor FROM `Subscription` AS l INNER JOIN Magazine as m "
+    private final String SQL_SELECT_MOST_SUBS_MAGS = "SELECT COUNT(l.magazine) AS `subs`, m.*, m.editor FROM `Subscription` AS l INNER JOIN Magazine as m "
             + "ON m.name = l.magazine GROUP BY l.magazine  ORDER BY `subs` DESC LIMIT 5;";
+    private final String SQL_SELECT_TOTAL_EARN_REPORT = "SELECT SUM(p.company_fee) AS `entry` FROM Payment AS p INNER JOIN Subscription as s "
+            + "ON s.id = p.subscription INNER JOIN Magazine as m ON m.name = s.magazine WHERE s.acquisition_date = ? ";
+
+    ;
 
     /**
      * This method gets all active subscription for a reader from DB
@@ -116,6 +120,29 @@ public class SubscriptionSelect {
             System.out.println("Error looking for 5 most liked mags " + e.getMessage());
         }
         return mags;
+    }
+
+    /**
+     * Return a list of EarningsReult to get a final financial balance
+     *
+     * @param date1 the start date for report
+     * @param date2 the end date for report
+     * @param validDates no one date is null?
+     * @return
+     */
+    public Double getSubsEntries(Date date) {
+        // execute query
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_TOTAL_EARN_REPORT)) {
+            ps.setDate(1, date);
+            // now call the data
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("entry");
+            }
+        } catch (Exception e) {
+            System.out.println("Error getting subscription " + e.getMessage());
+        }
+        return null;
     }
 
 }

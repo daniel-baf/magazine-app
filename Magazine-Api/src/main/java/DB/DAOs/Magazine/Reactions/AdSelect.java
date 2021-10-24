@@ -3,6 +3,7 @@ package DB.DAOs.Magazine.Reactions;
 import BackendUtilities.Parser;
 import DB.DBConnection;
 import DB.Domain.Financial.Ad;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,9 +14,10 @@ import java.sql.SQLException;
  */
 public class AdSelect {
 
-    private String SQL_SELECT_RANDOM_AD_BY_TAGS = "SELECT a.*, t.tag FROM Magazine_Web.Ad AS a INNER JOIN Ad_Tag AS t ON a.id = t.ad "
+    private final String SQL_SELECT_RANDOM_AD_BY_TAGS = "SELECT a.*, t.tag FROM Magazine_Web.Ad AS a INNER JOIN Ad_Tag AS t ON a.id = t.ad "
             + "INNER JOIN Reader_Magazine_Tag AS rt ON rt.tag = t.tag AND rt.reader = ? AND a.type = ? ORDER BY RAND() LIMIT 1";
-    private String SQL_SELECT_RANDOM_AD = "SELECT * FROM `Ad` WHERE `type` = ? ORDER BY RAND() LIMIT 1";
+    private final String SQL_SELECT_RANDOM_AD = "SELECT * FROM `Ad` WHERE `type` = ? ORDER BY RAND() LIMIT 1";
+    private final String SQL_SELECT_EARNING_AD_REP = "SELECT SUM(advertiser_paid) AS `entry` FROM Ad WHERE start_date = ?";
 
     /**
      * get a random ad to show it as service
@@ -73,5 +75,27 @@ public class AdSelect {
                 rs.getString("img_local_path"),
                 rs.getString("text"),
                 rs.getString("video_url"));
+    }
+
+    /**
+     * Return a list of Earnings from ads
+     *
+     * @param validDates
+     * @param date1
+     * @param date2
+     * @return
+     */
+    public Double getEarningsAds(Date date) {
+        // get datyea from dratabase
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_EARNING_AD_REP)) {
+            ps.setDate(1, date);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDouble("entry");
+            }
+        } catch (Exception e) {
+            System.out.println("Cannot get ad earnings report " + e.getMessage());
+        }
+        return null;
     }
 }

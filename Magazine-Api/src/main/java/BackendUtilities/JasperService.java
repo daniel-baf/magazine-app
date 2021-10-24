@@ -1,5 +1,6 @@
 package BackendUtilities;
 
+import DB.Domain.forJasperReports.EarningResult;
 import DB.Domain.forJasperReports.MaganizeSubscriptionReport;
 import DB.Domain.forJasperReports.MagazineCommentsReport;
 import DB.GeneralPaths;
@@ -56,7 +57,12 @@ public class JasperService {
 
     public void printReportWithComplexBeans1(ArrayList<MagazineCommentsReport> list, String jasperPath, Map<String, Object> mapParameters, OutputStream output) throws JRException {
         InputStream jasperCompiled = getClass().getClassLoader().getResourceAsStream(jasperPath);
-//        JRDataSource source = new JRBeanCollectionDataSource(list);
+        JasperPrint printer = JasperFillManager.fillReport(jasperCompiled, mapParameters, new JRBeanCollectionDataSource(list));
+        JasperExportManager.exportReportToPdfStream(printer, output);
+    }
+
+    public void printReportWithComplexBeans2(ArrayList<EarningResult> list, String jasperPath, Map<String, Object> mapParameters, OutputStream output) throws JRException {
+        InputStream jasperCompiled = getClass().getClassLoader().getResourceAsStream(jasperPath);
         JasperPrint printer = JasperFillManager.fillReport(jasperCompiled, mapParameters, new JRBeanCollectionDataSource(list));
         JasperExportManager.exportReportToPdfStream(printer, output);
     }
@@ -102,6 +108,8 @@ public class JasperService {
                 return path1 + "MagsMostComments.jasper";
             case "earns-mags":
                 return validDates ? path1 + "MagEarning.jasper" : path1 + "MagEarningsNoParms.jasper";
+            case "total-earnings":
+                return path1 + "TotalEarnings.jasper";
             default:
                 return null;
         }

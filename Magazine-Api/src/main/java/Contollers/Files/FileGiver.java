@@ -54,6 +54,7 @@ public class FileGiver extends HttpServlet {
                     showFile(response, GeneralPaths.FILES_IMG_PATH_AD.getMessage() + request.getParameter("id"), "application/image");
             }
         } catch (Exception e) {
+            System.out.println("Error showing file at FileGiver");
         }
     }
 
