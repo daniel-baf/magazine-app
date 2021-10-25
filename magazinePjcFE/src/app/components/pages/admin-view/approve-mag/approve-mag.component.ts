@@ -83,6 +83,9 @@ export class ApproveMagComponent implements OnInit {
   public denyPublishment() {}
 
   public approveMag() {
+    console.log(typeof this._activeMag.costPerDay);
+    console.log(this._activeMag.costPerDay <= 0);
+
     if (this._activeMag.costPerDay <= 0) {
       this._showMessage = true;
     } else {

@@ -161,6 +161,9 @@ export class AdvertiserListComponent implements OnInit {
   public setActiveAdvertiser(_advertiser: string) {
     this._activeAdvertiser = _advertiser;
     this._newAdForm.controls['_advertiser'].setValue(_advertiser);
+    this._tagsForAd = [];
+    this._showAlertMsg = false;
+    this._showSuccessMsg = false;
   }
 
   private getFormGroup(): FormGroup {

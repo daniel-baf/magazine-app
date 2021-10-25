@@ -70,9 +70,6 @@ public class MagazineUpdate {
 
     private void configurePs(PreparedStatement ps, Magazine magazine) throws SQLException {
         // vars to transform boolean to int, 1 = true, 0 = false
-        System.out.println("val of approved at ps");
-        System.out.println(magazine.isApproved());
-
         int allowComm = magazine.isAllowComment() ? 1 : 0;
         int allowLieks = magazine.isAllowLikes() ? 1 : 0;
         int approved = magazine.isApproved() ? 1 : 0;

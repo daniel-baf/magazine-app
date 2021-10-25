@@ -19,13 +19,20 @@ public class TotalEarningsModel {
     public ArrayList<EarningResult> getTotalEarnings(Date date1, Date date2, boolean validDates) {
         Double reportAmmountParcialEntry;
         ArrayList<EarningResult> earnings = new ArrayList<>();
-        Date dateTmp = date1;
         Calendar calendar = Calendar.getInstance();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Parser parser = new Parser();
         MagazineSelect magSelect = new MagazineSelect();
         SubscriptionSelect subSelect = new SubscriptionSelect();
         AdSelect adSelect = new AdSelect();
+        // dates
+        Date dateTmp;
+        if (validDates) {
+            dateTmp = date1;
+        } else {
+            dateTmp = magSelect.getFirstMagDate();
+            date2 = new Date(System.currentTimeMillis());
+        }
 
         while (dateTmp.before(date2)) {
             try {

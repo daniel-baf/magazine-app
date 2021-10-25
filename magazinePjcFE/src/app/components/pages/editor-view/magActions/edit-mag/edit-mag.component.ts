@@ -21,7 +21,6 @@ export class EditMagComponent implements OnInit {
   _typingCategory: string;
   _showErrorMessage: boolean = false;
   _showResultMessage: boolean = false;
-  _noMoreSubs: boolean = false;
   // data from DB
   _magazineDB: Magazine;
 
@@ -104,7 +103,6 @@ export class EditMagComponent implements OnInit {
       this.showErrorMessage('debes llenar los campos obligatorios');
     } else {
       // generate MagazineMessage
-      this._magazineDB.unlisted = this._noMoreSubs ? true : false;
       this._magazineService
         .updateMagazineInfo(
           new MagazineMessage('UPDATE_MAG_VALUES', this._magazineDB)

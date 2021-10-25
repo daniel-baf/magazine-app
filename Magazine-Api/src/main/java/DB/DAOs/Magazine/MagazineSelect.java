@@ -3,6 +3,7 @@ package DB.DAOs.Magazine;
 import DB.Domain.Magazine.Magazine;
 import BackendUtilities.Parser;
 import DB.DBConnection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ public class MagazineSelect {
     private final String SQL_SELECT_MAGS_FOR_USER = "SELECT * FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
             + "ON m.category=rc.category AND rc.reader=? AND m.approved='1' LIMIT ? OFFSET ?";
     private final String SQL_SELECT_COST_PER_DAY_TOTAL = "SELECT COUNT(cost_per_day) AS 'maintaince' FROM Magazine_Web.Magazine";
+    private final String SQL_GET_FIRST_MAG_DATE = "SELECT creation_date FROM Magazine_Web.Magazine ORDER BY creation_date ASC LIMIT 1";
 
     /**
      * Select all the information about 1 magazine by name
@@ -32,6 +34,7 @@ public class MagazineSelect {
         try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_SELECT_ONE_MAG)) {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
+            System.out.println("select");
             if (rs.next()) {
                 return getMagazineFromRS(rs);
             }
@@ -84,7 +87,7 @@ public class MagazineSelect {
      * @return
      */
     public ArrayList<Magazine> select(String editor, int limit, int offset) {
-        String SQL_TMP = SQL_SELECT_MULT_MAG + " WHERE editor = ? AND approved = 1 LIMIT ? OFFSET ?";
+        String SQL_TMP = SQL_SELECT_MULT_MAG + " WHERE editor = ? AND approved != 0 LIMIT ? OFFSET ?";
         return selectList(editor, limit, offset, SQL_TMP);
     }
 
@@ -164,10 +167,17 @@ public class MagazineSelect {
                 allowComment,
                 rs.getString("editor"),
                 rs.getString("category"),
-                new MagazineTagDAO().select(rs.getString("name")), approved, unlisted
+                new MagazineTagDAO().select(rs.getString("name")),
+                approved,
+                unlisted
         );
     }
 
+    /**
+     * Get the total of maintance by all magazines
+     *
+     * @return
+     */
     public int getMaintanceTotal() {
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_COST_PER_DAY_TOTAL)) {
             ResultSet rs = ps.executeQuery();
@@ -175,8 +185,20 @@ public class MagazineSelect {
                 return rs.getInt("maintaince");
             }
         } catch (Exception e) {
-            System.out.println("Cannot get the maintance ammount");
+            System.out.println("Cannot get the maintance ammount " + e.getMessage());
         }
         return 0;
+    }
+
+    public Date getFirstMagDate() {
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_GET_FIRST_MAG_DATE)) {
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getDate("creation_date");
+            }
+        } catch (Exception e) {
+            System.out.println("Cannot get the maintance ammount " + e.getMessage());
+        }
+        return null;
     }
 }

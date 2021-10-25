@@ -52,9 +52,8 @@ public class Magazine {
     public Magazine() {
     }
 
-    public Magazine(String name, Double mensuality, Double companyFee, Double costPerDay,
-            LocalDate date, String description, boolean allowLikes, boolean allowComment, String editor,
-            String catgory, ArrayList<String> tags, boolean approved, boolean unlisted) {
+    public Magazine(String name, Double mensuality, Double companyFee,Double costPerDay,LocalDate date,String description,
+            boolean allowLikes,boolean allowComment,String editor,String catgory,ArrayList<String> tags,boolean approved,boolean unlisted) {
         this.name = name;
         this.mensuality = mensuality;
         this.companyFee = companyFee;
@@ -68,6 +67,7 @@ public class Magazine {
         this.category = catgory;
         this.dateString = date.toString();
         this.approved = approved;
+        this.unlisted = unlisted;
     }
 
     /**

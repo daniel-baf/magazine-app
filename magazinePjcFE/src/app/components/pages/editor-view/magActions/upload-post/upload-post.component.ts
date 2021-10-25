@@ -142,7 +142,7 @@ export class UploadPostComponent implements OnInit {
           }
           this._offset += +this._limit;
         },
-        (_error: Error) => {
+        (_error: any) => {
           console.log(_error);
         }
       );

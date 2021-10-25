@@ -23,38 +23,29 @@ public class AdInsert {
 
     public int insert(Ad ad, Part part) {
         int result = 0;
-
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_INSERT_AD, PreparedStatement.RETURN_GENERATED_KEYS)) {
             configurePsInsertAd(ps, ad);
             DBConnection.getConnection().setAutoCommit(false);
             if (ps.executeUpdate() != 0) {
-                // insert tags
-                if (insertAdTags(ad) == ad.getTags().size()) {
-                    // now write the file
-                    if (ad.getType() == 2) {
-                        ResultSet rs = ps.getGeneratedKeys();
-                        // get generated key
-                        if (rs.next()) {
-                            ad.setId(rs.getInt(1));
+                ResultSet rs = ps.getGeneratedKeys();
+                if (rs.next()) {
+                    ad.setId(rs.getInt(1));
+                    // insert tags
+                    if (insertAdTags(ad) == ad.getTags().size()) {
+                        // now write the file
+                        System.out.println("now write the file");
+                        if (ad.getType() == 2) {
                             ad.setImgLocalPath(GeneralPaths.FILES_IMG_PATH_AD.getMessage() + ad.getId());
                             // update ad
                             if (new AdUpdate().update(ad) != 0) {
                                 result = new FileWriterCP().write(part, ad.getImgLocalPath()) ? 1 : 0;
+                                System.out.println("inserted");
                             }
+                        } else if (ad.getType() == 1 | ad.getType() == 3) {
+                            result = 1; // inserted value
                         }
-                    } else if (ad.getType() == 1 | ad.getType() == 3) {
-                        result = 1; // inserted object
                     }
                 }
-            }
-            if (ad.getType() == 2) {
-                DBConnection.getConnection().setAutoCommit(false);
-                // try insert
-                if (ps.executeUpdate() != 0) { // insert done, trying to save img
-
-                }
-            } else {
-                result = ps.executeUpdate();
             }
         } catch (Exception e) {
             System.out.println("Error while insert ad at [AdInsert] " + e.getMessage());

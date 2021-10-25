@@ -1,9 +1,9 @@
 package Contollers.User;
 
 import ApiMessages.SignupMessage;
-import Models.SignupModel;
 import BackendUtilities.Parser;
 import DB.Domain.Users.User;
+import Models.SignupModel;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -40,6 +40,7 @@ public class SignUpController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         try {
+            // get absolute path of the application
             User user = (User) parser.toObject(request.getParameter("user"), User.class);
             Part filePart = request.getPart("profile-pic");
             SignupMessage supm = new SignupModel().signUp(user, filePart, request.getParameter("user"));

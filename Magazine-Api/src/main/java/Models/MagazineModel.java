@@ -39,10 +39,10 @@ public class MagazineModel {
                 break;
             case "UPDATE":
                 message.getMagazine().setApproved(true);
-                result = new MagazineUpdate().update(message.getMagazine());
+                result = new MagazineUpdate().update(message.getMagazine()); // USED FROM FRONTEND
+                break;
             case "UPDATE_MAG_VALUES":
-                System.out.println("Val de public en controlador");
-                System.out.println(message.getMagazine().isApproved());
+                message.getMagazine().setApproved(!message.getMagazine().isUnlisted());
                 result = new MagazineUpdate().updateWitTags(message.getMagazine());
                 break;
             default:
@@ -76,6 +76,7 @@ public class MagazineModel {
             case "ONE":
                 mags = new ArrayList<>();
                 mags.add(magSelect.select(request.getParameter("mag-name")));
+                System.out.println(mags.get(0).isUnlisted());
                 break;
             case "USER_INTEREST":
                 mags = magSelect.select(
