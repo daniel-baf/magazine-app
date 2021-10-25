@@ -31,8 +31,6 @@ public class JasperService {
      * @throws JRException
      */
     public void printReport(OutputStream output, String jasperPath, Map<String, Object> mapParameters) throws JRException {
-        System.out.println(jasperPath);
-        System.out.println(mapParameters);
         InputStream jasperCompiled = getClass().getClassLoader().getResourceAsStream(jasperPath);
         JasperPrint jasperPrint = JasperFillManager.fillReport(jasperCompiled, mapParameters, DB.DBConnection.getConnection());
         JasperExportManager.exportReportToPdfStream(jasperPrint, output);
