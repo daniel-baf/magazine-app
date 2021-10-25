@@ -50,13 +50,13 @@ public class AdsModel {
      * @param part
      * @return
      */
-    public String createNewAdd(Ad ad, Part part) {
+    public String createNewAdd(Ad ad, Part part, String absolutePath) {
         if (ad.getType() == 2) {
             ad.setVideoUrl(null);
         } else if (ad.getType() == 3) {
             ad.setImgLocalPath(null);
         }
-        return new AdInsert().insert(ad, part) != 0 ? "NO_ERROR" : "ERROR_INSERT";
+        return new AdInsert().insert(ad, part, absolutePath) != 0 ? "NO_ERROR" : "ERROR_INSERT";
     }
 
     /**

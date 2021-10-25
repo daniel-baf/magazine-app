@@ -11,15 +11,16 @@ import javax.servlet.http.Part;
  */
 public class FileWriterCP {
 
-    public boolean write(Part filePart, String filePath) {
+    public boolean write(Part filePart, String filePath, String realPath) {
+        String absolutePath = realPath + "../" + filePath;
+
         try ( InputStream inStream = filePart.getInputStream();  BufferedReader reader = new BufferedReader(new InputStreamReader(inStream))) {
             // save pdf
             String line = reader.readLine();
             while (line != null) {
                 line = reader.readLine();
             }
-//            String filePath = path + newFileName + getFileExtension(filePart.getSubmittedFileName()); // I deleted the newFIleName attribute
-            filePart.write(filePath);
+            filePart.write(absolutePath);
             return true;
         } catch (Exception e) {
             System.out.println("Error while writing file at [FileWriterCP] " + e.getMessage());

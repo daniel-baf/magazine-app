@@ -22,7 +22,7 @@ public class MagazinePostInsert {
 
     private final String SQL_INSERT_POST = "INSERT INTO Post (name,date,pdf,magazine) VALUES (?, ?, ?, ?)";
 
-    public int insert(MagazinePost post) {
+    public int insert(MagazinePost post, String absolutePath) {
         int result = 0;
         try {
             // autocomit false
@@ -38,7 +38,7 @@ public class MagazinePostInsert {
                 if (rs.next()) { // if inserted
                     post.setId(rs.getInt(1));
                     FileWriterCP fileWriter = new FileWriterCP();
-                    if (fileWriter.write(post.getPdfPart(), post.getPdfNamePath())) {
+                    if (fileWriter.write(post.getPdfPart(), post.getPdfNamePath(), absolutePath)) {
                         result = new MagazinePostUpdate().update(post);
                     }
                 }

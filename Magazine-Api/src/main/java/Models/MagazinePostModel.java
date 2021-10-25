@@ -30,12 +30,13 @@ public class MagazinePostModel {
         Parser parser = new Parser();
         Part filePart = request.getPart("datafile");
         MagazinePostMessage message = (MagazinePostMessage) parser.toObject(request.getParameter("mag-post"), MagazinePostMessage.class);
+        String absolutePath = request.getServletContext().getRealPath("");
 
         switch (message.getMessage()) {
             case "CREATE":
                 message.getPost().setPdfPart(filePart);
                 message.getPost().setDate(parser.toLocalDate(message.getPost().getDateString()));
-                message.setMessage(new MagazinePostInsert().insert(message.getPost()) != 0 ? "NO_ERROR" : "ERROR_INSERT");
+                message.setMessage(new MagazinePostInsert().insert(message.getPost(), absolutePath) != 0 ? "NO_ERROR" : "ERROR_INSERT");
                 break;
             default:
                 message.setMessage("UNKNOWN_ACTION");
@@ -62,7 +63,7 @@ public class MagazinePostModel {
         return posts;
     }
 
-    public String pulishAPost(MagazinePost post) {
-        return new MagazinePostInsert().insert(post) != 0 ? "NO_ERROR" : "ERROR_INSERT";
+    public String pulishAPost(MagazinePost post, String absolutePath) {
+        return new MagazinePostInsert().insert(post, absolutePath) != 0 ? "NO_ERROR" : "ERROR_INSERT";
     }
 }

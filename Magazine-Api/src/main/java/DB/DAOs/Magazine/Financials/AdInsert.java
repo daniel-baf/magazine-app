@@ -21,7 +21,7 @@ public class AdInsert {
             + "VALUES (?,?,?,?,?,?,?,?,?,?)";
     private String SQL_INSERT_AD_TAG = "INSERT INTO `Ad_Tag` (`tag`, `ad`) VALUES (?, ?);";
 
-    public int insert(Ad ad, Part part) {
+    public int insert(Ad ad, Part part, String absolutePath) {
         int result = 0;
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_INSERT_AD, PreparedStatement.RETURN_GENERATED_KEYS)) {
             configurePsInsertAd(ps, ad);
@@ -38,7 +38,7 @@ public class AdInsert {
                             ad.setImgLocalPath(GeneralPaths.FILES_IMG_PATH_AD.getMessage() + ad.getId());
                             // update ad
                             if (new AdUpdate().update(ad) != 0) {
-                                result = new FileWriterCP().write(part, ad.getImgLocalPath()) ? 1 : 0;
+                                result = new FileWriterCP().write(part, ad.getImgLocalPath(), absolutePath) ? 1 : 0;
                                 System.out.println("inserted");
                             }
                         } else if (ad.getType() == 1 | ad.getType() == 3) {

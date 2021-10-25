@@ -1,7 +1,6 @@
 package DB.DAOs.Users;
 
 import BackendUtilities.FileWriterCP;
-import DB.DAOs.Users.UserCommonDAO;
 import DB.DBConnection;
 import DB.Domain.Users.Reader;
 import DB.GeneralPaths;
@@ -26,7 +25,7 @@ public class ReaderInsert {
      * @param reader
      * @return
      */
-    public int insert(Reader reader, Part filePart) {
+    public int insert(Reader reader, Part filePart, String absolutePath) {
         int result = 0;
         if (new UserCommonDAO().emailRegisted(reader.getEmail()) == null) { // verify if exist at any table
             try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_INSERT_READER)) {
@@ -36,7 +35,7 @@ public class ReaderInsert {
                 if (ps.executeUpdate() != 0) {
                     // inserted, now write file
                     FileWriterCP fw = new FileWriterCP();
-                    result = fw.write(filePart, reader.getImgPath()) ? 1 : 0;
+                    result = fw.write(filePart, reader.getImgPath(), absolutePath) ? 1 : 0;
                 }
             } catch (SQLException e) {
                 System.out.println("Error trying to insert READER at [DB.DAOs.Users.Editor].[EditorInsertDAO] " + e.getMessage());

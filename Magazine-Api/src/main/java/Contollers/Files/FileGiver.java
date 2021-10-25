@@ -35,23 +35,25 @@ public class FileGiver extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String absolutePath = request.getServletContext().getRealPath("") + "../";
+
         Parser parser = new Parser();
         request.setCharacterEncoding("UTF-8");
         try {
             switch (request.getParameter("action")) {
                 case "SHOW_PDF":
                     MagazinePost post = new MagazinePostSelect().select(parser.toInteger(request.getParameter("id")));
-                    showFile(response, post.getPdfNamePath(), "application/pdf");
+                    showFile(response, absolutePath + post.getPdfNamePath(), "application/pdf");
                 case "DOWNLOAD_PDF":
                     PDFModel modelPdf = new PDFModel(request.getParameter("id"));
-                    download(response, modelPdf.getInputStreamPdf(), modelPdf.getFileName());
+                    download(response, modelPdf.getInputStreamPdf(), absolutePath + modelPdf.getFileName());
                     break;
                 case "GET_PROF_PIC":
                     ImgModel modelImg = new ImgModel(request.getParameter("user"), request.getParameter("type"));
-                    showFile(response, modelImg.findPath(), "application/image");
+                    showFile(response, absolutePath + modelImg.findPath(), "application/image");
                     break;
                 case "GET_AD_PIC":
-                    showFile(response, GeneralPaths.FILES_IMG_PATH_AD.getMessage() + request.getParameter("id"), "application/image");
+                    showFile(response, absolutePath + GeneralPaths.FILES_IMG_PATH_AD.getMessage() + request.getParameter("id"), "application/image");
             }
         } catch (Exception e) {
             System.out.println("Error showing file at FileGiver");

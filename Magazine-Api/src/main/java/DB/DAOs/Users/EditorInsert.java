@@ -24,7 +24,7 @@ public class EditorInsert {
      * @param part
      * @return
      */
-    public int insert(Editor editor, Part part) {
+    public int insert(Editor editor, Part part, String absolutePath) {
         int result = 0;
         if (new UserCommonDAO().emailRegisted(editor.getEmail()) == null) { // verify if exist at any table
             try ( PreparedStatement ps = DB.DBConnection.getConnection().prepareStatement(SQL_INSERT_EDITOR)) {
@@ -34,7 +34,7 @@ public class EditorInsert {
                 configurePS(editor, ps);
                 if (ps.executeUpdate() != 0) {
                     // save file to disk
-                    result = fwcp.write(part, editor.getImgPath()) ? 1 : 0;
+                    result = fwcp.write(part, editor.getImgPath(), absolutePath) ? 1 : 0;
                 }
             } catch (SQLException e) {
                 System.out.println("Error trying to insert EDITOR at [DB.DAOs.Users.Reader].[ReaderInsert] " + e.getMessage());

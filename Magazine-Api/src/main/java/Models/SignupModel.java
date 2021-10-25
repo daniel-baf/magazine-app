@@ -26,7 +26,7 @@ public class SignupModel {
      * @param body
      * @return
      */
-    public SignupMessage signUp(User user, Part part, String body) {
+    public SignupMessage signUp(User user, Part part, String body, String absolutePath) {
         // Utilities
         SignupMessage message = new SignupMessage();
         Parser parser = new Parser();
@@ -38,10 +38,10 @@ public class SignupModel {
         switch (user.getType()) {
             case "READER":
                 // TODO validate and continue method
-                operationResult = insertReader(parser, body, user, part);
+                operationResult = insertReader(parser, body, user, part, absolutePath);
                 break;
             case "EDITOR":
-                operationResult = insertEditor(parser, body, user, part);
+                operationResult = insertEditor(parser, body, user, part, absolutePath);
                 break;
             case "ADMIN":
                 break;
@@ -67,10 +67,10 @@ public class SignupModel {
      * @param user
      * @return
      */
-    private int insertEditor(Parser jsonParser, String body, User user, Part part) {
+    private int insertEditor(Parser jsonParser, String body, User user, Part part, String absolutePath) {
         Editor editor = (Editor) jsonParser.toObject(body, Editor.class); // create editor
         editor.setPassword(user.getPassword());
-        int result = new EditorInsert().insert(editor, part);
+        int result = new EditorInsert().insert(editor, part, absolutePath);
         return result;
     }
 
@@ -82,10 +82,10 @@ public class SignupModel {
      * @param user
      * @return
      */
-    private int insertReader(Parser jsonParser, String body, User user, Part part) {
+    private int insertReader(Parser jsonParser, String body, User user, Part part, String absolutePath) {
         Reader reader = (Reader) jsonParser.toObject(body, Reader.class);
         reader.setPassword(user.getPassword());
-        int result = new ReaderInsert().insert(reader, part);
+        int result = new ReaderInsert().insert(reader, part, absolutePath);
         return result;
     }
 }

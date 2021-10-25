@@ -79,6 +79,8 @@ public class AdsController extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
+        String absolutePath = request.getServletContext().getRealPath("");
+
         try {
             switch (request.getParameter("sub-action")) {
                 case "new-advertiser": // return a message about the insert
@@ -90,7 +92,7 @@ public class AdsController extends HttpServlet {
                     Ad ad = (Ad) parser.toObject(request.getParameter("ad"), Ad.class);
                     ad.setExpirationDate(parser.toLocalDate(ad.getExpirationDateString()));
                     ad.setStartDate(parser.toLocalDate(ad.getStartDateString()));
-                    response.getWriter().append(new AdsModel().createNewAdd(ad, request.getPart("file")));
+                    response.getWriter().append(new AdsModel().createNewAdd(ad, request.getPart("file"), absolutePath));
                     break;
                 default:
                     System.out.println("UNKNOWN action at [AddsController]");

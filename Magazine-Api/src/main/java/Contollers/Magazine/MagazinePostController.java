@@ -40,6 +40,8 @@ public class MagazinePostController extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
+        String absolutePath = request.getServletContext().getRealPath("");
+
         try {
             MagazinePostModel model = new MagazinePostModel();
             switch (request.getParameter("action")) {
@@ -47,7 +49,7 @@ public class MagazinePostController extends HttpServlet {
                     MagazinePost post = (MagazinePost) parser.toObject(request.getParameter("mag-post"), MagazinePost.class);
                     post.setPdfPart(request.getPart("filepart"));
                     post.setDate(parser.toLocalDate(post.getDateString()));
-                    response.getWriter().append(model.pulishAPost(post));
+                    response.getWriter().append(model.pulishAPost(post, absolutePath));
                     break;
                 default:
                     System.out.println("UNKNOWN action at [MagazinePostController]");

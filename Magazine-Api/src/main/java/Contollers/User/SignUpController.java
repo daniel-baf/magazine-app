@@ -39,11 +39,13 @@ public class SignUpController extends HttpServlet {
         response.setContentType("text/plain;charset=UTF-8");
         request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
+        String absolutePath = request.getServletContext().getRealPath("");
+
         try {
             // get absolute path of the application
             User user = (User) parser.toObject(request.getParameter("user"), User.class);
             Part filePart = request.getPart("profile-pic");
-            SignupMessage supm = new SignupModel().signUp(user, filePart, request.getParameter("user"));
+            SignupMessage supm = new SignupModel().signUp(user, filePart, request.getParameter("user"), absolutePath);
             response.getWriter().append(parser.toJSON(supm, supm.getClass()));
         } catch (Exception e) {
             response.getWriter().append(parser.toJSON(new SignupMessage("Error al intentar Iniciar sesion en [UserActionsAbout] " + e.getMessage(), null), SignupMessage.class));
