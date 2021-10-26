@@ -140,8 +140,8 @@ INSERT INTO `Ad` (`advertiser_paid`, `expiration_date`, `start_date`, `shown_cou
     (5145.35, '2021-02-05', '2020-05-21', 231, 2, 'Mogo', '',null,'FilesMagPage/img/ad/4','Observa al poderosisimo hasbulla'),
     (10865.12, '2022-07-05', '2020-12-28', 1231, 2, 'Ague','',null, 'FilesMagPage/img/ad/5','Esto no se que es, tal vez ponga un meme'),
     -- INSERT VIDEO AD
-    (2013.98, '2021-12-19', '2020-12-28', 1231, 3, 'Canche', '','https://www.youtube.com/watch?v=YOXUNjLnpHo', null,'Esto no se que es, tal vez ponga un meme'),
-    (8123.41, '2020-07-05', '2014-12-28', 1231, 3, 'AguareChems','', 'https://www.youtube.com/watch?v=R7hTUxzbH48', null, 'Esto no se que es, tal vez ponga un meme');
+    (2013.98, '2021-12-19', '2020-12-28', 1231, 3, 'Canche', '','https://www.youtube.com/embed/JXIMA1Vf0NA', null,'Esto no se que es, tal vez ponga un meme'),
+    (8123.41, '2020-07-05', '2014-12-28', 1231, 3, 'AguareChems','', 'https://www.youtube.com/embed/uyYxh1zK6uE', null, 'Esto no se que es, tal vez ponga un meme');
 
 -- INSERT AD TAG
 INSERT INTO `Ad_Tag` (`tag`, `ad`) VALUES 
