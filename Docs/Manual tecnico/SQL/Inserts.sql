@@ -19,18 +19,18 @@ INSERT INTO `Company_Fee` (`percentaje`) VALUES ('55');
 
 -- INSERT READER
 INSERT INTO `Reader` (`email`, `name`, `password`,`imgPath`) VALUES 
-	('reader@reader.com', 'Jefe mayoneso', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader@reader.com'),
-	('reader1@reader.com', 'Pepe Antonio Matiaz', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader1@reader.com'),
-    ('reader2@reader.com', 'Pepe el pollo', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader@reader2.com'),
-    ('reader3@reader.com', 'Hasbullita', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader@reader3.com'),
-    ('reader4@reader.com', 'Mander 4 a pocket', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader4@reader.com'),
-    ('reader5@reader.com', 'Splinter Raton blanco', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader5@reader.com'),
-    ('reader6@reader.com', 'Fredboat musica bot', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader6@reader.com'),
-    ('reader7@reader.com', 'JockieMusic bot discord', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader7@reader.com'),
-    ('reader8@reader.com', 'JockieMusic bot discord 1', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader8@reader.com'),
-    ('reader9@reader.com', 'JockieMusic bot discord 2', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader9@reader.com'),
-    ('reader10@reader.com', 'Actualizacione bot', 'lu5O4QoVolc16kN0ffGenw==','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader10@reader.com'),
-    ('reader11@reader.com', 'Apollo', 'lu5O4QoVolc16kN0ffGenw==', '/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/reader/reader10@reader.com');
+	('reader@reader.com', 'Jefe mayoneso', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader@reader.com'),
+	('reader1@reader.com', 'Pepe Antonio Matiaz', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader1@reader.com'),
+    ('reader2@reader.com', 'Pepe el pollo', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader@reader2.com'),
+    ('reader3@reader.com', 'Hasbullita', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader@reader3.com'),
+    ('reader4@reader.com', 'Mander 4 a pocket', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader4@reader.com'),
+    ('reader5@reader.com', 'Splinter Raton blanco', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader5@reader.com'),
+    ('reader6@reader.com', 'Fredboat musica bot', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader6@reader.com'),
+    ('reader7@reader.com', 'JockieMusic bot discord', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader7@reader.com'),
+    ('reader8@reader.com', 'JockieMusic bot discord 1', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader8@reader.com'),
+    ('reader9@reader.com', 'JockieMusic bot discord 2', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader9@reader.com'),
+    ('reader10@reader.com', 'Actualizacione bot', 'lu5O4QoVolc16kN0ffGenw==','FilesMagPage/img/profile/reader/reader10@reader.com'),
+    ('reader11@reader.com', 'Apollo', 'lu5O4QoVolc16kN0ffGenw==', 'FilesMagPage/img/profile/reader/reader10@reader.com');
 
 -- INSERT READER INTREST CATEGORIES
 INSERT INTO `User_Intrest_Categories` (`reader`, `category`) VALUES 
@@ -56,12 +56,12 @@ INSERT INTO `Admin` (`email`, `password`, `name`) VALUES
 
 -- INSERT EDITOR  
 INSERT INTO `Editor` (`email`, `name`, `password`, `description`,`imgPath`) VALUES 
-	('editor@editor.com', 'Roberto ruperto ', 'lu5O4QoVolc16kN0ffGenw==', 'Soy el editor mas perron del mundo','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/editor@editor.com'),
-    ('editor1@editor.com', 'PartyBeast', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/editor1@editor.com'),
-    ('editor2@editor.com', 'Aguare chems', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/editor2@editor.com'),
-    ('editor3@editor.com', 'AWPingu red hot chilli', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/editor3@editor.com'),
-    ('editor4@editor.com', 'Cotorro legendario podcast', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/editor4@editor.com'),
-    ('editor5@editor.com', 'DanyKiller', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','/home/jefemayoneso/Desktop/FIlesMagPage/img/profile/editor/editor5@editor.com');
+	('editor@editor.com', 'Roberto ruperto ', 'lu5O4QoVolc16kN0ffGenw==', 'Soy el editor mas perron del mundo','FilesMagPage/img/profile/editor/editor@editor.com'),
+    ('editor1@editor.com', 'PartyBeast', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','FilesMagPage/img/profile/editor/editor1@editor.com'),
+    ('editor2@editor.com', 'Aguare chems', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','FilesMagPage/img/profile/editor/editor2@editor.com'),
+    ('editor3@editor.com', 'AWPingu red hot chilli', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','FilesMagPage/img/profile/editor/editor3@editor.com'),
+    ('editor4@editor.com', 'Cotorro legendario podcast', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','FilesMagPage/img/profile/editor/editor4@editor.com'),
+    ('editor5@editor.com', 'DanyKiller', 'lu5O4QoVolc16kN0ffGenw==','Soy el editor mas perron del mundo','FilesMagPage/img/profile/editor/editor5@editor.com');
 
 -- INSERT MAGAZINES
 INSERT INTO `Magazine` (`name`, `subscription_fee`, `company_fee`, `cost_per_day`, `creation_date`,`description`, `allow_comment`, `allow_likes`, `category`, `editor`, `approved`) VALUES 
@@ -104,15 +104,15 @@ INSERT INTO `Magazine_Tag` (`magazine`, `tag`) VALUES
 -- INSERT MAGAZINE POST
 
 INSERT INTO `Post` (`name`, `date`, `pdf`, `magazine`) VALUES 
-    ('Tlacuaches tomo 1', '2015-10-23', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/1', 'Tlacuaches Ingeniebrios'),
-    ('Tlacuaches tomo 2', '2017-11-12', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/2', 'Tlacuaches Ingeniebrios'),
-    ('Tlacucahes tomo 3', '2018-06-03', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/3', 'Tlacuaches Ingeniebrios'),
-    ('Tlacucaches tomo 4', '2021-04-27', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/4', 'Tlacuaches Ingeniebrios'),
-    ('Los tomatines tomo 1', '2020-05-12', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/5', 'Los tomatines'),
-    ('El valor de la coma tomo 1', '2020-12-18', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/6', 'EL valor de la coma'),
-    ('El valor de la coma tomo 2', '2021-03-01', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/7', 'EL valor de la coma'),
-    ('Un sol sin fa 0', '2021-02-12', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/8', 'Un sol sin fa'),
-    ('Un sol sin fa 1', '2021-07-09', '/home/jefemayoneso/Desktop/FIlesMagPage/Posts/9', 'Un sol sin fa');
+    ('Tlacuaches tomo 1', '2015-10-23', 'FilesMagPage/Posts/1', 'Tlacuaches Ingeniebrios'),
+    ('Tlacuaches tomo 2', '2017-11-12', 'FilesMagPage/Posts/2', 'Tlacuaches Ingeniebrios'),
+    ('Tlacucahes tomo 3', '2018-06-03', 'FilesMagPage/Posts/3', 'Tlacuaches Ingeniebrios'),
+    ('Tlacucaches tomo 4', '2021-04-27', 'FilesMagPage/Posts/4', 'Tlacuaches Ingeniebrios'),
+    ('Los tomatines tomo 1', '2020-05-12', 'FilesMagPage/Posts/5', 'Los tomatines'),
+    ('El valor de la coma tomo 1', '2020-12-18', 'FilesMagPage/Posts/6', 'EL valor de la coma'),
+    ('El valor de la coma tomo 2', '2021-03-01', 'FilesMagPage/Posts/7', 'EL valor de la coma'),
+    ('Un sol sin fa 0', '2021-02-12', 'FilesMagPage/Posts/8', 'Un sol sin fa'),
+    ('Un sol sin fa 1', '2021-07-09', 'FilesMagPage/Posts/9', 'Un sol sin fa');
 
 -- USER MAGAZINE TAGS INTREST
 INSERT INTO `Reader_Magazine_Tag` (`reader`, `tag`) VALUES 
@@ -137,8 +137,8 @@ INSERT INTO `Ad` (`advertiser_paid`, `expiration_date`, `start_date`, `shown_cou
     (1011.82, '2019-01-21', '2018-08-01', 120, 1, 'AguareChems', '', null, null, 'Este es un anucnio de texto que no deberia mostrarse, esta expirado'),
     (4645.73, '2021-07-15', '2018-06-12', 981, 1, 'TS21', '', null, null, 'UN tercer anuncio de texto que esta bien muamadisimo'),
     -- INSERT IMG AD
-    (5145.35, '2021-02-05', '2020-05-21', 231, 2, 'Mogo', '',null,'/home/jefemayoneso/Desktop/FIlesMagPage/img/ad/4','Observa al poderosisimo hasbulla'),
-    (10865.12, '2022-07-05', '2020-12-28', 1231, 2, 'Ague','',null, '/home/jefemayoneso/Desktop/FIlesMagPage/img/ad/5','Esto no se que es, tal vez ponga un meme'),
+    (5145.35, '2021-02-05', '2020-05-21', 231, 2, 'Mogo', '',null,'FilesMagPage/img/ad/4','Observa al poderosisimo hasbulla'),
+    (10865.12, '2022-07-05', '2020-12-28', 1231, 2, 'Ague','',null, 'FilesMagPage/img/ad/5','Esto no se que es, tal vez ponga un meme'),
     -- INSERT VIDEO AD
     (2013.98, '2021-12-19', '2020-12-28', 1231, 3, 'Canche', '','https://www.youtube.com/watch?v=YOXUNjLnpHo', null,'Esto no se que es, tal vez ponga un meme'),
     (8123.41, '2020-07-05', '2014-12-28', 1231, 3, 'AguareChems','', 'https://www.youtube.com/watch?v=R7hTUxzbH48', null, 'Esto no se que es, tal vez ponga un meme');
