@@ -13,7 +13,7 @@ public class LikeSelect {
 
     private String SQL_COUNT_LIKES_MAG = "SELECT COUNT(magazine) AS counter FROM `Like` WHERE magazine=?";
     private final String SQL_SELECT_MOST_LIKED_BTWN = "SELECT COUNT(l.magazine) AS `likes`, l.magazine, m.editor FROM `Like` AS l  "
-            + "INNER JOIN Magazine as m ON m.name = l.magazine AND m.editor = ? WHERE `date` BETWEEN ? AND > GROUP BY l.magazine "
+            + "INNER JOIN Magazine as m ON m.name = l.magazine AND m.editor = ? WHERE `date` BETWEEN ? AND ? GROUP BY l.magazine "
             + "ORDER BY `likes` DESC LIMIT 1";
     private String SQL_SELECT_MOST_LIKED = "SELECT COUNT(l.magazine) AS `likes`, l.magazine, m.editor FROM `Like` AS l INNER JOIN Magazine as m "
             + "ON m.name = l.magazine AND m.editor = ? GROUP BY l.magazine  ORDER BY `likes` DESC LIMIT 1";
