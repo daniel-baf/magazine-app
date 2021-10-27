@@ -11,10 +11,16 @@ import { APIs } from 'src/app/vars/enums/API';
   styleUrls: ['./report.component.css'],
 })
 export class ReportComponent implements OnInit {
-  private _user: User;
+  public _user: User;
   // return parms from ul
   public _repUrlSafe: SafeResourceUrl;
   public _customMessage: string;
+  public _linkDownload: string;
+  // for report
+  public _repTye = `${this._route.snapshot.paramMap.get('rep-type')}`;
+  public dateStart = `${this._route.snapshot.paramMap.get('dateS')}`;
+  public dateEnd = `${this._route.snapshot.paramMap.get('dateE')}`;
+  // for reports
 
   constructor(
     private _localStorage: LocalStorageService,
@@ -22,29 +28,22 @@ export class ReportComponent implements OnInit {
     private _sanitizer: DomSanitizer
   ) {
     this._user = JSON.parse(`${this._localStorage.getData('user')}`);
-    this.configureLink();
+    this.configureCustomMessage(this.dateStart, this.dateEnd);
+    this.configDownloadLink();
   }
 
   ngOnInit(): void {}
 
-  private configureLink() {
-    let _repTye = this._route.snapshot.paramMap.get('rep-type');
-    let dateStart = this._route.snapshot.paramMap.get('dateS');
-    let dateEnd = this._route.snapshot.paramMap.get('dateE');
+  public configDownloadLink() {
     if (this._user.type === 'EDITOR') {
-      this._repUrlSafe = this._sanitizer.bypassSecurityTrustResourceUrl(
-        `${APIs.JASPER_REPORT_CONTROLLER}?type=EDITOR&action=${_repTye}&date-end=${dateEnd}&date-start=${dateStart}&owner=${this._user.email}`
-      );
+      this._linkDownload = `${APIs.JASPER_REPORT_CONTROLLER}?type=EDITOR&action=${this._repTye}&date-end=${this.dateEnd}&date-start=${this.dateStart}&owner=${this._user.email}`;
     } else if (this._user.type === 'ADMIN') {
-      this._repUrlSafe = this._sanitizer.bypassSecurityTrustResourceUrl(
-        `${APIs.JASPER_REPORT_CONTROLLER}?type=ADMIN&action=${_repTye}&date-end=${dateEnd}&date-start=${dateStart}`
-      );
+      this._linkDownload = `${APIs.JASPER_REPORT_CONTROLLER}?type=ADMIN&action=${this._repTye}&date-end=${this.dateEnd}&date-start=${this.dateStart}`;
     }
-    this.configureCustomMessage(dateStart, dateEnd);
   }
 
   private configureCustomMessage(
-    _dateStart: String | null,
+    _dateStart: string | null,
     _dateEnd: string | null
   ) {
     if (_dateEnd != null && _dateStart != null) {

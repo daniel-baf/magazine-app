@@ -46,10 +46,9 @@ public class CommentSelect {
         return comments;
     }
 
-    private ArrayList<Comment> getComments(String magazine, Date date1, Date date2, boolean validDates) {
+    public ArrayList<Comment> getComments(String magazine, Date date1, Date date2, boolean validDates) {
         String SQL_TMP = validDates ? SQL_SELECT_COMMENTS_1 + " AND `date` BETWEEN ? AND ? " : SQL_SELECT_COMMENTS_1;
         ArrayList<Comment> comments = new ArrayList<>();
-
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_TMP)) {
             ps.setString(1, magazine);
             if (validDates) {

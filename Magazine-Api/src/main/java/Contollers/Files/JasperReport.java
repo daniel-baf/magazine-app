@@ -43,6 +43,7 @@ public class JasperReport extends HttpServlet {
             throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "attachment; filename=report.pdf");
         VarsChecker vc = new VarsChecker();
 
         boolean validDates = vc.needReportByDates(request.getParameter("date-start"), request.getParameter("date-end"));
@@ -82,6 +83,8 @@ public class JasperReport extends HttpServlet {
      * @throws JRException
      */
     private void printEditorReport(HttpServletRequest request, HttpServletResponse response, boolean validDates, Date date1, Date date2) throws IOException, JRException {
+        response.setHeader("Content-disposition", "attachment; filename=report.pdf");
+
         JasperService jm = new JasperService();
         String subPath = GeneralPaths.JASPER_EDITOR_SUB_PATH_RELATIVE.getMessage();
         String owner = request.getParameter("owner");

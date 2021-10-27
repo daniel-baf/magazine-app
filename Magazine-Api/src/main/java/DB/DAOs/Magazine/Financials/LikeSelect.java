@@ -1,9 +1,12 @@
 package DB.DAOs.Magazine.Financials;
 
+import BackendUtilities.Parser;
 import DB.DBConnection;
+import DB.Domain.Magazine.Like;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,6 +20,7 @@ public class LikeSelect {
             + "ORDER BY `likes` DESC LIMIT 1";
     private String SQL_SELECT_MOST_LIKED = "SELECT COUNT(l.magazine) AS `likes`, l.magazine, m.editor FROM `Like` AS l INNER JOIN Magazine as m "
             + "ON m.name = l.magazine AND m.editor = ? GROUP BY l.magazine  ORDER BY `likes` DESC LIMIT 1";
+    private String SQL_SELECT_LIKES = "SELECT * FROM `Like` WHERE magazine = ? ORDER BY `date` ASC";
 
     /**
      * Return the number of likes for a magazine
@@ -62,6 +66,24 @@ public class LikeSelect {
             System.out.println("Cannot get most liked mag at [MagazineInsert] " + e.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<Like> select(String magazine) {
+        ArrayList<Like> likes = new ArrayList<>();
+        Parser parser = new Parser();
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_LIKES)) {
+            ps.setString(1, magazine);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                likes.add(new Like(parser.toLocalDate(rs.getDate("date")),
+                        rs.getDate("date").toString(),
+                        rs.getString("magazine"),
+                        rs.getString("user")));
+            }
+        } catch (Exception e) {
+            System.out.println("Cannot get the like from DB " + e.getMessage());
+        }
+        return likes;
     }
 
 }

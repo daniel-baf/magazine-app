@@ -24,6 +24,7 @@ export class RequestReportComponent implements OnInit {
     private _router: Router
   ) {
     this._user = JSON.parse(`${this._localStorage.getData('user')}`);
+    this.requestReport();
   }
 
   ngOnInit(): void {}

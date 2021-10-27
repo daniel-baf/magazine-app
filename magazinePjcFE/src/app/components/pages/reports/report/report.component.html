@@ -1,25 +1,46 @@
-<div class="d-flex justify-content-center mt-4 mb-5">
-  <div class="col-sm-3">
-    <h1>Reporte generado</h1>
+<div class="row d-flex justify-content-center align-items-center m-5">
+  <h1>Reporte generado</h1>
+  <div class="col-sm-5">
     <p>{{ _customMessage }}</p>
     <a
       name="download"
       id="download"
       class="btn btn-success btn-lg btn-block"
-      href="#"
       role="button"
+      href="{{ _linkDownload }}"
       >Descargar</a
     >
   </div>
-  <div class="col-xl-8">
-    <iframe
-      [src]="_repUrlSafe"
-      frameborder="0"
-      width="100%"
-      max-width="1400px"
-      height="700px"
-      allowfullscreen="true"
-      loading="lazy"
-    ></iframe>
+</div>
+<div>
+  <div [ngSwitch]="_user.type">
+    <div *ngSwitchCase="'ADMIN'">admin</div>
+    <div *ngSwitchCase="'EDITOR'">
+      <div [ngSwitch]="_repTye">
+        <div *ngSwitchCase="'comments-mag'">
+          <app-comments-mag
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+            [email]="_user.email"
+          >
+          </app-comments-mag>
+        </div>
+        <div *ngSwitchCase="'subs-mag'">
+          <app-subs-mag
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+            [email]="_user.email"
+          ></app-subs-mag>
+        </div>
+        <div *ngSwitchCase="'most-liked'">
+          <app-most-liked
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+            [email]="_user.email"
+          ></app-most-liked>
+        </div>
+        <div *ngSwitchCase="'earnings'">earnings</div>
+      </div>
+    </div>
   </div>
 </div>

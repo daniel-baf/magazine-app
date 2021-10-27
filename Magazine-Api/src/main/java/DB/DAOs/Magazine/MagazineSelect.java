@@ -19,10 +19,25 @@ public class MagazineSelect {
     // SQL queries
     private final String SQL_SELECT_MULT_MAG = "SELECT * FROM Magazine";
     private final String SQL_SELECT_ONE_MAG = "SELECT * FROM Magazine WHERE name=?";
-    private final String SQL_SELECT_MAGS_FOR_USER = "SELECT * FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
+    private final String SQL_SELECT_MAGS_FOR_USER = "SELECT `name` FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
             + "ON m.category=rc.category AND rc.reader=? AND m.approved='1' LIMIT ? OFFSET ?";
+    private final String SQL_SELECT_MAGS_READER_OWN = "SELECT * FROM Magazine WHERE editor = ?";
     private final String SQL_SELECT_COST_PER_DAY_TOTAL = "SELECT COUNT(cost_per_day) AS 'maintaince' FROM Magazine_Web.Magazine";
     private final String SQL_GET_FIRST_MAG_DATE = "SELECT creation_date FROM Magazine_Web.Magazine ORDER BY creation_date ASC LIMIT 1";
+
+    public ArrayList<String> selectOwned(String editor) {
+        ArrayList<String> magazines = new ArrayList<>();
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_MAGS_READER_OWN)) {
+            ps.setString(1, editor);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                magazines.add(rs.getString("name"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error, cannot get mag " + e.getMessage());
+        }
+        return magazines;
+    }
 
     /**
      * Select all the information about 1 magazine by name
@@ -39,6 +54,7 @@ public class MagazineSelect {
                 return getMagazineFromRS(rs);
             }
         } catch (Exception e) {
+            System.out.println("can't get magazine " + e.getMessage());
         }
         return null;
     }

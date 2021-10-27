@@ -18,4 +18,6 @@ export enum APIs {
   JASPER_REPORT_CONTROLLER = 'http://localhost:8080/Magazine-Api/JasperReport',
   // ADMIN
   ADS_CONTROLLER = 'http://localhost:8080/Magazine-Api/AdsController',
+  // JASPER
+  EDITOR_HTML_REPORT = 'http://localhost:8080/Magazine-Api/HTMLReportEditor',
 }

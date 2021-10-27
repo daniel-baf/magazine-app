@@ -280,7 +280,7 @@ CREATE TABLE `Payment` (
     ON UPDATE CASCADE);
     
 -- SQL USER
-DROP USER IF EXISTS 'ipc2'@'localhost';
-CREATE USER 'ipc2'@'localhost' IDENTIFIED BY 'ipc2+contraPjct0s';
-GRANT ALL PRIVILEGES ON `Magazine_Web`.* TO 'ipc2'@'localhost';
-FLUSH PRIVILEGES;
+-- DROP USER IF EXISTS 'ipc2'@'localhost';
+-- CREATE USER 'ipc2'@'localhost' IDENTIFIED BY 'ipc2+contraPjct0s';
+-- GRANT ALL PRIVILEGES ON `Magazine_Web`.* TO 'ipc2'@'localhost';
+-- FLUSH PRIVILEGES;

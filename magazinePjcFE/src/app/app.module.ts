@@ -34,6 +34,9 @@ import { ReportComponent } from './components/pages/reports/report/report.compon
 import { RequestReportComponent } from './components/pages/reports/request-report/request-report.component';
 import { PublicEditorProfileComponent } from './components/pages/magazine/public-editor-profile/public-editor-profile.component';
 import { EditMagComponent } from './components/pages/editor-view/magActions/edit-mag/edit-mag.component';
+import { CommentsMagComponent } from './components/pages/reports/reportsView/editor/comments-mag/comments-mag.component';
+import { SubsMagComponent } from './components/pages/reports/reportsView/editor/subs-mag/subs-mag.component';
+import { MostLikedComponent } from './components/pages/reports/reportsView/editor/most-liked/most-liked.component';
 
 @NgModule({
   declarations: [
@@ -66,6 +69,9 @@ import { EditMagComponent } from './components/pages/editor-view/magActions/edit
     RequestReportComponent,
     PublicEditorProfileComponent,
     EditMagComponent,
+    CommentsMagComponent,
+    SubsMagComponent,
+    MostLikedComponent,
   ],
   imports: [
     BrowserModule,
