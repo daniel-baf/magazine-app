@@ -7,6 +7,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -18,6 +19,7 @@ public class AdSelect {
             + "INNER JOIN Reader_Magazine_Tag AS rt ON rt.tag = t.tag AND rt.reader = ? AND a.type = ? ORDER BY RAND() LIMIT 1";
     private final String SQL_SELECT_RANDOM_AD = "SELECT * FROM `Ad` WHERE `type` = ? ORDER BY RAND() LIMIT 1";
     private final String SQL_SELECT_EARNING_AD_REP = "SELECT SUM(advertiser_paid) AS `entry` FROM Ad WHERE start_date = ?";
+    private final String SQL_SELECT_OWNED_ADS = "SELECT * FROM Magazine_Web.Ad WHERE advertiser = ?";
 
     /**
      * get a random ad to show it as service
@@ -97,5 +99,25 @@ public class AdSelect {
             System.out.println("Cannot get ad earnings report " + e.getMessage());
         }
         return null;
+    }
+
+    public ArrayList<Ad> getAdsBelongAdvertiser(String advertiser, boolean validDates, Date date1, Date date2) {
+        String SQL_TMP = SQL_SELECT_OWNED_ADS;
+        SQL_TMP += validDates ? " AND start_date BETWEEN ? AND ? " : "";
+        ArrayList<Ad> ads = new ArrayList<>();
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_TMP)) {
+            ps.setString(1, advertiser);
+            if (validDates) {
+                ps.setDate(2, date1);
+                ps.setDate(3, date2);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ads.add(getAdFromRs(rs));
+            }
+        } catch (Exception e) {
+            System.out.println("Cannoot find ads " + e.getMessage());
+        }
+        return ads;
     }
 }

@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="mb-3 mt-2" style="overflow: auto; max-height: 80vh">
+    <p>Total de entradas: {{ _entryTotal }}</p>
+    <p>Total de salidas: {{ _lossTotal }}</p>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Fecha</th>
+          <th>Tipo</th>
+          <th>Entrada</th>
+          <th>Mantenimiento</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let _earning of _earningsReport">
+          <td scope="row">{{ _earning.date }}</td>
+          <td>{{ _earning.type }}</td>
+          <td>{{ _earning.entry | currency: "Q" }}</td>
+          <td>{{ _earning.loss | currency: "Q" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

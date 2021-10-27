@@ -39,7 +39,7 @@ public class SubscriptionInsert {
                 if (rs.next()) {
                     tmp = rs.getInt(1);
                     sub.setId(tmp);
-                    payment = new Payment(tmp, price * (1 - (subFee / 100)), price * (subFee / 100));
+                    payment = new Payment(tmp, price * (1 - (subFee / 100)) * sub.getMonths(), price * (subFee / 100) * sub.getMonths());
                     if (new PaymentInsert().insert(payment) != 0) {
                         result = 1;
                     }

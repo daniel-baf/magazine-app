@@ -1,0 +1,43 @@
+<div class="container">
+  <p>Total: {{ _total | currency: "Q" }}</p>
+  <div *ngFor="let _earning of _editorEarnings" class="mb-3 mt-2">
+    <h4>Revista: {{ _earning.magazine }}</h4>
+    <div
+      *ngIf="_earning.subs.length == 0"
+      class="alert alert-warning alert-dismissible fade show mt-4 expand-100"
+      role="alert"
+    >
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>No tiene subscripciones</strong>
+    </div>
+
+    <script>
+      $(".alert").alert();
+    </script>
+    <table class="table" *ngIf="_earning.subs.length != 0">
+      <thead>
+        <tr>
+          <th>Meses</th>
+          <th>Fecha</th>
+          <th>Lector</th>
+          <th>Ganancia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let _sub of _earning.subs">
+          <td scope="row">{{ _sub.subscription.months }}</td>
+          <td>{{ _sub.subscription.acquisitionDateString | date }}</td>
+          <td>{{ _sub.subscription.reader }}</td>
+          <td>{{ _sub.fee }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

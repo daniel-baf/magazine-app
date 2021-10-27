@@ -14,7 +14,41 @@
 </div>
 <div>
   <div [ngSwitch]="_user.type">
-    <div *ngSwitchCase="'ADMIN'">admin</div>
+    <div *ngSwitchCase="'ADMIN'">
+      <div [ngSwitch]="_repTye">
+        <div *ngSwitchCase="'earns-mags'">
+          <app-mag-earns-cpny
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+          ></app-mag-earns-cpny>
+        </div>
+        <div *ngSwitchCase="'earns-advers'">
+          <app-erns-advertiser
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+          ></app-erns-advertiser>
+        </div>
+        <div *ngSwitchCase="'most-commented'">
+          <app-most-commented
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+          ></app-most-commented>
+        </div>
+        <div *ngSwitchCase="'most-subscribed'">
+          <app-most-popular-report
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+          ></app-most-popular-report>
+        </div>
+        <div *ngSwitchCase="'total-earnings'">
+          <app-total-earnings-report
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+          ></app-total-earnings-report>
+        </div>
+      </div>
+      <!-- END NG SWTIC ADMIN -->
+    </div>
     <div *ngSwitchCase="'EDITOR'">
       <div [ngSwitch]="_repTye">
         <div *ngSwitchCase="'comments-mag'">
@@ -39,7 +73,13 @@
             [email]="_user.email"
           ></app-most-liked>
         </div>
-        <div *ngSwitchCase="'earnings'">earnings</div>
+        <div *ngSwitchCase="'earnings'">
+          <app-editor-earns
+            [dateStart]="dateStart"
+            [dateEnd]="dateEnd"
+            [email]="_user.email"
+          ></app-editor-earns>
+        </div>
       </div>
     </div>
   </div>

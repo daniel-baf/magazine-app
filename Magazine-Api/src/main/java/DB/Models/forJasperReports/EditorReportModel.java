@@ -1,10 +1,12 @@
-package Models.HTMLReport;
+package DB.Models.forJasperReports;
 
 import DB.DAOs.Magazine.Financials.CommentSelect;
 import DB.DAOs.Magazine.Financials.LikeSelect;
 import DB.DAOs.Magazine.Financials.SubscriptionSelect;
 import DB.DAOs.Magazine.MagazineSelect;
+import DB.Domain.Financial.Subscription;
 import DB.Domain.Magazine.Comment;
+import DB.Domain.forJasperReports.EditorEarnings;
 import DB.Domain.forJasperReports.MaganizeSubscriptionReport;
 import DB.Domain.forJasperReports.MagazineCommentsReport;
 import DB.Domain.forJasperReports.MagazineLikeReport;
@@ -51,5 +53,15 @@ public class EditorReportModel {
             likesReport.add(new MagazineLikeReport(mag, new LikeSelect().select(mag)));
         }
         return likesReport;
+    }
+
+    public ArrayList<EditorEarnings> getEditorEarnings(String editor, Date date1, Date date2, boolean validDates) {
+        ArrayList<String> magazines = new MagazineSelect().selectOwned(editor);
+        ArrayList<EditorEarnings> magsEarnings = new ArrayList<>();
+        for (String mag : magazines) {
+            ArrayList<Subscription> subs = new SubscriptionSelect().select(validDates, date1, date2, mag);
+            magsEarnings.add(new EditorEarnings(mag, new SubscriptionSelect().getSubsWithFee(validDates, date1, date2, mag, false)));
+        }
+        return magsEarnings;
     }
 }

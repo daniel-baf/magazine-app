@@ -24,15 +24,15 @@ export class ReportComponent implements OnInit {
 
   constructor(
     private _localStorage: LocalStorageService,
-    private _route: ActivatedRoute,
-    private _sanitizer: DomSanitizer
+    private _route: ActivatedRoute
   ) {
     this._user = JSON.parse(`${this._localStorage.getData('user')}`);
     this.configureCustomMessage(this.dateStart, this.dateEnd);
     this.configDownloadLink();
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 
   public configDownloadLink() {
     if (this._user.type === 'EDITOR') {

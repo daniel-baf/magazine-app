@@ -1,0 +1,43 @@
+<div class="container">
+  <div *ngFor="let _mag of _commentsReport" class="mb-3 mt-2">
+    <h4>Revista: {{ _mag.magazine }}</h4>
+    <div></div>
+
+    <div
+      *ngIf="_mag.comments.length == 0"
+      class="alert alert-warning alert-dismissible fade show mt-4 expand-100"
+      role="alert"
+    >
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>No tiene comentario</strong>
+    </div>
+
+    <script>
+      $(".alert").alert();
+    </script>
+
+    <table class="table" *ngIf="_mag.comments.length != 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Fecha</th>
+          <th>Comentario</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let _comment of _mag.comments">
+          <td scope="row">{{ _comment.id }}</td>
+          <td>{{ _comment.dateString }}</td>
+          <td>{{ _comment.text }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

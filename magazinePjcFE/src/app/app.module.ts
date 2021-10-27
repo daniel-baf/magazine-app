@@ -37,6 +37,12 @@ import { EditMagComponent } from './components/pages/editor-view/magActions/edit
 import { CommentsMagComponent } from './components/pages/reports/reportsView/editor/comments-mag/comments-mag.component';
 import { SubsMagComponent } from './components/pages/reports/reportsView/editor/subs-mag/subs-mag.component';
 import { MostLikedComponent } from './components/pages/reports/reportsView/editor/most-liked/most-liked.component';
+import { EditorEarnsComponent } from './components/pages/reports/reportsView/editor/editor-earns/editor-earns.component';
+import { MagEarnsCpnyComponent } from './components/pages/reports/reportsView/admin/mag-earns-cpny/mag-earns-cpny.component';
+import { ErnsAdvertiserComponent } from './components/pages/reports/reportsView/admin/erns-advertiser/erns-advertiser.component';
+import { MostCommentedComponent } from './components/pages/reports/reportsView/admin/most-commented/most-commented.component';
+import { MostPopularReportComponent } from './components/pages/reports/reportsView/admin/most-popular-report/most-popular-report.component';
+import { TotalEarningsReportComponent } from './components/pages/reports/reportsView/admin/total-earnings-report/total-earnings-report.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +78,12 @@ import { MostLikedComponent } from './components/pages/reports/reportsView/edito
     CommentsMagComponent,
     SubsMagComponent,
     MostLikedComponent,
+    EditorEarnsComponent,
+    MagEarnsCpnyComponent,
+    ErnsAdvertiserComponent,
+    MostCommentedComponent,
+    MostPopularReportComponent,
+    TotalEarningsReportComponent,
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ public class MagazineSelect {
     // SQL queries
     private final String SQL_SELECT_MULT_MAG = "SELECT * FROM Magazine";
     private final String SQL_SELECT_ONE_MAG = "SELECT * FROM Magazine WHERE name=?";
-    private final String SQL_SELECT_MAGS_FOR_USER = "SELECT `name` FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
+    private final String SQL_SELECT_MAGS_FOR_USER = "SELECT * FROM Magazine AS m INNER JOIN User_Intrest_Categories AS rc "
             + "ON m.category=rc.category AND rc.reader=? AND m.approved='1' LIMIT ? OFFSET ?";
     private final String SQL_SELECT_MAGS_READER_OWN = "SELECT * FROM Magazine WHERE editor = ?";
     private final String SQL_SELECT_COST_PER_DAY_TOTAL = "SELECT COUNT(cost_per_day) AS 'maintaince' FROM Magazine_Web.Magazine";
@@ -105,6 +105,19 @@ public class MagazineSelect {
     public ArrayList<Magazine> select(String editor, int limit, int offset) {
         String SQL_TMP = SQL_SELECT_MULT_MAG + " WHERE editor = ? AND approved != 0 LIMIT ? OFFSET ?";
         return selectList(editor, limit, offset, SQL_TMP);
+    }
+
+    public ArrayList<Magazine> select() { // select ALL 
+        ArrayList<Magazine> mags = new ArrayList<>();
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_MULT_MAG)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                mags.add(getMagazineFromRS(rs));
+            }
+        } catch (Exception e) {
+            System.out.println("cannot get all magazines");
+        }
+        return mags;
     }
 
     /**

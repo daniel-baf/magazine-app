@@ -2,10 +2,11 @@ package Contollers.Files;
 
 import BackendUtilities.Parser;
 import BackendUtilities.VarsChecker;
+import DB.Domain.forJasperReports.EditorEarnings;
 import DB.Domain.forJasperReports.MaganizeSubscriptionReport;
 import DB.Domain.forJasperReports.MagazineCommentsReport;
 import DB.Domain.forJasperReports.MagazineLikeReport;
-import Models.HTMLReport.EditorReportModel;
+import DB.Models.forJasperReports.EditorReportModel;
 import java.io.IOException;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -34,6 +35,8 @@ public class HTMLReportEditor extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        response.setContentType("text/plain;charset=UTF-8");
+        request.setCharacterEncoding("UTF-8");
         Parser parser = new Parser();
         EditorReportModel erm = new EditorReportModel();
         VarsChecker vc = new VarsChecker();
@@ -59,6 +62,10 @@ public class HTMLReportEditor extends HttpServlet {
             case "most-liked":
                 ArrayList<MagazineLikeReport> magLikes = erm.getMagazineLikesReport(editor, date1, date2, validDates);
                 response.getWriter().append(parser.toJSON(magLikes, magLikes.getClass()));
+                break;
+            case "earnings":
+                ArrayList<EditorEarnings> editorEarns = erm.getEditorEarnings(editor, date1, date2, validDates);
+                response.getWriter().append(parser.toJSON(editorEarns, editorEarns.getClass()));
                 break;
         }
     }

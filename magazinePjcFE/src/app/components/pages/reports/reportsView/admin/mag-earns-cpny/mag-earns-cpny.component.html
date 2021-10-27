@@ -1,0 +1,79 @@
+<div class="container">
+  <div style="overflow: auto; max-height: 90vh">
+    <!-- <p>Total: {{ _total | currency: "Q" }}</p> -->
+    <p>Total: {{ _total | currency: "Q" }}</p>
+
+    <div
+      *ngFor="let _earning of _magsEarnings"
+      class="mb-3 mt-2"
+      style="overflow: auto; max-height: 500px"
+    >
+      <h4>Revista: {{ _earning.magazine.name }}</h4>
+      <!-- INFO MAGAZINE -->
+      <table class="table p-2">
+        <thead>
+          <tr>
+            <th>Editor</th>
+            <th>Mensualidad</th>
+            <th>Costo por dia</th>
+            <th>Estado</th>
+            <th>Creada el</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td scope="row">{{ _earning.magazine.editor }}</td>
+            <td scope="row">
+              {{ _earning.magazine.mensuality | currency: "Q" }}
+            </td>
+            <td scope="row">{{ _earning.magazine.costPerDay }}</td>
+            <td scope="row">
+              <div [ngSwitch]="_earning.magazine.approved">
+                <div *ngSwitchCase="true">Publicada</div>
+                <div *ngSwitchCase="false">Pendiente de publicar</div>
+              </div>
+            </td>
+            <td scope="row">{{ _earning.magazine.dateString | date }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div
+        *ngIf="_earning.subscriptions.length == 0"
+        class="alert alert-warning alert-dismissible fade show mt-4 expand-100"
+        role="alert"
+      >
+        <button
+          type="button"
+          class="close"
+          data-dismiss="alert"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+        <strong>No tiene subscripciones</strong>
+      </div>
+
+      <script>
+        $(".alert").alert();
+      </script>
+      <table class="table" *ngIf="_earning.subscriptions.length != 0">
+        <thead>
+          <tr>
+            <th>Meses</th>
+            <th>Fecha</th>
+            <th>Lector</th>
+            <th>Ganancia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let _sub of _earning.subscriptions">
+            <td scope="row">{{ _sub.subscription.months }}</td>
+            <td>{{ _sub.subscription.acquisitionDateString | date }}</td>
+            <td>{{ _sub.subscription.reader }}</td>
+            <td>{{ _sub.fee }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

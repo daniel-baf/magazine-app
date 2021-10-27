@@ -6,6 +6,7 @@ import BackendUtilities.Parser;
 import DB.DAOs.Magazine.MagazineSelect;
 import DB.Domain.Magazine.Magazine;
 import DB.Domain.forJasperReports.MaganizeSubscriptionReport;
+import DB.Domain.forJasperReports.ReaderSubscription;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -25,8 +26,7 @@ public class SubscriptionSelect {
             + "ON m.name = l.magazine GROUP BY l.magazine  ORDER BY `subs` DESC LIMIT 5;";
     private final String SQL_SELECT_TOTAL_EARN_REPORT = "SELECT SUM(p.company_fee) AS `entry` FROM Payment AS p INNER JOIN Subscription as s "
             + "ON s.id = p.subscription INNER JOIN Magazine as m ON m.name = s.magazine WHERE s.acquisition_date = ? ";
-
-    ;
+    private final String SQL_SELECT_EARNGS_EDITOR = "SELECT p.editor_fee, p.company_fee, s.* FROM Payment AS p INNER JOIN Subscription AS s ON p.subscription = s.id WHERE s.magazine = ?";
 
     /**
      * This method gets all active subscription for a reader from DB
@@ -113,13 +113,37 @@ public class SubscriptionSelect {
             while (rs.next()) {
                 // get subs
                 Magazine mag = new MagazineSelect().getMagazineFromRS(rs);
-                ArrayList<Subscription> subs = new SubscriptionSelect().select(betweenDates, date1, date2, mag.getName());
+                ArrayList<Subscription> subs = select(betweenDates, date1, date2, mag.getName());
                 mags.add(new MaganizeSubscriptionReport(mag.getName(), subs));
             }
         } catch (Exception e) {
             System.out.println("Error looking for 5 most liked mags " + e.getMessage());
         }
         return mags;
+    }
+
+    public ArrayList<ReaderSubscription> getSubsWithFee(boolean betweenDates, Date date1, Date date2, String mag, boolean adminFee) {
+        ArrayList<ReaderSubscription> subs = new ArrayList<>();
+        String SQL_TMP = SQL_SELECT_EARNGS_EDITOR;
+        SQL_TMP += betweenDates ? " AND s.acquisition_date BETWEEN ? AND ? " : "";
+        // GET DATA
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_TMP)) {
+            ps.setString(1, mag);
+            if (betweenDates) {
+                ps.setDate(2, date1);
+                ps.setDate(3, date2);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                // get subs
+                Double tmp = adminFee ? rs.getDouble("company_fee") : rs.getDouble("editor_fee");
+
+                subs.add(new ReaderSubscription(tmp, getSubFromRs(rs)));
+            }
+        } catch (Exception e) {
+            System.out.println("Error looking for subs and earnings " + e.getMessage());
+        }
+        return subs;
     }
 
     /**

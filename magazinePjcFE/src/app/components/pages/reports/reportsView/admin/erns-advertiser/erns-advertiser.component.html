@@ -1,0 +1,53 @@
+<div class="container">
+  <p>Total: {{ _total | currency: "Q" }}</p>
+  <div *ngFor="let _earning of _adsReport" class="mb-3 mt-2">
+    <h4>Anunciante: {{ _earning.advertiser }}</h4>
+    <div
+      *ngIf="_earning.ads.length == 0"
+      class="alert alert-warning alert-dismissible fade show mt-4 expand-100"
+      role="alert"
+    >
+      <button
+        type="button"
+        class="close"
+        data-dismiss="alert"
+        aria-label="Close"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+      <strong>No tiene anuncios en este intervalos</strong>
+    </div>
+
+    <script>
+      $(".alert").alert();
+    </script>
+    <table class="table" *ngIf="_earning.ads.length != 0">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Expira</th>
+          <th>Fecha pago</th>
+          <th>Mostrado</th>
+          <th>Informacion</th>
+          <th>Pago</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let _ad of _earning.ads">
+          <td scope="row">{{ _ad.id }}</td>
+          <td>{{ _ad.expirationDateString | date }}</td>
+          <td>{{ _ad.startDateString }}</td>
+          <td>{{ _ad.shownCounter }}</td>
+          <td>
+            <div [ngSwitch]="_ad.type">
+              <div *ngSwitchCase="1">Anuncio de texto</div>
+              <div *ngSwitchCase="2">Anundio de texto e imagen</div>
+              <div *ngSwitchCase="3">Anundio de texto y video</div>
+            </div>
+          </td>
+          <td>{{ _ad.advertiserPaid | currency: "Q" }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

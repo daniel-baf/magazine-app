@@ -13,6 +13,7 @@ import java.util.ArrayList;
 public class AdvertiserSelect {
 
     private String SQL_SELECT_ADVERTISER = "SELECT * FROM Advertiser LIMIT ? OFFSET ?";
+    private final String SQL_SELECT_ALL_ADVERTISER = "SELECT * FROM Advertiser ORDER BY `name` ASC";
 
     /**
      * Return a list with the name of all advertisers
@@ -26,6 +27,19 @@ public class AdvertiserSelect {
         try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_ADVERTISER)) {
             ps.setInt(1, limit);
             ps.setInt(2, offset);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                advertisers.add(rs.getString("name"));
+            }
+        } catch (Exception e) {
+            System.out.println("Error while trying to get advertisers at [AdvertiserSelect] " + e.getMessage());
+        }
+        return advertisers;
+    }
+
+    public ArrayList<String> getAdvertisers() {
+        ArrayList<String> advertisers = new ArrayList<>();
+        try ( PreparedStatement ps = DBConnection.getConnection().prepareStatement(SQL_SELECT_ALL_ADVERTISER)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
                 advertisers.add(rs.getString("name"));
